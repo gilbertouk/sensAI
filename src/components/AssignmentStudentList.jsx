@@ -1,5 +1,6 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
 
 const users_assignments = [
   {
@@ -29,6 +30,12 @@ const users_assignments = [
 ];
 
 export function AssignmentStudentList() {
+  const navigate = useNavigate();
+
+  function handleAssignmentToDisplay(users_assignment) {
+    navigate(`/student/assignments/${users_assignment.id}`);
+  }
+
   return (
     <Box sx={{ width: "100%" }}>
       <h2>Assignments</h2>
@@ -36,7 +43,12 @@ export function AssignmentStudentList() {
         <ul>
           {users_assignments.map((users_assignment, index) => {
             return (
-              <li key={index}>
+              <li
+                key={index}
+                onClick={() => {
+                  handleAssignmentToDisplay(users_assignment);
+                }}
+              >
                 <p>Title: {users_assignment.title}</p>
                 <p>created_at: {users_assignment.created_at}</p>
                 <hr />
