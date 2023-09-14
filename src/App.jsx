@@ -9,7 +9,12 @@ function App() {
     <>
       {/* <Header /> Most likely used for home page/login */}
       <Navbar />
-      <Routes></Routes>
+      <Routes>
+        <Route
+          path="/student/assignments"
+          element={<AssignmentStudentPage />}
+        />
+      </Routes>
     </>
   );
 }
