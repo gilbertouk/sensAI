@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-export default function Filter() {
+export function Filter() {
   const [sort, setSort] = useState("");
   const [order_by, setOrder_by] = useState("");
 
