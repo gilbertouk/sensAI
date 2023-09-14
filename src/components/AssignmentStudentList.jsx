@@ -28,21 +28,19 @@ const users_assignments = [
   },
 ];
 
-export default function AssignmentStudentList() {
+export function AssignmentStudentList() {
   return (
     <Box sx={{ width: "100%" }}>
       <h2>Assignments</h2>
       <Stack spacing={2}>
         <ul>
-          {users_assignments.map((users_assignment) => {
+          {users_assignments.map((users_assignment, index) => {
             return (
-              <>
-                <li>
-                  <p>Title: {users_assignment.title}</p>
-                  <p>created_at: {users_assignment.created_at}</p>
-                  <hr />
-                </li>
-              </>
+              <li key={index}>
+                <p>Title: {users_assignment.title}</p>
+                <p>created_at: {users_assignment.created_at}</p>
+                <hr />
+              </li>
             );
           })}
         </ul>
