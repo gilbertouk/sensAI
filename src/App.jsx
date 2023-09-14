@@ -1,14 +1,17 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
+import { Header } from './components/Header'
+import { Navbar } from './components/Navbar'
 
 function App() {
 
   return (
     <>
-    <h1>sensAI</h1>
+    {/* <Header/> Most likely used for home page/login */}
+    <Navbar/>
     <Routes>
 
-      
+
 
     </Routes>
     </>
