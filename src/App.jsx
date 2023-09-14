@@ -1,5 +1,6 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
+import ClassesList from './components/ClassesList'
 
 function App() {
 
@@ -7,7 +8,7 @@ function App() {
     <>
     <h1>sensAI</h1>
     <Routes>
-
+    <Route path='/teachers/home' element={<ClassesList />} />
       
 
     </Routes>
