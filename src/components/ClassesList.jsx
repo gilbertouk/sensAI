@@ -47,15 +47,13 @@ const ClassesList = () => {
           <h2>Assignments</h2>
           <Stack spacing={2}>
             <ul>
-              {classes_list.map((classes) => {
+              {classes_list.map((classes, index) => {
                 return (
-                  <>
-                    <li>
-                      <p>Title: {classes.name}</p>
-                      <p>Age Group: {classes.age_group}</p>
-                      <hr />
-                    </li>
-                  </>
+                  <li key={index}>
+                    <p>Title: {classes.name}</p>
+                    <p>Age Group: {classes.age_group}</p>
+                    <hr />
+                  </li>
                 );
               })}
             </ul>
