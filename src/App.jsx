@@ -4,6 +4,7 @@ import { AssignmentStudentPage } from "./components/AssignmentStudentPage";
 import ClassesList from "./components/ClassesList";
 import { Header } from "./components/Header";
 import { Navbar } from "./components/Navbar";
+import { StudentLessonsPage } from "./components/StudentLessonsPage";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           element={<AssignmentStudentPage />}
         />
         <Route path="/teachers/home" element={<ClassesList />} />
+        <Route path="/student/lessons" element={<StudentLessonsPage/>}/>
       </Routes>
     </>
   );

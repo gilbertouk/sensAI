@@ -28,6 +28,7 @@ export const Navbar = () => {
         maxWidth: 11 / 12,
         display: "flex",
         justifyContent: "space-between",
+        mb: 5
       }}
     >
       <Typography sx={{ fontSize: 60, fontWeight: "bold" }}>sensAI</Typography>
