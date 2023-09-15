@@ -5,31 +5,31 @@ import { useNavigate } from "react-router-dom";
 const users_assignments = [
   {
     id: 1,
-    title: "Math Assignment",
-    body: "Solve exercises 1 to 5 from Chapter 3",
+    title: "English: Shakespeare assessment",
+    body: "An assessment on Shakespeare, his plays and books",
     teacher_id: 101,
-    created_at: "2023-09-14 10:00:00",
-    due_date: "2023-09-21 23:59:59",
+    due_date: "2021-10-11",
+    created_at: "2021-11-11",
   },
   {
     id: 2,
-    title: "History Assignment",
-    body: "Write an essay on the Industrial Revolution",
-    teacher_id: 102,
-    created_at: "2023-09-15 09:30:00",
-    due_date: "2023-09-28 23:59:59",
+    title: "English: Dickens assessment",
+    body: "An assessment on Dickens Christmas stories",
+    teacher_id: 101,
+    due_date: "2022-10-11",
+    created_at: "2022-09-01",
   },
   {
     id: 3,
-    title: "Science Assignment",
-    body: "Conduct an experiment on electricity",
-    teacher_id: 103,
-    created_at: "2023-09-16 14:15:00",
-    due_date: "2023-09-23 23:59:59",
+    title: "Art: Dali assessment",
+    body: "An assessment on surrealism and its implications for modernist art",
+    teacher_id: 101,
+    due_date: "2023-10-11",
+    created_at: "2023-05-03",
   },
 ];
 
-export function AssignmentStudentList() {
+export function StudentAssignmentsList() {
   const navigate = useNavigate();
 
   function handleAssignmentToDisplay(users_assignment) {
