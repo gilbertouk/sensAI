@@ -8,3 +8,8 @@
     font-size: 100px;
     text-align: center;
 }
+
+.student-lesson-container {
+    margin-right: 10px;
+    margin-left: 10px;
+}

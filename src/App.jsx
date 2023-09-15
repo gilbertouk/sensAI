@@ -5,6 +5,8 @@ import ClassesList from "./components/ClassesList";
 import { Header } from "./components/Header";
 import { Navbar } from "./components/Navbar";
 import { DisplayStudentAssignment } from "./components/DisplayStudentAssignment";
+import { StudentLessonsPage } from "./components/StudentLessonsPage";
+
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           path="/student/assignments/:assignment_id"
           element={<DisplayStudentAssignment />}
         />
+        <Route path="/student/lessons" element={<StudentLessonsPage/>}/>
       </Routes>
     </>
   );
