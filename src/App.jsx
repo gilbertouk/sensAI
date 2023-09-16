@@ -7,6 +7,7 @@ import { Navbar } from './components/Navbar';
 import { DisplayStudentAssignment } from './components/DisplayStudentAssignment';
 import { StudentLessonsPage } from './components/StudentLessonsPage';
 import Login from './components/Login';
+import Signup from './components/Signup';
 import { useState } from 'react';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         />
         <Route path='/student/lessons' element={<StudentLessonsPage />} />
         <Route path='/login' element={<Login handleLogin={handleLogin} />} />
+        <Route path='/signup' element={<Signup />} />
       </Routes>
     </>
   );
