@@ -15,17 +15,12 @@ const Signup = () => {
 
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
-        console.log(user);
         postUserFromFirebase(email);
         navigate("/login");
-        // ...
       })
       .catch((error) => {
         console.log("🚀 ~ onSubmit ~ error:", error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
       });
   };
 

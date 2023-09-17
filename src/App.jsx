@@ -8,15 +8,29 @@ import { DisplayStudentAssignment } from './components/DisplayStudentAssignment'
 import { StudentLessonsPage } from './components/StudentLessonsPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import { useState } from 'react';
+
+import { getUser } from './utils/api';
+
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase';
+
+import { useState, useEffect } from 'react';
 
 function App() {
   const [user, setUser] = useState(null);
   console.log('🚀 ~ App ~ user:', user);
 
-  const handleLogin = (email) => {
-    setUser(email);
-  };
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const { user: fetchedUser } = await getUser(user.email);
+        setUser(fetchedUser);
+      } else {
+        setUser(null);
+        console.log('user is logged out');
+      }
+    });
+  }, []);
   return (
     <>
       {/* <Header /> Most likely used for home page/login */}
@@ -32,7 +46,7 @@ function App() {
           element={<DisplayStudentAssignment />}
         />
         <Route path='/student/lessons' element={<StudentLessonsPage />} />
-        <Route path='/login' element={<Login handleLogin={handleLogin} />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>
     </>

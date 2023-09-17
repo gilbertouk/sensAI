@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const Login = ({ handleLogin }) => {
+const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,10 +11,8 @@ const Login = ({ handleLogin }) => {
   const onLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        navigate("/");
-        handleLogin(user.email);
+      .then(({ user }) => {
+        navigate("/login");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -25,6 +23,7 @@ const Login = ({ handleLogin }) => {
 
   return (
     <>
+      user4.surname4@gmail.com
       <form>
         <label htmlFor="email-address">Email address</label>
         <input
