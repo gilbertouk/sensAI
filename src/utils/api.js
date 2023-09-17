@@ -9,9 +9,18 @@ export const postUserFromFirebase = (email) => {
     .post("/users/email", {
       email: email,
     })
-    .then((response) => {
-      console.log("🚀 ~ postUserFeomFirebase ~ response.data:", response.data);
-      return response.data;
+    .then(({ data }) => {
+      console.log("🚀 ~ .then ~ data:", data);
+      console.log("🚀 ~ .then ~ data.user:", data.user);
+      return data.user;
+    })
+    .catch((err) => console.log(err));
+};
+export const getUser = (email) => {
+  return apiUrl
+    .get(`/users/email/${email}`)
+    .then(({ data }) => {
+      return data;
     })
     .catch((err) => console.log(err));
 };
