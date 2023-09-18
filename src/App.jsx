@@ -8,6 +8,7 @@ import { DisplayStudentAssignment } from './components/DisplayStudentAssignment'
 import { StudentLessonsPage } from './components/StudentLessonsPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import TeacherLessonsClassList from './components/TeacherLessonsClassList';
 
 import { getUser } from './utils/api';
 
@@ -18,7 +19,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [user, setUser] = useState(null);
-  console.log('🚀 ~ App ~ user:', user);
+  // console.log('🚀 ~ App ~ user:', user);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -48,6 +49,10 @@ function App() {
         <Route path='/student/lessons' element={<StudentLessonsPage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route
+          path='/teacher/lessons/:class_id'
+          element={<TeacherLessonsClassList user={user} />}
+        />
       </Routes>
     </>
   );
