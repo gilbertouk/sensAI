@@ -9,6 +9,7 @@ import { StudentLessonsPage } from './components/StudentLessonsPage';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import TeacherLessonsClassList from './components/TeacherLessonsClassList';
+import TeacherAssignmentsClassList from './components/TeacherAssignmentClassList';
 
 import { getUser } from './utils/api';
 
@@ -19,7 +20,7 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [user, setUser] = useState(null);
-
+  
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -52,6 +53,11 @@ function App() {
           path='/teacher/lessons/:class_id'
           element={<TeacherLessonsClassList user={user} />}
         />
+        <Route
+          path='/teacher/assignments/:class_id'
+          element={<TeacherAssignmentsClassList user={user}/>}
+        />
+    
       </Routes>
     </>
   );

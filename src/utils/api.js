@@ -34,6 +34,15 @@ export const getLessonByTeacherAndClass = (teacher_id, class_id) => {
     .catch((err) => console.log(err));
 };
 
+export const getAssignmentsByTeacherAndClass = (teacher_id, class_id) => {
+  return apiUrl
+    .get(`/assignments/${teacher_id}/${class_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
+};
+
 /* 
 
 example of request api function 
