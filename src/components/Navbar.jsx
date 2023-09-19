@@ -1,24 +1,27 @@
 import { useEffect, useState } from "react";
 import { NavbarTeacher } from "./NavbarTeacher";
 import { NavbarStudent } from "./NavbarStudent";
-
+import { signOut } from "firebase/auth";
 import * as React from "react";
 import { Container } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { LoginButton } from "./LoginButton";
-
+import {auth} from './../firebase';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Navbar = ({user}) => {
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate()
 
-  useEffect(()=> {
-    if(!user){
-      setLoading(true);
-    }else {
-      setLoading(false);
-    }
-  }, [user])
+  const handleLogout = () => {               
+    signOut(auth).then(() => {
+    // Sign-out successful.
+        navigate("/login");
+        console.log("Signed out successfully")
+    }).catch((error) => {
+    // An error happened.
+    });
+}
 
   let userStatus = null;
 
@@ -27,14 +30,11 @@ export const Navbar = ({user}) => {
   }else if (user === "null"){
     userStatus = "";
   }else if (user && user.role === "student"){
-    userStatus = <NavbarStudent/>;
+    userStatus = <NavbarStudent handleLogout={handleLogout} />;
   }else if (user && user.role === "teacher"){
-    userStatus = <NavbarTeacher/>;
+    userStatus = <NavbarTeacher handleLogout={handleLogout}/>;
   }
 
-  const component = {
-
-  }
 
   return (
     <Container
@@ -55,16 +55,3 @@ export const Navbar = ({user}) => {
 
 
 };
-
-
-
-
-// if(loading){
-//   return <p>loading...</p>
-// }else if(user.role === "teacher"){
-//   return <NavbarTeacher/>
-// }else if(user.role === "student"){
-//   return <NavbarStudent/>
-// }else {
-
-// }
