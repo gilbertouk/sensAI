@@ -3,27 +3,29 @@ import { useParams } from 'react-router-dom';
 import { getLessonByTeacherAndClass } from '../utils/api';
 
 const TeacherLessonsClassList = ({ user }) => {
-  console.log('🚀 ~ TeacherLessonsClassList ~ user:', user);
   const [lessons, setLessons] = useState(null);
-  console.log('🚀 ~ TeacherLessonsClassList ~ lessons:', lessons);
+  const [loading, setLoading] = useState(true);
   const { class_id } = useParams();
-  // const user = {
-  //   id: 101,
-  //   name: 'User101',
-  //   surname: 'Surname101',
-  //   email: 'user101.surname101@yahoo.com',
-  //   role: 'teacher',
-  //   created_at: '2003-11-07T00:00:00.000Z',
-  //   disability: null,
-  // };
 
   useEffect(() => {
-    getLessonByTeacherAndClass(user.id, class_id).then(({ lessons }) => {
-      setLessons(lessons);
-    });
-  }, []);
+    setLoading(true);
+    if (user) {
+      getLessonByTeacherAndClass(user.id, class_id).then(({ lessons }) => {
+        setLoading(false);
+        setLessons(lessons);
+      });
+    }
+  }, [user]);
 
-  return <p>Class ID: {class_id} user</p>;
+  return loading ? (
+    <p>loading...</p>
+  ) : (
+    <ul>
+      {lessons.map((lesson) => (
+        <li key={lesson.id}>{lesson.title}</li>
+      ))}
+    </ul>
+  );
 };
 
 export default TeacherLessonsClassList;

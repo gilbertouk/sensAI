@@ -19,7 +19,6 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [user, setUser] = useState(null);
-  // console.log('🚀 ~ App ~ user:', user);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
