@@ -8,7 +8,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import Settings from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-export const NavbarTeacher = () => {
+export const NavbarTeacher = ({handleLogout}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -50,7 +50,7 @@ export const NavbarTeacher = () => {
           <Settings sx={{ mr: 2 }} />
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogout}>
           <LogoutIcon sx={{ mr: 2 }} />
           Logout
         </MenuItem>
