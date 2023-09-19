@@ -1,7 +1,7 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { StudentAssignmentsPage } from './components/StudentAssignmentsPage';
-import ClassesList from './components/ClassesList';
+import { ClassesList } from './components/ClassesList';
 import { Header } from './components/Header';
 import { Navbar } from './components/Navbar';
 import { DisplayStudentAssignment } from './components/DisplayStudentAssignment';
@@ -27,7 +27,7 @@ function App() {
         const { user: fetchedUser } = await getUser(user.email);
         setUser(fetchedUser);
       } else {
-        setUser(null);
+        setUser("logged out");
         console.log('user is logged out');
       }
     });
@@ -35,7 +35,7 @@ function App() {
   return (
     <>
       {/* <Header /> Most likely used for home page/login */}
-      <Navbar />
+      <Navbar user={user}/>
       <Routes>
         <Route
           path='/student/assignments'

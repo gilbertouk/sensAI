@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Stack } from "@mui/material";
 
-const ClassesList = () => {
+export const ClassesList = () => {
   //const [classes, setClasses] = useState([])
   //const [isLoading, setIsLoading] = useState(true)
 
@@ -64,4 +64,3 @@ const ClassesList = () => {
   );
 };
 
-export default ClassesList;

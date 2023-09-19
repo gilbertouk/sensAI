@@ -1,24 +1,40 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Container } from "@mui/material";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import SchoolIcon from "@mui/icons-material/School";
-import Settings from "@mui/icons-material/Settings";
-import LogoutIcon from "@mui/icons-material/Logout";
-import Typography from "@mui/material/Typography";
+import { useEffect, useState } from "react";
+import { NavbarTeacher } from "./NavbarTeacher";
+import { NavbarStudent } from "./NavbarStudent";
 
-export const Navbar = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+import * as React from "react";
+import { Container } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { LoginButton } from "./LoginButton";
+
+
+
+export const Navbar = ({user}) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(()=> {
+    if(!user){
+      setLoading(true);
+    }else {
+      setLoading(false);
+    }
+  }, [user])
+
+  let userStatus = null;
+
+  if(user === "logged out"){
+    userStatus = <LoginButton/>;
+  }else if (user === "null"){
+    userStatus = "";
+  }else if (user && user.role === "student"){
+    userStatus = <NavbarStudent/>;
+  }else if (user && user.role === "teacher"){
+    userStatus = <NavbarTeacher/>;
+  }
+
+  const component = {
+
+  }
 
   return (
     <Container
@@ -32,41 +48,23 @@ export const Navbar = () => {
       }}
     >
       <Typography sx={{ fontSize: 60, fontWeight: "bold" }}>sensAI</Typography>
-      <Button
-        id="basic-button"
-        aria-controls={open ? "basic-menu" : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? "true" : undefined}
-        onClick={handleClick}
-      >
-        <MenuIcon sx={{ color: "black", fontSize: 40 }} />
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          "aria-labelledby": "basic-button",
-        }}
-      >
-        <MenuItem onClick={handleClose}>
-          <AssignmentIcon sx={{ mr: 2 }} />
-          Assignment
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <SchoolIcon sx={{ mr: 2 }} />
-          Lesson
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Settings sx={{ mr: 2 }} />
-          Settings
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <LogoutIcon sx={{ mr: 2 }} />
-          Logout
-        </MenuItem>
-      </Menu>
+      {userStatus}
+      
     </Container>
   );
+
+
 };
+
+
+
+
+// if(loading){
+//   return <p>loading...</p>
+// }else if(user.role === "teacher"){
+//   return <NavbarTeacher/>
+// }else if(user.role === "student"){
+//   return <NavbarStudent/>
+// }else {
+
+// }
