@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
-        navigate("/login");
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
