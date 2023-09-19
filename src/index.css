@@ -13,3 +13,8 @@
     margin-right: 10px;
     margin-left: 10px;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}

@@ -23,7 +23,8 @@ const Login = () => {
 
   return (
     <>
-      user4.surname4@gmail.com
+      <p>user4.surname4@gmail.com student</p>
+      <p>user101.surname101@yahoo.com teacher</p>
       <form>
         <label htmlFor="email-address">Email address</label>
         <input
