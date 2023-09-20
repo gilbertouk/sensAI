@@ -11,6 +11,7 @@ import Signup from "./components/Signup";
 import TeacherLessonsClassList from "./components/TeacherLessonsClassList";
 import TeacherAssignmentsClassList from "./components/TeacherAssignmentClassList";
 import Home from "./components/Home";
+import TeacherClasses from "./components/TeacherClasses";
 
 import { getUser } from "./utils/api";
 
@@ -36,7 +37,7 @@ function App() {
   return (
     <>
       {/* <Header /> Most likely used for home page/login */}
-      <Navbar currentUser={currentUser} />
+      <Navbar user={currentUser} />
       <Routes>
         <Route
           path="/student/assignments"
@@ -52,13 +53,14 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route
           path="/teacher/lessons/:class_id"
-          element={<TeacherLessonsClassList currentUser={currentUser} />}
+          element={<TeacherLessonsClassList user={currentUser} />}
         />
         <Route
           path="/teacher/assignments/:class_id"
-          element={<TeacherAssignmentsClassList currentUser={currentUser} />}
+          element={<TeacherAssignmentsClassList user={currentUser} />}
         />
-        <Route path="/" element={<Home currentUser={currentUser} />} />
+        <Route path="/" element={<Home user={currentUser} />} />
+        <Route path="/teacher/classes/:teacher_id" element={<TeacherClasses user={currentUser} />} />
       </Routes>
     </>
   );

@@ -49,3 +49,12 @@ export const postNewUser = (user) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const getClassesByTeacherID = (teacher_id) => {
+  return apiUrl
+  .get(`/classes/${teacher_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
+}

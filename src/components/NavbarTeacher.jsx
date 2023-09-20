@@ -7,6 +7,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import SchoolIcon from "@mui/icons-material/School";
 import Settings from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Link } from "react-router-dom"
 
 export const NavbarTeacher = ({handleLogout}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -44,7 +45,7 @@ export const NavbarTeacher = ({handleLogout}) => {
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <SchoolIcon sx={{ mr: 2 }} />
-          Classes
+          <Link to="/teacher/classes">Classes</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <Settings sx={{ mr: 2 }} />
