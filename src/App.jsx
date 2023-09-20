@@ -20,22 +20,23 @@ import { auth } from "./firebase";
 import { useState, useEffect } from "react";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  console.log("🚀 ~ App ~ user:", currentUser);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const { user: fetchedUser } = await getUser(user.email);
-        setUser(fetchedUser);
+        setCurrentUser(fetchedUser);
       } else {
-        setUser("logged out");
+        setCurrentUser("logged out");
       }
     });
   }, []);
   return (
     <>
       {/* <Header /> Most likely used for home page/login */}
-      <Navbar user={user} />
+      <Navbar currentUser={currentUser} />
       <Routes>
         <Route
           path="/student/assignments"
@@ -51,13 +52,13 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route
           path="/teacher/lessons/:class_id"
-          element={<TeacherLessonsClassList user={user} />}
+          element={<TeacherLessonsClassList currentUser={currentUser} />}
         />
         <Route
           path="/teacher/assignments/:class_id"
-          element={<TeacherAssignmentsClassList user={user} />}
+          element={<TeacherAssignmentsClassList currentUser={currentUser} />}
         />
-        <Route path="/" element={<Home user={user} />} />
+        <Route path="/" element={<Home currentUser={currentUser} />} />
       </Routes>
     </>
   );

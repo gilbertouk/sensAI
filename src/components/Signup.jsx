@@ -1,57 +1,95 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { postUserFromFirebase } from "../utils/api";
+
+import { Grid, TextField } from "@mui/material";
+
+import LoadingButton from "@mui/lab/LoadingButton";
+
+import SendIcon from "@mui/icons-material/Send";
+
+import { postNewUser } from "../utils/api";
 import { auth } from "../firebase";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [posting, setPosting] = useState(false);
+  const [newUser, setNewUser] = useState({
+    name: "test",
+    surname: "test",
+    email: "@test.com",
+    password: "!QAZ2wsx",
+  });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setPosting(true);
+    try {
+      await createUserWithEmailAndPassword(
+        auth,
+        newUser.email,
+        newUser.password
+      );
+      await postNewUser(newUser);
+      setPosting(false);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        postUserFromFirebase(email);
-        navigate("/login");
-      })
-      .catch((error) => {
-        console.log("🚀 ~ onSubmit ~ error:", error);
-      });
+      navigate("/");
+    } catch (error) {
+      console.log("🚀 ~ onSubmit ~ error:", error);
+    }
   };
-
+  const handleChange = (event) => {
+    const newUserState = { ...newUser, [event.target.id]: event.target.value };
+    setNewUser(newUserState);
+  };
   return (
     <div>
-      <form>
-        <div>
-          <label htmlFor="email-address">Email address</label>
-          <input
-            type="email"
-            label="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="Email address"
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            label="Create password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Password"
-          />
-        </div>
-        <button type="submit" onClick={onSubmit}>
-          Sign up
-        </button>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={2}>
+          <Grid item md={12} sm={12} xs={12}>
+            <TextField
+              id="name"
+              label="Name"
+              value={newUser.name}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item md={12} sm={12} xs={12}>
+            <TextField
+              id="surname"
+              label="Surname"
+              value={newUser.surname}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item md={12} sm={12} xs={12}>
+            <TextField
+              id="email"
+              label="Email"
+              value={newUser.email}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item md={12} sm={12} xs={12}>
+            <TextField
+              id="password"
+              label="Password"
+              value={newUser.password}
+              onChange={handleChange}
+              type="password"
+            />
+          </Grid>
+        </Grid>
+        <Grid item md={12} sm={12} xs={12}>
+          <LoadingButton
+            type="submit"
+            endIcon={<SendIcon />}
+            loading={posting}
+            loadingPosition="end"
+            variant="contained"
+          >
+            Create Account
+          </LoadingButton>
+        </Grid>
       </form>
       <p>
         Already have an account? <NavLink to="/login">Sign in</NavLink>
