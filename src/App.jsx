@@ -60,7 +60,7 @@ function App() {
           element={<TeacherAssignmentsClassList user={currentUser} />}
         />
         <Route path="/" element={<Home user={currentUser} />} />
-        <Route path="/teacher/classes/:teacher_id" element={<TeacherClasses user={currentUser} />} />
+        <Route path="/teacher/classes/" element={<TeacherClasses user={currentUser} />} />
       </Routes>
     </>
   );

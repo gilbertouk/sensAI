@@ -11,12 +11,11 @@ import { TeacherClassesCard } from './TeacherClassesCard';
 const TeacherClasses = ({ user }) => {
   const [classes, setClasses] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { teacher_id } = useParams();
 
   useEffect(() => {
     setLoading(true);
     if (user) {
-      getClassesByTeacherID(teacher_id).then(({ classes }) => {
+      getClassesByTeacherID(user.id).then(({ classes }) => {
         setLoading(false);
         setClasses(classes);
       });
