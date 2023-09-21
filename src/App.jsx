@@ -64,7 +64,7 @@ function App() {
         />
         <Route path="/" element={<Home user={currentUser} />} />
         <Route
-          path="/teacher/classes/:teacher_id"
+          path="/teacher/classes/"
           element={<TeacherClasses user={currentUser} />}
         />
       </Routes>
