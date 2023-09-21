@@ -39,14 +39,18 @@ export const NavbarStudent = ({ handleLogout }) => {
           "aria-labelledby": "basic-button",
         }}
       >
+        <Link to="/student/assignments">
         <MenuItem onClick={handleClose}>
           <AssignmentIcon sx={{ mr: 2 }} />
-          <Link to="/student/assignments">Assignment</Link>
+          Assignment
         </MenuItem>
+        </Link>
+        <Link to="/student/lessons">
         <MenuItem onClick={handleClose}>
           <SchoolIcon sx={{ mr: 2 }} />
-          <Link to="/student/lessons">Lesson</Link>
+          Lesson
         </MenuItem>
+        </Link>
         <MenuItem onClick={handleClose}>
           <Settings sx={{ mr: 2 }} />
           Settings
