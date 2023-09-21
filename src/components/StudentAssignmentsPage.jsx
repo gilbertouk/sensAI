@@ -1,11 +1,10 @@
-import { Filter } from "./Filter";
+/* eslint-disable react/prop-types */
 import { StudentAssignmentsList } from "./StudentAssignmentsList";
 
-export function StudentAssignmentsPage() {
+export function StudentAssignmentsPage({ user }) {
   return (
     <>
-      <Filter />
-      <StudentAssignmentsList />
+      <StudentAssignmentsList user={user} />
     </>
   );
 }
