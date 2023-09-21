@@ -12,6 +12,7 @@ import TeacherLessonsClassList from "./components/TeacherLessonsClassList";
 import TeacherAssignmentsClassList from "./components/TeacherAssignmentClassList";
 import Home from "./components/Home";
 import TeacherClasses from "./components/TeacherClasses";
+import { StudentPage } from "./components/StudentPage";
 
 import { getUser } from "./utils/api";
 
@@ -61,6 +62,7 @@ function App() {
         />
         <Route path="/" element={<Home user={currentUser} />} />
         <Route path="/teacher/classes/" element={<TeacherClasses user={currentUser} />} />
+        <Route path="/students" element={<StudentPage/>} />
       </Routes>
     </>
   );
