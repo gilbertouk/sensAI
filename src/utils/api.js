@@ -78,3 +78,14 @@ export const getAssignmentByStudentId = (student_id) => {
       console.log(err);
     });
 };
+
+export const getStudentsByTeacherClass = (teacher_id, class_id) => {
+  return apiUrl.get(`/classes/${teacher_id}/${class_id}`)
+  .then(({data}) => {
+    return data;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+}

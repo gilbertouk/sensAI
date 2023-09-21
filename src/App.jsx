@@ -68,7 +68,7 @@ function App() {
           path="/teacher/classes/"
           element={<TeacherClasses user={currentUser} />}
         />
-        <Route path="/students" element={<StudentPage/>} />
+        <Route path="/teacher/classes/:class_id" element={<StudentPage user={currentUser}/>}/>
       </Routes>
     </>
   );
