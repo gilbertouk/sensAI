@@ -20,6 +20,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 
 import { useState, useEffect } from "react";
+import { StudentSingleLessonPage } from "./StudentSingleLessonPage";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -69,6 +70,7 @@ function App() {
           element={<TeacherClasses user={currentUser} />}
         />
         <Route path="/teacher/classes/:class_id" element={<StudentPage user={currentUser}/>}/>
+        <Route path="/student/lessons/:class_id" element={<StudentSingleLessonPage/>}/>
       </Routes>
     </>
   );

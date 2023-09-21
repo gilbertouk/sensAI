@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react"
 import { StudentLessonsCard } from "./StudentLessonsCard";
 import { getLessonsByStudentId } from "../utils/api";
-import { useParams } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 export const StudentLessonsList = ({user}) => {
     const [lessons, setLessons] = useState([])
@@ -24,7 +23,7 @@ export const StudentLessonsList = ({user}) => {
     ) : (
         <ul className="student-lesson-container">
             {lessons.map(lesson => {
-                return <li key={lesson.id}><StudentLessonsCard lessonData={lesson}/></li>
+                return <Link to={`/student/lessons/${lesson.id}`}><li key={lesson.id}><StudentLessonsCard lessonData={lesson}/></li></Link>
             })}
         </ul>
     )
