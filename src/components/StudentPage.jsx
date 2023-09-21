@@ -2,11 +2,11 @@ import { StudentList } from "./StudentList"
 
 
 
-export const StudentPage = () => {
+export const StudentPage = ({user}) => {
 
     return (
         <>
-        <StudentList/>        
+        <StudentList user={user}/>        
         </>
     )
 }
