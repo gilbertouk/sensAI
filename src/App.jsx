@@ -41,14 +41,17 @@ function App() {
       <Routes>
         <Route
           path="/student/assignments"
-          element={<StudentAssignmentsPage />}
+          element={<StudentAssignmentsPage user={currentUser} />}
         />
         <Route path="/teachers/home" element={<ClassesList />} />
         <Route
           path="/student/assignments/:assignment_id"
           element={<DisplayStudentAssignment />}
         />
-        <Route path="/student/lessons" element={<StudentLessonsPage user={currentUser}/>} />
+        <Route
+          path="/student/lessons"
+          element={<StudentLessonsPage user={currentUser} />}
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route
@@ -60,7 +63,10 @@ function App() {
           element={<TeacherAssignmentsClassList user={currentUser} />}
         />
         <Route path="/" element={<Home user={currentUser} />} />
-        <Route path="/teacher/classes/" element={<TeacherClasses user={currentUser} />} />
+        <Route
+          path="/teacher/classes/"
+          element={<TeacherClasses user={currentUser} />}
+        />
       </Routes>
     </>
   );

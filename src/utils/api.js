@@ -52,19 +52,29 @@ export const postNewUser = (user) => {
 
 export const getClassesByTeacherID = (teacher_id) => {
   return apiUrl
-  .get(`/classes/${teacher_id}`)
+    .get(`/classes/${teacher_id}`)
     .then(({ data }) => {
       return data;
     })
     .catch((err) => console.log(err));
-}
+};
 
 export const getLessonsByStudentId = (user_id) => {
-  console.log(user_id)
   return apiUrl
     .get(`/lessons/${user_id}`)
     .then(({ data }) => {
       return data;
     })
     .catch((err) => console.log(err));
-}
+};
+
+export const getAssignmentByStudentId = (student_id) => {
+  return apiUrl
+    .get(`/student/${student_id}/assignments`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

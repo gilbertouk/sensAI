@@ -9,8 +9,8 @@ import Settings from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 
-export const NavbarStudent = ({handleLogout}) => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+export const NavbarStudent = ({ handleLogout }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -18,7 +18,7 @@ export const NavbarStudent = ({handleLogout}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   return (
     <>
       <Button
@@ -60,6 +60,6 @@ export const NavbarStudent = ({handleLogout}) => {
           Logout
         </MenuItem>
       </Menu>
-      </>
+    </>
   );
-}
+};

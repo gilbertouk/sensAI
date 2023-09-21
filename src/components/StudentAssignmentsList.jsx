@@ -1,62 +1,47 @@
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAssignmentByStudentId } from "../utils/api";
+import { StudentAssignmentsCard } from "./StudentAssignmentsCard";
 
-const users_assignments = [
-  {
-    id: 1,
-    title: "English: Shakespeare assessment",
-    body: "An assessment on Shakespeare, his plays and books",
-    teacher_id: 101,
-    due_date: "2021-10-11",
-    created_at: "2021-11-11",
-  },
-  {
-    id: 2,
-    title: "English: Dickens assessment",
-    body: "An assessment on Dickens Christmas stories",
-    teacher_id: 101,
-    due_date: "2022-10-11",
-    created_at: "2022-09-01",
-  },
-  {
-    id: 3,
-    title: "Art: Dali assessment",
-    body: "An assessment on surrealism and its implications for modernist art",
-    teacher_id: 101,
-    due_date: "2023-10-11",
-    created_at: "2023-05-03",
-  },
-];
-
-export function StudentAssignmentsList() {
+export function StudentAssignmentsList({ user }) {
+  const [studentAssignments, setStudentAssignment] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  function handleAssignmentToDisplay(users_assignment) {
-    navigate(`/student/assignments/${users_assignment.id}`);
+  useEffect(() => {
+    setIsLoading(true);
+    getAssignmentByStudentId(user.id)
+      .then(({ assignments }) => {
+        setIsLoading(false);
+        setStudentAssignment(assignments);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
+  }, [user]);
+
+  function handleAssignmentToDisplay(assignment_id) {
+    navigate(`/student/assignments/${assignment_id}`);
   }
 
-  return (
-    <Box sx={{ width: "100%" }}>
-      <h2>Assignments</h2>
-      <Stack spacing={2}>
-        <ul>
-          {users_assignments.map((users_assignment, index) => {
-            return (
-              <li
-                key={index}
-                onClick={() => {
-                  handleAssignmentToDisplay(users_assignment);
-                }}
-              >
-                <p>Title: {users_assignment.title}</p>
-                <p>created_at: {users_assignment.created_at}</p>
-                <hr />
-              </li>
-            );
-          })}
-        </ul>
-      </Stack>
-    </Box>
+  return isLoading ? (
+    <p>Loading...</p>
+  ) : (
+    <ul className="student-lesson-container">
+      {studentAssignments.map((assignment) => {
+        return (
+          <li
+            key={assignment.id}
+            onClick={() => {
+              handleAssignmentToDisplay(assignment.id);
+            }}
+          >
+            <StudentAssignmentsCard assignmentData={assignment} />
+          </li>
+        );
+      })}
+    </ul>
   );
 }
