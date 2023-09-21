@@ -58,3 +58,13 @@ export const getClassesByTeacherID = (teacher_id) => {
     })
     .catch((err) => console.log(err));
 }
+
+export const getLessonsByStudentId = (user_id) => {
+  console.log(user_id)
+  return apiUrl
+    .get(`/lessons/${user_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
+}

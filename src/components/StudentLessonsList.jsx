@@ -1,32 +1,29 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { StudentLessonsCard } from "./StudentLessonsCard";
+import { getLessonsByStudentId } from "../utils/api";
+import { useParams } from "react-router-dom";
 
 
-export const StudentLessonsList = () => {
-    const [data, setData] = useState([])
+export const StudentLessonsList = ({user}) => {
+    const [lessons, setLessons] = useState([])
+    const [loading, setLoading] = useState(true);
 
-    //Replace with endpoint data when created
-    const testData =
-    [
-        {
-          id: 1,
-          title: "English: Shakespeare",
-          body: "An exploration of Shakespeare, his plays and books",
-          teacher_id: 101,
-          created_at: "2021-10-11",
-        },
-        {
-          id: 2,
-          title: "English: Dickens",
-          body: "A deep dive into Dickens Christmas stories",
-          teacher_id: 101,
-          created_at: "2022-09-01",
+    useEffect(() => {
+        setLoading(true);
+        if (user) {
+            getLessonsByStudentId(user.id).then(({ lessons }) => {
+            setLoading(false);
+            setLessons(lessons);
+          });
         }
-    ] 
+      }, [user]);
+    
 
-    return (
+    return loading ? (
+        <p>Loading...</p>
+    ) : (
         <ul className="student-lesson-container">
-            {testData.map(lesson => {
+            {lessons.map(lesson => {
                 return <li key={lesson.id}><StudentLessonsCard lessonData={lesson}/></li>
             })}
         </ul>

@@ -22,7 +22,7 @@ import { useState, useEffect } from "react";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  console.log("🚀 ~ App ~ user:", currentUser);
+  // console.log("🚀 ~ App ~ user:", currentUser);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -48,7 +48,7 @@ function App() {
           path="/student/assignments/:assignment_id"
           element={<DisplayStudentAssignment />}
         />
-        <Route path="/student/lessons" element={<StudentLessonsPage />} />
+        <Route path="/student/lessons" element={<StudentLessonsPage user={currentUser}/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route
