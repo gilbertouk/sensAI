@@ -1,7 +1,13 @@
 import { StudentCard } from "./StudentCard"
-
+import { useState, useEffect } from "react";
 
 export const StudentList = () => {
+    const [students, setStudents] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(()=> {
+        //setLoading(true);
+    },[])
 
     const testData = [{
         id: 1,
@@ -22,7 +28,9 @@ export const StudentList = () => {
     }]
 
 
-    return (
+    return( 
+    //loading ? <p>Loading...</p> : 
+    (
         <>
         <ul>
             {testData.map(student => {
@@ -32,5 +40,6 @@ export const StudentList = () => {
             })}
         </ul>
         </>
+    )
     )
 }

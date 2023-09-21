@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import SchoolIcon from '@mui/icons-material/School';
 
 export const StudentCard = ({student}) => {
-    
     return (
         <Paper
       sx={{
