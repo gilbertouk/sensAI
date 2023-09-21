@@ -89,3 +89,25 @@ export const getAssignmentsByAssignmentId = (student_id, assignment_id) => {
       console.log(err);
     });
 };
+
+export const getAssignmentsByAssignmentId = (student_id, assignment_id) => {
+  return apiUrl
+    .get(`/student/${student_id}/assignments/${assignment_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getStudentsByTeacherClass = (teacher_id, class_id) => {
+  return apiUrl
+    .get(`/classes/${teacher_id}/${class_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
