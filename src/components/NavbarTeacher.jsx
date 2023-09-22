@@ -49,10 +49,12 @@ export const NavbarTeacher = ({handleLogout}) => {
           <AssignmentIcon sx={{ mr: 2 }} />
           Assignments
         </MenuItem>
+        <Link to="/teacher/classes">
         <MenuItem onClick={handleClose}>
           <SchoolIcon sx={{ mr: 2 }} />
-          <Link to="/teacher/classes">Classes</Link>
+          Classes
         </MenuItem>
+        </Link>
         <MenuItem onClick={handleClose}>
           <AccountCircleIcon sx={{ mr: 2 }} />
           Profile

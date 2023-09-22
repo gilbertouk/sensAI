@@ -10,8 +10,8 @@ import Settings from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 
-export const NavbarStudent = ({handleLogout}) => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+export const NavbarStudent = ({ handleLogout }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,7 +19,7 @@ export const NavbarStudent = ({handleLogout}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   return (
     <>
       <Button
@@ -40,18 +40,22 @@ export const NavbarStudent = ({handleLogout}) => {
           "aria-labelledby": "basic-button",
         }}
       >
+        <Link to="/student/assignments">
         <MenuItem onClick={handleClose}>
           <HomeIcon sx={{ mr: 2 }} />
           <Link to="/">Home</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <AssignmentIcon sx={{ mr: 2 }} />
-          <Link to="/student/assignments">Assignment</Link>
+          Assignment
         </MenuItem>
+        </Link>
+        <Link to="/student/lessons">
         <MenuItem onClick={handleClose}>
           <SchoolIcon sx={{ mr: 2 }} />
-          <Link to="/student/lessons">Lesson</Link>
+          Lesson
         </MenuItem>
+        </Link>
         <MenuItem onClick={handleClose}>
           <Settings sx={{ mr: 2 }} />
           Profile
@@ -61,6 +65,6 @@ export const NavbarStudent = ({handleLogout}) => {
           Logout
         </MenuItem>
       </Menu>
-      </>
+    </>
   );
-}
+};
