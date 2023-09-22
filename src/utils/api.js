@@ -100,3 +100,18 @@ export const getStudentsByTeacherClass = (teacher_id, class_id) => {
       console.log(err);
     });
 };
+
+export const patchStudentAssignmentByAssignmentId = (
+  student_id,
+  assignment_id,
+  body
+) => {
+  return apiUrl
+    .patch(`/student/${student_id}/assignments/${assignment_id}`, body)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
