@@ -18,7 +18,7 @@ export default function TeacherAssignmentsList({ user }) {
         setTeacherAssignment(assignments);
         setError(false)
       })
-      .catch((err) => {
+      .catch((error) => {
         setIsLoading(false);
         setError(true)
       });

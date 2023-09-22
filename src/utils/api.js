@@ -68,7 +68,7 @@ export const getLessonsByStudentId = (user_id) => {
     .catch((err) => console.log(err));
 };
 
-export const getAssignmentsByStudentId = (student_id) => {
+export const getAssignmentByStudentId = (student_id) => {
   return apiUrl
     .get(`/student/${student_id}/assignments`)
     .then(({ data }) => {
@@ -125,6 +125,28 @@ export const getStudentsByTeacherClass = (teacher_id, class_id) => {
     });
 };
 
+export const getAssignmentsByTeacherIdAndClassID = (teacher_id, class_id) => {
+  return apiUrl
+    .get(`/assignments/${teacher_id}/${class_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const deleteAssignmentByAssignmentID = (assignment_id) => {
+  return apiUrl
+    .delete(`/assignments/${assignment_id}/${user_id}`)
+      .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 export const postLesson = (teacher_id, class_id, title, body, due_date) => {
   return apiUrl
     .post(`/lessons/${teacher_id}/${class_id}`, {
@@ -136,7 +158,7 @@ export const postLesson = (teacher_id, class_id, title, body, due_date) => {
     }).catch((err) => {
       console.log(err);
     });
-}
+};
 
 export const patchStudentAssignmentByAssignmentId = (
   student_id,
@@ -145,7 +167,7 @@ export const patchStudentAssignmentByAssignmentId = (
 ) => {
   return apiUrl
     .patch(`/student/${student_id}/assignments/${assignment_id}`, body)
-    .then(({ data }) => {
+      .then(({ data }) => {
       return data;
     })
     .catch((err) => {
@@ -161,4 +183,4 @@ export const getLesson = (lesson_id) => {
   .catch((err)=> {
     console.log(err);
   })
-}
+};
