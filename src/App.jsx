@@ -13,6 +13,7 @@ import TeacherAssignmentsClassList from "./components/TeacherAssignmentClassList
 import Home from "./components/Home";
 import TeacherClasses from "./components/TeacherClasses";
 import { StudentPage } from "./components/StudentPage";
+import { StudentSingleLessonPage } from "./components/StudentSingleLessonPage";
 
 import { getUser } from "./utils/api";
 
@@ -20,7 +21,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 
 import { useState, useEffect } from "react";
-import { StudentSingleLessonPage } from "./StudentSingleLessonPage";
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -70,7 +71,7 @@ function App() {
           element={<TeacherClasses user={currentUser} />}
         />
         <Route path="/teacher/classes/:class_id" element={<StudentPage user={currentUser}/>}/>
-        <Route path="/student/lessons/:class_id" element={<StudentSingleLessonPage/>}/>
+        <Route path="/student/lessons/:lesson_id" element={<StudentSingleLessonPage/>}/>
       </Routes>
     </>
   );

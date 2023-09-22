@@ -23,7 +23,10 @@ export const StudentLessonsList = ({user}) => {
     ) : (
         <ul className="student-lesson-container">
             {lessons.map(lesson => {
-                return <Link to={`/student/lessons/${lesson.id}`}><li key={lesson.id}><StudentLessonsCard lessonData={lesson}/></li></Link>
+                return (
+                <div key={lesson.id}>
+                <Link to={`/student/lessons/${lesson.id}`}><li ><StudentLessonsCard lessonData={lesson}/></li></Link>
+                </div>)
             })}
         </ul>
     )
