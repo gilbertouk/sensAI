@@ -125,6 +125,19 @@ export const getStudentsByTeacherClass = (teacher_id, class_id) => {
     });
 };
 
+export const postLesson = (teacher_id, class_id, title, body, due_date) => {
+  return apiUrl
+    .post(`/lessons/${teacher_id}/${class_id}`, {
+      title,
+      body,
+    })
+    .then(({ data }) => {
+      return data;
+    }).catch((err) => {
+      console.log(err);
+    });
+}
+
 export const patchStudentAssignmentByAssignmentId = (
   student_id,
   assignment_id,
@@ -138,4 +151,5 @@ export const patchStudentAssignmentByAssignmentId = (
     .catch((err) => {
       console.log(err);
     });
+
 };

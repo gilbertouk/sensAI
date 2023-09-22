@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { postAssignment, getClassesByTeacherID } from "../utils/api";
+import { postLesson, getClassesByTeacherID } from "../utils/api";
 
 import {
   TextField,
@@ -7,7 +7,6 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  CircularProgress,
   Container,
   Grid,
   Typography,
@@ -18,7 +17,6 @@ import LoadingButton from "@mui/lab/LoadingButton";
 const TeacherAssignmentsNew = ({ user }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [dueDate, setDueDate] = useState("");
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -48,7 +46,7 @@ const TeacherAssignmentsNew = ({ user }) => {
     e.preventDefault();
     if (user && user.id && selectedClass) {
       setPosting(true);
-      postAssignment(user.id, selectedClass, title, body, dueDate)
+      postLesson(user.id, selectedClass, title, body)
         .then((data) => console.log("Assignment Posted:", data))
         .catch((err) => console.error("Error Posting Assignment:", err))
         .finally(() => {
@@ -86,7 +84,7 @@ const TeacherAssignmentsNew = ({ user }) => {
   return (
     <Container component="main" maxWidth="sm">
       <Typography variant="h5" component="h2" gutterBottom>
-        Create New Assignment
+        Create New Lesson
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
@@ -110,17 +108,6 @@ const TeacherAssignmentsNew = ({ user }) => {
               multiline
               rows={5}
               variant="outlined"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Due Date"
-              type="date"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -158,7 +145,7 @@ const TeacherAssignmentsNew = ({ user }) => {
               fullWidth
               loading={posting}
             >
-              Post Assignment
+              Post Lesson
             </LoadingButton>
           </Grid>
         </Grid>
