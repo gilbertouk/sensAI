@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getClassesByTeacherID } from '../utils/api';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -28,7 +28,7 @@ const TeacherClasses = ({ user }) => {
       <>
         <h2>Your classes:</h2>
         {classes.map((classItem) => (
-          <li key={classItem.id}><TeacherClassesCard classItem={classItem}/></li>
+          <li key={classItem.id}><Link to={`/teacher/classes/${classItem.id}`}><TeacherClassesCard classItem={classItem}/></Link></li>
       ))}
     </>
   );
