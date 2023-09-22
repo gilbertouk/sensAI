@@ -133,6 +133,23 @@ export const postLesson = (teacher_id, class_id, title, body, due_date) => {
     })
     .then(({ data }) => {
       return data;
+    }).catch((err) => {
+      console.log(err);
+    });
+}
+
+export const patchStudentAssignmentByAssignmentId = (
+  student_id,
+  assignment_id,
+  body
+) => {
+  return apiUrl
+    .patch(`/student/${student_id}/assignments/${assignment_id}`, body)
+    .then(({ data }) => {
+      return data;
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+    });
+
 };
