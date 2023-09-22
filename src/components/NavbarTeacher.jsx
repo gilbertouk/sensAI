@@ -41,28 +41,19 @@ export const NavbarTeacher = ({ handleLogout }) => {
           "aria-labelledby": "basic-button",
         }}
       >
+        <Link to="/">
         <MenuItem onClick={handleClose}>
           <HomeIcon sx={{ mr: 2 }} />
-          <Link to="/">Home</Link>
+          Home
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <AssignmentIcon sx={{ mr: 2 }} />
-          Assignments
-        </MenuItem>
+        </Link>
         <Link to="/teacher/classes">
           <MenuItem onClick={handleClose}>
             <SchoolIcon sx={{ mr: 2 }} />
             Classes
           </MenuItem>
         </Link>
-        <MenuItem onClick={handleClose}>
-          <AccountCircleIcon sx={{ mr: 2 }} />
-          Profile
-        </MenuItem>
-        <MenuItem onClick={handleLogout}>
-          <LogoutIcon sx={{ mr: 2 }} />
-          Logout
-        </MenuItem>
+        
         <Link to="/teacher/assignments/new">
           <MenuItem onClick={handleClose}>
             <AssignmentIcon sx={{ mr: 2 }} />
@@ -75,6 +66,14 @@ export const NavbarTeacher = ({ handleLogout }) => {
             New Lesson
           </MenuItem>
         </Link>
+        <MenuItem onClick={handleClose}>
+          <AccountCircleIcon sx={{ mr: 2 }} />
+          My Account
+        </MenuItem>
+        <MenuItem onClick={handleLogout}>
+          <LogoutIcon sx={{ mr: 2 }} />
+          Logout
+        </MenuItem>
       </Menu>
     </>
   );
