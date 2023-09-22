@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAssignmentsByStudentId } from "../utils/api";
+import { getAssignmentByStudentId } from "../utils/api";
 import { StudentAssignmentsCard } from "./StudentAssignmentsCard";
 import { Alert, Grid, Skeleton, Typography } from "@mui/material";
 
@@ -15,6 +15,7 @@ export function StudentAssignmentsList({ user }) {
   useEffect(() => {
     setIsError(false);
     setIsLoading(true);
+
     if (user) {
       getAssignmentsByStudentId(user.id)
         .then(({ assignments }) => {
@@ -64,7 +65,7 @@ export function StudentAssignmentsList({ user }) {
           <li
             key={assignment.id}
             onClick={() => {
-              handleAssignmentToDisplay(assignment.assignment_id);
+              handleAssignmentToDisplay(assignment.id);
             }}
           >
             <StudentAssignmentsCard assignmentData={assignment} />
