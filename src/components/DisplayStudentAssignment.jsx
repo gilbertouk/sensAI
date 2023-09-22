@@ -2,7 +2,7 @@
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { Divider, Grid, Skeleton, Typography } from "@mui/material";
+import { Alert, Divider, Grid, Skeleton, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useEffect, useState } from "react";
 import {
@@ -13,35 +13,50 @@ import {
 export function DisplayStudentAssignment({ user }) {
   const [studentAssignment, setStudentAssignment] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [successSubmit, setSuccessSubmit] = useState(false);
+  const [isSubmitError, setSubmitError] = useState(false);
+  const [isError, setIsError] = useState(false);
   const { assignment_id } = useParams();
 
   useEffect(() => {
+    setSuccessSubmit(false);
+    setIsError(false);
     setIsLoading(true);
-    getAssignmentsByAssignmentId(user.id, assignment_id)
-      .then(({ assignment }) => {
-        setIsLoading(false);
-        setStudentAssignment(assignment[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsLoading(false);
-      });
-  }, [assignment_id, user.id]);
+    if (user) {
+      getAssignmentsByAssignmentId(user.id, assignment_id)
+        .then(({ assignment }) => {
+          setIsLoading(false);
+          setStudentAssignment(assignment[0]);
+        })
+        .catch(() => {
+          setIsLoading(false);
+          setIsError(true);
+        });
+    }
+  }, [assignment_id, user]);
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
+    setSubmitError(false);
     if (studentAssignment.work) {
       patchStudentAssignmentByAssignmentId(user.id, assignment_id, {
         work: studentAssignment.work,
       })
         .then(({ assignment }) => {
+          setSuccessSubmit(true);
           setStudentAssignment((currentAssignment) => {
             return { ...currentAssignment, ...assignment };
           });
         })
         .catch((err) => {
+          setSuccessSubmit(false);
+          setSubmitError(true);
           console.log(err);
         });
+
+      setTimeout(() => {
+        setSuccessSubmit(false);
+      }, 2000);
     }
   };
 
@@ -53,21 +68,35 @@ export function DisplayStudentAssignment({ user }) {
     });
   }
 
-  return isLoading ? (
-    <>
-      <Typography pl={3} pr={3} variant="h1">
-        <Skeleton />
-      </Typography>
+  if (isLoading) {
+    return (
+      <>
+        <Typography pl={3} pr={3} variant="h1">
+          <Skeleton />
+        </Typography>
 
-      <Typography pl={3} pt={1} pr={3} variant="h1">
-        <Skeleton />
-      </Typography>
+        <Typography pl={3} pt={1} pr={3} variant="h1">
+          <Skeleton />
+        </Typography>
 
-      <Typography pl={3} pt={1} pr={3} variant="h1">
-        <Skeleton />
-      </Typography>
-    </>
-  ) : (
+        <Typography pl={3} pt={1} pr={3} variant="h1">
+          <Skeleton />
+        </Typography>
+      </>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Grid item mb={2} ml={3} mr={3} xs={12}>
+        <Alert severity="error">
+          Whops, some error here... please reload the page!
+        </Alert>
+      </Grid>
+    );
+  }
+
+  return (
     <>
       <Grid
         spacing={1}
@@ -106,6 +135,23 @@ export function DisplayStudentAssignment({ user }) {
               <Button variant="contained">Start</Button>
             </Grid>
           </Grid>
+
+          {successSubmit ? (
+            <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">Work sent successfully!</Alert>
+            </Grid>
+          ) : (
+            <></>
+          )}
+
+          {isSubmitError ? (
+            <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="warning">Work not sent, retry!</Alert>
+            </Grid>
+          ) : (
+            <></>
+          )}
+
           <Grid item ml={3} mr={3} xs={12}>
             <TextField
               id="outlined-multiline-static"
