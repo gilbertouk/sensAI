@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getLessonByTeacherAndClass } from '../utils/api';
+import { TeacherLessonCard } from './TeacherLessonCard';
+import { Link } from 'react-router-dom';
 
 const TeacherLessonsClassList = ({ user }) => {
   const [lessons, setLessons] = useState(null);
@@ -20,11 +22,14 @@ const TeacherLessonsClassList = ({ user }) => {
   return loading ? (
     <p>loading...</p>
   ) : (
-    <ul>
-      {lessons.map((lesson) => (
-        <li key={lesson.id}>{lesson.title}</li>
-      ))}
-    </ul>
+    <ul className="student-lesson-container">
+            {lessons.map(lesson => {
+                return (
+                <div key={lesson.id}>
+                <Link to={`/teacher/${lesson.id}/lessons`}><li ><TeacherLessonCard lessonData={lesson}/></li></Link>
+                </div>)
+            })}
+        </ul>
   );
 };
 
