@@ -78,3 +78,14 @@ export const getAssignmentByStudentId = (student_id) => {
       console.log(err);
     });
 };
+
+export const getAssignmentsByTeacherId = (teacher_id) => {
+  return apiUrl
+    .get(`/assignments/${teacher_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
