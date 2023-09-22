@@ -32,7 +32,7 @@ export const TeacherClassesCard = ({classItem}) => {
             </Grid>
             <Grid item>
               <Typography variant="body2">
-                {classItem.created_at}
+                {(new Date(classItem.created_at)).toLocaleDateString()}
               </Typography>
                 </Grid>
                     <Grid item>
