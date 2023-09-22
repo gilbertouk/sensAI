@@ -6,7 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import SchoolIcon from "@mui/icons-material/School";
 import HomeIcon from "@mui/icons-material/Home";
-import Settings from "@mui/icons-material/Settings";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 
@@ -40,11 +40,13 @@ export const NavbarStudent = ({ handleLogout }) => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <Link to="/student/assignments">
+        <Link to="/">
         <MenuItem onClick={handleClose}>
           <HomeIcon sx={{ mr: 2 }} />
-          <Link to="/">Home</Link>
+          Home
         </MenuItem>
+        </Link>
+        <Link to="/student/assignments">
         <MenuItem onClick={handleClose}>
           <AssignmentIcon sx={{ mr: 2 }} />
           Assignment
@@ -57,8 +59,8 @@ export const NavbarStudent = ({ handleLogout }) => {
         </MenuItem>
         </Link>
         <MenuItem onClick={handleClose}>
-          <Settings sx={{ mr: 2 }} />
-          Profile
+        <AccountCircleIcon sx={{ mr: 2 }} />
+          My Account
         </MenuItem>
         <MenuItem onClick={handleLogout}>
           <LogoutIcon sx={{ mr: 2 }} />
