@@ -48,7 +48,11 @@ export const Navbar = ({ user }) => {
         mb: 5,
       }}
     >
-      <Typography sx={{ fontSize: 60, fontWeight: "bold" }}><Link to="">sensAI</Link></Typography>
+      <Typography sx={{ fontSize: 60, fontWeight: "bold" }}>
+        <Link to="/">
+          sensAI
+        </Link>
+      </Typography>
       {userStatus}
     </Container>
   );
