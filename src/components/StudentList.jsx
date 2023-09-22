@@ -1,39 +1,29 @@
+import { useParams } from "react-router-dom";
+import { getStudentsByTeacherClass } from "../utils/api";
 import { StudentCard } from "./StudentCard"
 import { useState, useEffect } from "react";
 
-export const StudentList = () => {
+export const StudentList = ({user}) => {
     const [students, setStudents] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { class_id } = useParams();
 
     useEffect(()=> {
-        //setLoading(true);
-    },[])
-
-    const testData = [{
-        id: 1,
-        name: "User1",
-        surname: "Surname1",
-        email: "user1.surname1@example.com",
-        role: "student",
-        created_at: "2018-12-19 00:00:00",
-        disability: "ADHD"
-    },{
-        id: 2,
-        name: "User2",
-        surname: "Surname2",
-        email: "user2.surname1@example.com",
-        role: "student",
-        created_at: "2018-12-19 00:00:00",
-        disability: "ADHD"
-    }]
-
+        setLoading(true);
+        if(user){
+            getStudentsByTeacherClass(user.id, class_id).then(({students}) => {
+                setLoading(false);
+                setStudents(students);
+            })
+        }
+    },[user])
 
     return( 
-    //loading ? <p>Loading...</p> : 
+    loading ? <p>Loading...</p> : 
     (
         <>
         <ul>
-            {testData.map(student => {
+            {students.map(student => {
                 return <li key={student.id}>
                     <StudentCard student={student}/>
                 </li>

@@ -47,7 +47,7 @@ function App() {
         <Route path="/teachers/home" element={<ClassesList />} />
         <Route
           path="/student/assignments/:assignment_id"
-          element={<DisplayStudentAssignment />}
+          element={<DisplayStudentAssignment user={currentUser} />}
         />
         <Route
           path="/student/lessons"
@@ -73,7 +73,7 @@ function App() {
           element={<TeacherClasses user={currentUser} />}
         />
         <Route path="/students" element={<StudentPage/>} />
-
+        <Route path="/teacher/classes/:class_id" element={<StudentPage user={currentUser}/>}/>
       </Routes>
     </>
   );
