@@ -3,7 +3,7 @@ import { getLesson } from "../utils/api";
 import { useParams } from "react-router-dom";
 import { CardContent, Container, Typography, Card, Divider } from "@mui/material";
 
-export const StudentSingleLessonList = () => {
+export const TeacherSingleLessonList = () => {
     const [lesson, setLesson] = useState([]);
     const [loading, setLoading] = useState(true);
     const { lesson_id } = useParams();
@@ -15,7 +15,7 @@ export const StudentSingleLessonList = () => {
         })
     },[])
 
-    return loading ? <p>Loading...</p> : (
+    return loading ? <p>Loading...</p> :(
         <Container>
             <Card>
                 <CardContent>

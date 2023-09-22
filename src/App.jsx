@@ -16,6 +16,7 @@ import { StudentPage } from "./components/StudentPage";
 import AssignmentTeacherList from "./components/AssignmentTeacherList";
 import TeacherLessonsNew from "./components/TeacherLessonsNew";
 import { StudentSingleLessonPage } from "./components/StudentSingleLessonPage";
+import { TeacherSingleLessonPage } from "./components/TeacherSingleLessonPage";
 
 import { getUser } from "./utils/api";
 
@@ -87,6 +88,7 @@ function App() {
           element={<StudentPage user={currentUser} />}
         />
         <Route path="/student/lessons/:lesson_id" element={<StudentSingleLessonPage/>}/>
+        <Route path="/teacher/:lesson_id/lessons" element={<TeacherSingleLessonPage/>}/>
       </Routes>
     </>
   );
