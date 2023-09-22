@@ -65,7 +65,7 @@ export function StudentAssignmentsList({ user }) {
           <li
             key={assignment.id}
             onClick={() => {
-              handleAssignmentToDisplay(assignment.id);
+              handleAssignmentToDisplay(assignment.assignment_id);
             }}
           >
             <StudentAssignmentsCard assignmentData={assignment} />
