@@ -8,11 +8,11 @@ import SchoolIcon from "@mui/icons-material/School";
 import Settings from "@mui/icons-material/Settings";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from "react-router-dom"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Link } from "react-router-dom";
 
-export const NavbarTeacher = ({handleLogout}) => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+export const NavbarTeacher = ({ handleLogout }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -20,7 +20,7 @@ export const NavbarTeacher = ({handleLogout}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   return (
     <>
       <Button
@@ -50,10 +50,10 @@ export const NavbarTeacher = ({handleLogout}) => {
           Assignments
         </MenuItem>
         <Link to="/teacher/classes">
-        <MenuItem onClick={handleClose}>
-          <SchoolIcon sx={{ mr: 2 }} />
-          Classes
-        </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <SchoolIcon sx={{ mr: 2 }} />
+            Classes
+          </MenuItem>
         </Link>
         <MenuItem onClick={handleClose}>
           <AccountCircleIcon sx={{ mr: 2 }} />
@@ -63,7 +63,19 @@ export const NavbarTeacher = ({handleLogout}) => {
           <LogoutIcon sx={{ mr: 2 }} />
           Logout
         </MenuItem>
+        <Link to="/teacher/assignments/new">
+          <MenuItem onClick={handleClose}>
+            <AssignmentIcon sx={{ mr: 2 }} />
+            New Assignment
+          </MenuItem>
+        </Link>
+        <Link to="/teacher/lessons/new">
+          <MenuItem onClick={handleClose}>
+            <SchoolIcon sx={{ mr: 2 }} />
+            New Lesson
+          </MenuItem>
+        </Link>
       </Menu>
-      </>
+    </>
   );
-}
+};
