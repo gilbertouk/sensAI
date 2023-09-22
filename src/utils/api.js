@@ -61,7 +61,7 @@ export const getClassesByTeacherID = (teacher_id) => {
 
 export const getLessonsByStudentId = (user_id) => {
   return apiUrl
-    .get(`/lessons/${user_id}`)
+    .get(`/student/${user_id}/lessons`)
     .then(({ data }) => {
       return data;
     })
@@ -153,3 +153,12 @@ export const patchStudentAssignmentByAssignmentId = (
     });
 
 };
+
+export const getLesson = (lesson_id) => {
+  return apiUrl.get(`/lessons/${lesson_id}`).then(({data})=> {
+    return data;
+  })
+  .catch((err)=> {
+    console.log(err);
+  })
+}
