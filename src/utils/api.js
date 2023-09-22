@@ -79,6 +79,17 @@ export const getAssignmentsByStudentId = (student_id) => {
     });
 };
 
+export const postAssignment = (teacher_id, class_id, title, body, due_date) => {
+  return apiUrl
+    .post(`/assignments/${teacher_id}/${class_id}`, {
+      title,
+      body,
+      due_date,
+    })
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
 
 export const getAssignmentsByTeacherId = (teacher_id) => {
   return apiUrl
@@ -90,7 +101,6 @@ export const getAssignmentsByTeacherId = (teacher_id) => {
       console.log(err);
     });
 };
-
   
   export const getAssignmentsByAssignmentId = (student_id, assignment_id) => {
   return apiUrl

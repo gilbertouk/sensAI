@@ -11,6 +11,7 @@ import Signup from "./components/Signup";
 import TeacherLessonsClassList from "./components/TeacherLessonsClassList";
 import Home from "./components/Home";
 import TeacherClasses from "./components/TeacherClasses";
+import TeacherAssignmentsNew from "./components/TeacherAssignmentsNew";
 import { StudentPage } from "./components/StudentPage";
 import AssignmentTeacherList from "./components/AssignmentTeacherList"
 
@@ -66,6 +67,10 @@ function App() {
         <Route
           path="/teacher/assignments/student/:user_id"
           element={<StudentAssignmentView user={currentUser} />}
+        />
+        <Route
+          path="/teacher/assignments/new"
+          element={<TeacherAssignmentsNew user={currentUser} />}
         />
         <Route path="/" element={<Home user={currentUser} />} />
         <Route
