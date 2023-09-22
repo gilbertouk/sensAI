@@ -1,4 +1,4 @@
-import { Container } from "@mui/material"
+import { Container, Grid } from "@mui/material"
 import { StudentList } from "./StudentList"
 import { TeacherLessonsButton } from "./TeacherLessonsButton"
 import { TeacherWorkButton } from "./TeacherWorkButton"
@@ -9,10 +9,15 @@ export const StudentPage = ({user}) => {
 
     return (
         <>
-        <Container sx={{textAlign: "center"}}>
+            <Grid container sx={{justifyContent: "center"}}>
+                <Grid item xs={4} md={1}>
             <TeacherWorkButton/>
+                </Grid>
+                <Grid item xs={4} md={1}>
             <TeacherLessonsButton/>
-        </Container>
+                    
+                </Grid>
+            </Grid>
         <StudentList user={user}/>        
         </>
     )

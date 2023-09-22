@@ -31,7 +31,7 @@ export const StudentAssignmentsCard = ({ assignmentData }) => {
             </Grid>
             <Grid item>
               <Typography variant="body2">
-                {assignmentData.created_at}
+                {(new Date(assignmentData.created_at)).toLocaleDateString()}
               </Typography>
             </Grid>
           </Grid>

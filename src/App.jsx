@@ -11,9 +11,13 @@ import Signup from "./components/Signup";
 import TeacherLessonsClassList from "./components/TeacherLessonsClassList";
 import Home from "./components/Home";
 import TeacherClasses from "./components/TeacherClasses";
+import TeacherAssignmentsNew from "./components/TeacherAssignmentsNew";
 import { StudentPage } from "./components/StudentPage";
-import AssignmentTeacherList from "./components/AssignmentTeacherList"
 import TeacherClassClassIDAssignmentsList from "./components/TeacherClassClassIDAssignmentsList"
+import AssignmentTeacherList from "./components/AssignmentTeacherList";
+import TeacherLessonsNew from "./components/TeacherLessonsNew";
+import { StudentSingleLessonPage } from "./components/StudentSingleLessonPage";
+import { TeacherSingleLessonPage } from "./components/TeacherSingleLessonPage";
 
 import { getUser } from "./utils/api";
 
@@ -21,6 +25,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 
 import { useState, useEffect } from "react";
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -64,15 +69,30 @@ function App() {
           path="/teacher/assignments/:class_id"
           element={<AssignmentTeacherList user={currentUser} />}
         />
+
+        <Route
+          path="/teacher/assignments/new"
+          element={<TeacherAssignmentsNew user={currentUser} />}
+        />
+        <Route
+          path="/teacher/lessons/new"
+          element={<TeacherLessonsNew user={currentUser} />}
+        />
         <Route path="/" element={<Home user={currentUser} />} />
         <Route
           path="/teacher/classes/"
           element={<TeacherClasses user={currentUser} />}
         />
-        <Route path="/students" element={<StudentPage/>} />
-        <Route path="/teacher/classes/:class_id" element={<StudentPage user={currentUser}/>}/> 
+        
         <Route path="/teacher/classes/:class_id/assignments" element={<TeacherClassClassIDAssignmentsList user={currentUser}/>}/> 
-      </Routes> 
+        <Route path="/students" element={<StudentPage />} />
+        <Route
+          path="/teacher/classes/:class_id"
+          element={<StudentPage user={currentUser} />}
+        />
+        <Route path="/student/lessons/:lesson_id" element={<StudentSingleLessonPage/>}/>
+        <Route path="/teacher/:lesson_id/lessons" element={<TeacherSingleLessonPage/>}/>
+      </Routes>
     </>
   );
 }

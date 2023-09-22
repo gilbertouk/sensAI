@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import SchoolIcon from '@mui/icons-material/School';
 
-export const StudentLessonsCard = ({lessonData}) => {
+export const TeacherLessonCard = ({lessonData}) => {
 
     return (
         <Paper

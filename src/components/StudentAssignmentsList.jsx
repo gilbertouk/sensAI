@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAssignmentByStudentId } from "../utils/api";
 import { StudentAssignmentsCard } from "./StudentAssignmentsCard";
+import { Skeleton, Typography } from "@mui/material";
 
 export function StudentAssignmentsList({ user }) {
   const [studentAssignments, setStudentAssignment] = useState([]);
@@ -27,7 +28,19 @@ export function StudentAssignmentsList({ user }) {
   }
 
   return isLoading ? (
-    <p>Loading...</p>
+    <>
+      <Typography pl={3} pr={3} variant="h1">
+        <Skeleton />
+      </Typography>
+
+      <Typography pl={3} pt={1} pr={3} variant="h1">
+        <Skeleton />
+      </Typography>
+
+      <Typography pl={3} pt={1} pr={3} variant="h1">
+        <Skeleton />
+      </Typography>
+    </>
   ) : (
     <ul className="student-lesson-container">
       {studentAssignments.map((assignment) => {

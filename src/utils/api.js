@@ -61,7 +61,7 @@ export const getClassesByTeacherID = (teacher_id) => {
 
 export const getLessonsByStudentId = (user_id) => {
   return apiUrl
-    .get(`/lessons/${user_id}`)
+    .get(`/student/${user_id}/lessons`)
     .then(({ data }) => {
       return data;
     })
@@ -79,6 +79,18 @@ export const getAssignmentByStudentId = (student_id) => {
     });
 };
 
+export const postAssignment = (teacher_id, class_id, title, body, due_date) => {
+  return apiUrl
+    .post(`/assignments/${teacher_id}/${class_id}`, {
+      title,
+      body,
+      due_date,
+    })
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => console.log(err));
+};
 
 export const getAssignmentsByTeacherId = (teacher_id) => {
   return apiUrl
@@ -91,8 +103,7 @@ export const getAssignmentsByTeacherId = (teacher_id) => {
     });
 };
 
-  
-  export const getAssignmentsByAssignmentId = (student_id, assignment_id) => {
+export const getAssignmentsByAssignmentId = (student_id, assignment_id) => {
   return apiUrl
     .get(`/student/${student_id}/assignments/${assignment_id}`)
     .then(({ data }) => {
@@ -128,10 +139,48 @@ export const getAssignmentsByTeacherIdAndClassID = (teacher_id, class_id) => {
 export const deleteAssignmentByAssignmentID = (assignment_id) => {
   return apiUrl
     .delete(`/assignments/${assignment_id}/${user_id}`)
-    .then(({ data }) => {
+      .then(({ data }) => {
       return data;
     })
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const postLesson = (teacher_id, class_id, title, body, due_date) => {
+  return apiUrl
+    .post(`/lessons/${teacher_id}/${class_id}`, {
+      title,
+      body,
+    })
+    .then(({ data }) => {
+      return data;
+    }).catch((err) => {
+      console.log(err);
+    });
+};
+
+export const patchStudentAssignmentByAssignmentId = (
+  student_id,
+  assignment_id,
+  body
+) => {
+  return apiUrl
+    .patch(`/student/${student_id}/assignments/${assignment_id}`, body)
+      .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+};
+
+export const getLesson = (lesson_id) => {
+  return apiUrl.get(`/lessons/${lesson_id}`).then(({data})=> {
+    return data;
+  })
+  .catch((err)=> {
+    console.log(err);
+  })
 };
