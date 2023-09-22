@@ -17,7 +17,7 @@ export function StudentAssignmentsList({ user }) {
     setIsLoading(true);
 
     if (user) {
-      getAssignmentsByStudentId(user.id)
+      getAssignmentByStudentId(user.id)
         .then(({ assignments }) => {
           setIsLoading(false);
           setIsError(false);
