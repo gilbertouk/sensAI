@@ -47,16 +47,22 @@ export const NavbarStudent = ({ handleLogout }) => {
           Home
         </MenuItem>
         </Link>
+        <Link to="/student/classes/">
+        <MenuItem onClick={handleClose}>
+          <SchoolIcon sx={{ mr: 2 }} />
+          Classes
+        </MenuItem>
+        </Link>
         <Link to="/student/assignments">
         <MenuItem onClick={handleClose}>
           <AssignmentIcon sx={{ mr: 2 }} />
-          Assignment
+          Assignments
         </MenuItem>
         </Link>
         <Link to="/student/lessons">
         <MenuItem onClick={handleClose}>
           <SchoolIcon sx={{ mr: 2 }} />
-          Lesson
+          Lessons
         </MenuItem>
         </Link>
         <MenuItem onClick={handleClose}>

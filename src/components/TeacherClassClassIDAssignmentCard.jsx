@@ -6,21 +6,31 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import Box from '@mui/material/Box';
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteAssignmentByAssignmentID } from "../utils/api";
+import { useState } from "react";
+import { Alert } from "@mui/material";
+
 
 
 export function TeacherClassClassIDAssignmentsCard ({ teacherClassAssignmentData }) {
-    const navigate = useNavigate();
+  const [successSubmit, setSuccessSubmit] = useState(false);
+
+  const navigate = useNavigate();
     const {class_id} = useParams()
     function handleAssignmentToDisplay(assignment) {
         navigate(`/teacher/assignments/${class_id}`);
       } 
     
       function handleAssigmenttoDelete(assignment) {
-        const assignment_id = assignment.id
-      deleteAssignmentByAssignmentID(assignment_id)
-      return (<p>Assignment successfully deleted</p>)
-      }
-    return (
+        if (assignment.id) {
+          const assignment_id = assignment.id
+          deleteAssignmentByAssignmentID(assignment_id)
+          setSuccessSubmit(true);
+          setTimeout(() => {
+            setSuccessSubmit(false);
+          }, 2000);
+          }
+        }
+return (
     <Paper
       sx={{
         p: 2,
@@ -80,6 +90,13 @@ export function TeacherClassClassIDAssignmentsCard ({ teacherClassAssignmentData
                 >
                 Delete this assignment
                 </LoadingButton>
+                {successSubmit ? (
+              <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">Assignment successfully deleted!</Alert>
+              </Grid>
+              ) : (
+              <></>
+              )}
             </Grid>
           </Grid>
           <Grid item>
