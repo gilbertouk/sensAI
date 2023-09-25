@@ -13,12 +13,10 @@ import Home from "./components/Home";
 import TeacherClasses from "./components/TeacherClasses";
 import { StudentPage } from "./components/StudentPage";
 import AssignmentTeacherList from "./components/AssignmentTeacherList"
-
+import { ProfilePage }  from "./components/ProfilePage";
 import { getUser } from "./utils/api";
-
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
-
 import { useState, useEffect } from "react";
 
 function App() {
@@ -65,7 +63,7 @@ function App() {
         />
         <Route
           path="/teacher/assignments/student/:user_id"
-          element={<StudentAssignmentView user={currentUser} />}
+          element={<StudentAssignmentsPage user={currentUser} />}
         />
         <Route path="/" element={<Home user={currentUser} />} />
         <Route
@@ -73,7 +71,8 @@ function App() {
           element={<TeacherClasses user={currentUser} />}
         />
         <Route path="/students" element={<StudentPage/>} />
-        <Route path="/teacher/classes/:class_id" element={<StudentPage user={currentUser}/>}/>
+        <Route path="/teacher/classes/:class_id" element={<StudentPage user={currentUser} />} />
+        <Route path="/user/:user_id" element={<ProfilePage user={currentUser} />} />
       </Routes>
     </>
   );

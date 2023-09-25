@@ -11,7 +11,7 @@ const Home = ({ user }) => {
   let userStatus = null;
 
   if (user === "logged out") {
-    userStatus = `You are logged out!`;
+    userStatus = "";
   } else if (user === "null") {
     userStatus = "";
   } else if (user && user.role === "student") {

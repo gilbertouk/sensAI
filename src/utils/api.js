@@ -113,3 +113,14 @@ export const getStudentsByTeacherClass = (teacher_id, class_id) => {
       console.log(err);
     });
 };
+
+export const patchUser = (user_id) => {
+  return apiUrl
+    .get(`/api/users/${user_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
