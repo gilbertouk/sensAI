@@ -26,7 +26,8 @@ const TeacherClasses = ({ user }) => {
     <p>loading...</p>
   ) : (
       <>
-        <Typography gutterBottom variant="subtitle1" component="div">
+
+        <Typography gutterBottom sx={{textAlign: "center"}} variant='h5'>
         Your classes:
         </Typography>
         {classes.map((classItem) => (

@@ -28,6 +28,7 @@ export const NavbarStudent = ({ handleLogout }) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        sx={{display: {xs: "block", sm: "block", md: "none", lg: "none"}}}
       >
         <MenuIcon sx={{ color: "black", fontSize: 40 }} />
       </Button>
