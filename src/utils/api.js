@@ -126,10 +126,6 @@ export const getStudentsByTeacherClass = (teacher_id, class_id) => {
 };
 
 
-export const patchUser = (user_id) => {
-  return apiUrl
-    .get(`/api/users/${user_id}`)
-
 export const getAssignmentsByTeacherIdAndClassID = (teacher_id, class_id) => {
   return apiUrl
     .get(`/assignments/${teacher_id}/${class_id}`)
@@ -143,7 +139,6 @@ export const getAssignmentsByTeacherIdAndClassID = (teacher_id, class_id) => {
 
 }
 
-};
 
 export const deleteAssignmentByAssignmentID = (assignment_id) => {
   return apiUrl
@@ -205,3 +200,13 @@ export const getAssignmentsByTeacherIDAndClassID = (teacher_id, class_id) => {
     });
 };
 
+export const patchUser = (user_id) => {
+  return apiUrl
+    .patch(`/api/users/${user_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

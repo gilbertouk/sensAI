@@ -73,10 +73,9 @@ function App() {
 
           path="/teacher/assignments/student/:user_id"
           element={<StudentAssignmentsPage user={currentUser} />}
-
-          path="/teacher/assignments/new"
-          element={<TeacherAssignmentsNew user={currentUser} />}
         />
+        <Route path="/teacher/assignments/new"
+          element={<TeacherAssignmentsNew user={currentUser} />}/>
         <Route
           path="/teacher/lessons/new"
           element={<TeacherLessonsNew user={currentUser} />}
