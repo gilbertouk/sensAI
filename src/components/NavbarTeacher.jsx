@@ -5,7 +5,6 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import SchoolIcon from "@mui/icons-material/School";
-import Settings from "@mui/icons-material/Settings";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -29,6 +28,7 @@ export const NavbarTeacher = ({ handleLogout }) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        sx={{display: {xs: "block", sm: "block", md: "block", lg: "none"}}}
       >
         <MenuIcon sx={{ color: "black", fontSize: 40 }} />
       </Button>
@@ -53,7 +53,6 @@ export const NavbarTeacher = ({ handleLogout }) => {
             Classes
           </MenuItem>
         </Link>
-        
         <Link to="/teacher/assignments/new">
           <MenuItem onClick={handleClose}>
             <AssignmentIcon sx={{ mr: 2 }} />
