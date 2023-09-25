@@ -1,64 +1,186 @@
+/* eslint-disable react/prop-types */
 import { useParams } from "react-router-dom";
-import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Divider } from "@mui/material";
+import { Alert, Divider, Grid, Skeleton, Typography } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 import { useEffect, useState } from "react";
-import { getAssignmentsByAssignmentId } from "../utils/api";
+import {
+  getAssignmentsByAssignmentId,
+  patchStudentAssignmentByAssignmentId,
+} from "../utils/api";
 
 export function DisplayStudentAssignment({ user }) {
   const [studentAssignment, setStudentAssignment] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [successSubmit, setSuccessSubmit] = useState(false);
+  const [isSubmitError, setSubmitError] = useState(false);
+  const [isError, setIsError] = useState(false);
   const { assignment_id } = useParams();
 
   useEffect(() => {
+    setSuccessSubmit(false);
+    setIsError(false);
     setIsLoading(true);
-    getAssignmentsByAssignmentId(user.id, assignment_id)
-      .then(({ assignment }) => {
-        setIsLoading(false);
-        setStudentAssignment(assignment[0]);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-      });
-  }, [assignment_id, user.id]);
+    if (user) {
+      getAssignmentsByAssignmentId(user.id, assignment_id)
+        .then(({ assignment }) => {
+          setIsLoading(false);
+          setStudentAssignment(assignment[0]);
+        })
+        .catch(() => {
+          setIsLoading(false);
+          setIsError(true);
+        });
+    }
+  }, [assignment_id, user]);
 
-  return isLoading ? (
-    <p>Loading...</p>
-  ) : (
-    <Stack spacing={2} direction="column">
-      <h2>{studentAssignment.title}</h2>
-      <p>{studentAssignment.body}</p>
-      <Stack spacing={2} direction="row">
-        <Button variant="contained">Edit</Button>
-        <Button variant="contained">Start</Button>
-      </Stack>
-      <Stack spacing={2} direction="row">
-        <Box
-          component="form"
-          sx={{
-            "& .MuiTextField-root": { m: 1, width: "90vw" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <div>
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+    setSubmitError(false);
+    if (studentAssignment.work) {
+      patchStudentAssignmentByAssignmentId(user.id, assignment_id, {
+        work: studentAssignment.work,
+      })
+        .then(({ assignment }) => {
+          setSuccessSubmit(true);
+          setStudentAssignment((currentAssignment) => {
+            return { ...currentAssignment, ...assignment };
+          });
+        })
+        .catch((err) => {
+          setSuccessSubmit(false);
+          setSubmitError(true);
+          console.log(err);
+        });
+
+      setTimeout(() => {
+        setSuccessSubmit(false);
+      }, 2000);
+    }
+  };
+
+  function handleOnChangeWork(event) {
+    return setStudentAssignment((currentAssignment) => {
+      const newAssignment = { ...currentAssignment };
+      newAssignment.work = event.target.value;
+      return newAssignment;
+    });
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <Typography pl={3} pr={3} variant="h1">
+          <Skeleton />
+        </Typography>
+
+        <Typography pl={3} pt={1} pr={3} variant="h1">
+          <Skeleton />
+        </Typography>
+
+        <Typography pl={3} pt={1} pr={3} variant="h1">
+          <Skeleton />
+        </Typography>
+      </>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Grid item mb={2} ml={3} mr={3} xs={12}>
+        <Alert severity="error">
+          Whops, some error here... please reload the page!
+        </Alert>
+      </Grid>
+    );
+  }
+
+  return (
+    <>
+      <Grid
+        spacing={1}
+        container
+        direction="column"
+        justifyContent="space-evenly"
+        alignItems="stretch"
+      >
+        <Grid item xs={12}>
+          <Typography align="center" variant="h4">
+            {studentAssignment.title}
+          </Typography>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant="subtitle1" align="center">
+            {studentAssignment.body}
+          </Typography>
+        </Grid>
+
+        <form onSubmit={handleSubmitForm}>
+          <Grid
+            spacing={2}
+            container
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="stretch"
+            p={3}
+          >
+            <Grid item>
+              <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+                Submit
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained">Start</Button>
+            </Grid>
+          </Grid>
+
+          {successSubmit ? (
+            <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">Work sent successfully!</Alert>
+            </Grid>
+          ) : (
+            <></>
+          )}
+
+          {isSubmitError ? (
+            <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="warning">Work not sent, retry!</Alert>
+            </Grid>
+          ) : (
+            <></>
+          )}
+
+          <Grid item ml={3} mr={3} xs={12}>
             <TextField
               id="outlined-multiline-static"
               label="Answer"
+              fullWidth={true}
               multiline
-              rows={4}
-              defaultValue=""
+              rows={5}
+              size="medium"
+              value={studentAssignment.work ? studentAssignment.work : ""}
+              onChange={handleOnChangeWork}
             />
-          </div>
-          {/* <Button variant="contained">Salve</Button> */}
-        </Box>
-      </Stack>
-      <Divider>Feedback</Divider>
-      <Stack spacing={2} direction="row">
-        <p>{studentAssignment.feedback}</p>
-      </Stack>
-    </Stack>
+          </Grid>
+        </form>
+
+        {studentAssignment.feedback ? (
+          <>
+            <Grid item mt={7}>
+              <Divider>Feedback</Divider>
+            </Grid>
+            <Grid item p={2}>
+              <Typography variant="subtitle1" align="center">
+                {studentAssignment.feedback}
+              </Typography>
+            </Grid>
+          </>
+        ) : (
+          <></>
+        )}
+      </Grid>
+    </>
   );
 }

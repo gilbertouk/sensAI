@@ -1,0 +1,105 @@
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import SchoolIcon from '@mui/icons-material/School';
+import LoadingButton from "@mui/lab/LoadingButton";
+import Box from '@mui/material/Box';
+import { deleteLessonByLessonID } from "../utils/api";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Alert } from "@mui/material";
+
+export const TeacherLessonCard = ({lessonData}) => {
+  const [successSubmit, setSuccessSubmit] = useState(false);
+
+  const navigate = useNavigate();
+  
+  function handleLessonToDisplay(lessonData) {
+    navigate(`/teacher/${lessonData.id}/lessons`);
+  } 
+
+function handleLessonToDelete(lessonData) {
+  if (lessonData.id) {
+    const lesson_id = lessonData.id
+    deleteLessonByLessonID(lesson_id)
+    setSuccessSubmit(true);
+    setTimeout(() => {
+      setSuccessSubmit(false);
+    }, 2000);
+    }
+  }
+    return (
+        <Paper
+      sx={{
+        p: 2,
+        margin: 'auto',
+        maxWidth: 500,
+        flexGrow: 1,
+        mt: 5,
+        cursor: 'pointer',
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+      }}
+    >
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm container>
+          <Grid item xs container direction="column" spacing={2}>
+            <Grid item xs>
+              <Typography gutterBottom variant="subtitle1" component="div">
+                {lessonData.title}
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                {lessonData.body}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="body2">
+                {(new Date(lessonData.created_at)).toLocaleDateString()}
+              </Typography>
+            </Grid>
+            <Grid>
+            <Box mt={3}>
+                </Box>
+                <LoadingButton 
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                 handleLessonToDisplay(lessonData);
+                }}
+                >View this lesson
+                </LoadingButton>
+                <Box mt={2}>
+                </Box> 
+                <LoadingButton 
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                handleLessonToDelete(lessonData);
+                }}
+                >
+                Delete this lesson
+                </LoadingButton>
+                {successSubmit ? (
+              <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">Lesson successfully deleted!</Alert>
+              </Grid>
+              ) : (
+              <></>
+              )}
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1" component="div">
+              <SchoolIcon/>
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Paper>
+    )
+}

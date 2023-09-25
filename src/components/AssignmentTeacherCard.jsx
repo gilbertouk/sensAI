@@ -38,7 +38,7 @@ export function TeacherAssignmentCard ({ teacherAssignmentData }) {
                 Date submitted: {teacherAssignmentData.submit_date}
               </Typography>
               <Typography variant="body2">
-                {teacherAssignmentData.mark}
+                Mark: {teacherAssignmentData.mark}
               </Typography>
             </Grid>
           </Grid>

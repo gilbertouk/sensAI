@@ -5,14 +5,13 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import SchoolIcon from "@mui/icons-material/School";
-import Settings from "@mui/icons-material/Settings";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from "react-router-dom"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Link } from "react-router-dom";
 
-export const NavbarTeacher = ({handleLogout}) => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+export const NavbarTeacher = ({ handleLogout }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -20,7 +19,7 @@ export const NavbarTeacher = ({handleLogout}) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
   return (
     <>
       <Button
@@ -29,6 +28,7 @@ export const NavbarTeacher = ({handleLogout}) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        sx={{display: {xs: "block", sm: "block", md: "block", lg: "none"}}}
       >
         <MenuIcon sx={{ color: "black", fontSize: 40 }} />
       </Button>
@@ -41,19 +41,29 @@ export const NavbarTeacher = ({handleLogout}) => {
           "aria-labelledby": "basic-button",
         }}
       >
+        <Link to="/">
         <MenuItem onClick={handleClose}>
           <HomeIcon sx={{ mr: 2 }} />
-          <Link to="/">Home</Link>
+          Home
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <AssignmentIcon sx={{ mr: 2 }} />
-          Assignments
-        </MenuItem>
+        </Link>
         <Link to="/teacher/classes">
-        <MenuItem onClick={handleClose}>
-          <SchoolIcon sx={{ mr: 2 }} />
-          Classes
-        </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <SchoolIcon sx={{ mr: 2 }} />
+            Classes
+          </MenuItem>
+        </Link>
+        <Link to="/teacher/assignments/new">
+          <MenuItem onClick={handleClose}>
+            <AssignmentIcon sx={{ mr: 2 }} />
+            New Assignment
+          </MenuItem>
+        </Link>
+        <Link to="/teacher/lessons/new">
+          <MenuItem onClick={handleClose}>
+            <SchoolIcon sx={{ mr: 2 }} />
+            New Lesson
+          </MenuItem>
         </Link>
         <Link to={"/user/account/"}>
         <MenuItem onClick={handleClose}>
@@ -66,6 +76,6 @@ export const NavbarTeacher = ({handleLogout}) => {
           Logout
         </MenuItem>
       </Menu>
-      </>
+    </>
   );
-}
+};

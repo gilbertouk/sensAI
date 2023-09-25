@@ -1,0 +1,111 @@
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import SchoolIcon from "@mui/icons-material/School";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Box from '@mui/material/Box';
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteAssignmentByAssignmentID } from "../utils/api";
+import { useState } from "react";
+import { Alert } from "@mui/material";
+
+
+
+export function TeacherClassClassIDAssignmentsCard ({ teacherClassAssignmentData }) {
+  const [successSubmit, setSuccessSubmit] = useState(false);
+
+  const navigate = useNavigate();
+    const {class_id} = useParams()
+    function handleAssignmentToDisplay(assignment) {
+        navigate(`/teacher/assignments/${class_id}`);
+      } 
+    
+      function handleAssigmenttoDelete(assignment) {
+        if (assignment.id) {
+          const assignment_id = assignment.id
+          deleteAssignmentByAssignmentID(assignment_id)
+          setSuccessSubmit(true);
+          setTimeout(() => {
+            setSuccessSubmit(false);
+          }, 2000);
+          }
+        }
+return (
+    <Paper
+      sx={{
+        p: 2,
+        margin: "auto",
+        maxWidth: 500,
+        flexGrow: 1,
+        mt: 5,
+        cursor: "pointer",
+        backgroundColor: (theme) =>
+          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+      }}
+    >
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm container>
+          <Grid item xs container direction="column" spacing={2}>
+            <Grid item xs>
+              <Typography gutterBottom variant="subtitle1" component="div">
+                ID: {teacherClassAssignmentData.id}
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                Title: {teacherClassAssignmentData.title}
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                Body: {teacherClassAssignmentData.body}
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                Teacher_id: {teacherClassAssignmentData.teacher_id}
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                Due date: {teacherClassAssignmentData.due_date}
+              </Typography>
+              <Typography variant="body2">
+                Created at: {teacherClassAssignmentData.created_at}
+              </Typography>
+                <Box mt={3}>
+                </Box>
+                <LoadingButton 
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                 handleAssignmentToDisplay(teacherClassAssignmentData);
+                }}
+                >View this assignment
+                </LoadingButton>
+                <Box mt={2}>
+                </Box> 
+                <LoadingButton 
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                handleAssigmenttoDelete(teacherClassAssignmentData);
+                }}
+                >
+                Delete this assignment
+                </LoadingButton>
+                {successSubmit ? (
+              <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">Assignment successfully deleted!</Alert>
+              </Grid>
+              ) : (
+              <></>
+              )}
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1" component="div">
+              <SchoolIcon />
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Paper>
+  );
+};

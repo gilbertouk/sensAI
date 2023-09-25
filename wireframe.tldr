@@ -93,8 +93,8 @@
       "screenBounds": {
         "x": 0,
         "y": 0,
-        "w": 795,
-        "h": 769.1666259765625
+        "w": 713.3333129882812,
+        "h": 455.83331298828125
       },
       "zoomBrush": null,
       "isGridMode": false,
@@ -108,18 +108,18 @@
       "typeName": "instance"
     },
     {
-      "x": -2652.8,
-      "y": -140.724804026559,
-      "z": 0.5,
+      "x": 220.37193603515607,
+      "y": 110.44185246758161,
+      "z": 0.25,
       "meta": {},
       "id": "camera:page:E-Ox7MILjv872NAoCo2dS",
       "typeName": "camera"
     },
     {
-      "editingId": null,
+      "editingId": "shape:H2wmoB1VEqSpZ0-mkxMDg",
       "croppingId": null,
       "selectedIds": [
-        "shape:WlM4L3HrtARRnO7K8hbwt"
+        "shape:H2wmoB1VEqSpZ0-mkxMDg"
       ],
       "hoveredId": null,
       "erasingIds": [],
@@ -133,9 +133,9 @@
     {
       "id": "pointer:pointer",
       "typeName": "pointer",
-      "x": 3586.1333129882814,
-      "y": 704.0581170148403,
-      "lastActivityTimestamp": 1695370320404,
+      "x": 560.9821899414064,
+      "y": 988.2560235089809,
+      "lastActivityTimestamp": 1695651722932,
       "meta": {}
     },
     {
@@ -6673,8 +6673,8 @@
       "typeName": "shape"
     },
     {
-      "x": 3808.87,
-      "y": 786.17,
+      "x": 3816.52625,
+      "y": 795.154375,
       "rotation": 0,
       "isLocked": false,
       "opacity": 1,
@@ -7486,8 +7486,8 @@
       "typeName": "shape"
     },
     {
-      "x": 1677.86,
-      "y": 1417.37,
+      "x": 1694.1620629882811,
+      "y": 1419.6876879882811,
       "rotation": 0,
       "isLocked": false,
       "opacity": 1,
@@ -7497,7 +7497,7 @@
       "props": {
         "color": "light-green",
         "size": "s",
-        "w": 8,
+        "w": 346.3385314941406,
         "text": "/teacher/classes/:class_id/assigments",
         "font": "draw",
         "align": "middle",
@@ -8021,7 +8021,6 @@
       "isLocked": false,
       "opacity": 1,
       "meta": {},
-      "id": "shape:D5xgL9Fp3REB8N6vTwSQN",
       "type": "text",
       "props": {
         "color": "red",
@@ -8035,6 +8034,7 @@
       },
       "parentId": "page:E-Ox7MILjv872NAoCo2dS",
       "index": "b3z",
+      "id": "shape:D5xgL9Fp3REB8N6vTwSQN",
       "typeName": "shape"
     },
     {
@@ -8044,7 +8044,6 @@
       "isLocked": false,
       "opacity": 1,
       "meta": {},
-      "id": "shape:cyvwZ4ZFOjjKCBQfnz-yN",
       "type": "text",
       "props": {
         "color": "red",
@@ -8058,6 +8057,7 @@
       },
       "parentId": "page:E-Ox7MILjv872NAoCo2dS",
       "index": "b40",
+      "id": "shape:cyvwZ4ZFOjjKCBQfnz-yN",
       "typeName": "shape"
     },
     {
@@ -8067,7 +8067,6 @@
       "isLocked": false,
       "opacity": 1,
       "meta": {},
-      "id": "shape:WlM4L3HrtARRnO7K8hbwt",
       "type": "text",
       "props": {
         "color": "red",
@@ -8081,6 +8080,30 @@
       },
       "parentId": "page:E-Ox7MILjv872NAoCo2dS",
       "index": "b41",
+      "id": "shape:WlM4L3HrtARRnO7K8hbwt",
+      "typeName": "shape"
+    },
+    {
+      "x": 533.5759399414064,
+      "y": 928.8680039472133,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:H2wmoB1VEqSpZ0-mkxMDg",
+      "type": "text",
+      "props": {
+        "color": "red",
+        "size": "xl",
+        "w": 8,
+        "text": "",
+        "font": "mono",
+        "align": "middle",
+        "autoSize": true,
+        "scale": 1
+      },
+      "parentId": "page:E-Ox7MILjv872NAoCo2dS",
+      "index": "b42",
       "typeName": "shape"
     }
   ]

@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import SchoolIcon from '@mui/icons-material/School';
 
-export const StudentLessonsCard = ({lessonData}) => {
+export const StudentClassesCard = ({classItem}) => {
 
     return (
         <Paper
@@ -24,15 +24,20 @@ export const StudentLessonsCard = ({lessonData}) => {
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant="subtitle1" component="div">
-                {lessonData.title}
+                {classItem.name}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                {lessonData.body}
+                {classItem.age_group}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="body2">
-                {(new Date(lessonData.created_at)).toLocaleDateString()}
+                {(new Date(classItem.created_at)).toLocaleDateString()}
+              </Typography>
+                </Grid>
+                    <Grid item>
+              <Typography variant="body2">
+                {classItem.subject}
               </Typography>
             </Grid>
           </Grid>
