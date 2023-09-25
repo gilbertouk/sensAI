@@ -141,6 +141,12 @@ export const deleteAssignmentByAssignmentID = (assignment_id) => {
     .delete(`/assignments/${assignment_id}`)
 }
 
+export const deleteLessonByLessonID = (lesson_id) => {
+  return apiUrl
+    .delete(`/lessons/${lesson_id}`)
+}
+
+
 export const postLesson = (teacher_id, class_id, title, body, due_date) => {
   return apiUrl
     .post(`/lessons/${teacher_id}/${class_id}`, {

@@ -26,7 +26,7 @@ const TeacherLessonsClassList = ({ user }) => {
             {lessons.map(lesson => {
                 return (
                 <div key={lesson.id}>
-                <Link to={`/teacher/${lesson.id}/lessons`}><li ><TeacherLessonCard lessonData={lesson}/></li></Link>
+                <li ><TeacherLessonCard lessonData={lesson}/></li>
                 </div>)
             })}
         </ul>
