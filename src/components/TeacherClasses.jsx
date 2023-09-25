@@ -26,7 +26,9 @@ const TeacherClasses = ({ user }) => {
     <p>loading...</p>
   ) : (
       <>
-        <h2>Your classes:</h2>
+        <Typography gutterBottom sx={{textAlign: "center"}} variant='h5'>
+        Your classes:
+        </Typography>
         {classes.map((classItem) => (
           <li key={classItem.id}><Link to={`/teacher/classes/${classItem.id}`}><TeacherClassesCard classItem={classItem}/></Link></li>
       ))}
