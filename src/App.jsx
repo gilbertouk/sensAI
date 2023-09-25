@@ -18,7 +18,7 @@ import AssignmentTeacherList from "./components/AssignmentTeacherList";
 import TeacherLessonsNew from "./components/TeacherLessonsNew";
 import { StudentSingleLessonPage } from "./components/StudentSingleLessonPage";
 import { TeacherSingleLessonPage } from "./components/TeacherSingleLessonPage";
-
+import { StudentClasses } from "./components/StudentClasses";
 import { getUser } from "./utils/api";
 
 import { onAuthStateChanged } from "firebase/auth";
@@ -90,6 +90,7 @@ function App() {
           path="/teacher/classes/:class_id"
           element={<StudentPage user={currentUser} />}
         />
+        <Route path="/student/classes/" element={<StudentClasses user={currentUser}/>}/>
         <Route path="/student/lessons/:lesson_id" element={<StudentSingleLessonPage/>}/>
         <Route path="/teacher/:lesson_id/lessons" element={<TeacherSingleLessonPage/>}/>
       </Routes>

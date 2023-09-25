@@ -6,9 +6,9 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import { TeacherClassesCard } from './TeacherClassesCard';
+import { StudentClassesCard } from './StudentClassesCard';
 
-const TeacherClasses = ({ user }) => {
+export const StudentClasses = ({ user }) => {
   const [classes, setClasses] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -30,10 +30,8 @@ const TeacherClasses = ({ user }) => {
         Your classes:
         </Typography>
         {classes.map((classItem) => (
-          <li key={classItem.id}><Link to={`/teacher/classes/${classItem.id}`}><TeacherClassesCard classItem={classItem}/></Link></li>
+          <li key={classItem.id}><StudentClassesCard classItem={classItem}/></li>
       ))}
     </>
   );
 };
-
-export default TeacherClasses;
