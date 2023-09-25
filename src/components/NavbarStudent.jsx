@@ -65,10 +65,12 @@ export const NavbarStudent = ({ handleLogout }) => {
           Lessons
         </MenuItem>
         </Link>
+        <Link to="/users/email/:email">
         <MenuItem onClick={handleClose}>
-        <AccountCircleIcon sx={{ mr: 2 }} />
-          My Account
-        </MenuItem>
+          <AccountCircleIcon sx={{ mr: 2 }} />
+          Profile
+          </MenuItem>
+          </Link>
         <MenuItem onClick={handleLogout}>
           <LogoutIcon sx={{ mr: 2 }} />
           Logout
