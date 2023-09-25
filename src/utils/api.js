@@ -138,14 +138,8 @@ export const getAssignmentsByTeacherIdAndClassID = (teacher_id, class_id) => {
 
 export const deleteAssignmentByAssignmentID = (assignment_id) => {
   return apiUrl
-    .delete(`/assignments/${assignment_id}/${user_id}`)
-      .then(({ data }) => {
-      return data;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+    .delete(`/assignments/${assignment_id}`)
+}
 
 export const postLesson = (teacher_id, class_id, title, body, due_date) => {
   return apiUrl
@@ -183,4 +177,15 @@ export const getLesson = (lesson_id) => {
   .catch((err)=> {
     console.log(err);
   })
+};
+
+export const getAssignmentsByTeacherIDAndClassID = (teacher_id, class_id) => {
+  return apiUrl
+    .get(`/assignments/${teacher_id}/${class_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

@@ -4,20 +4,20 @@ import Typography from "@mui/material/Typography";
 import SchoolIcon from "@mui/icons-material/School";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Box from '@mui/material/Box';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { deleteAssignmentByAssignmentID } from "../utils/api";
+
 
 export function TeacherClassClassIDAssignmentsCard ({ teacherClassAssignmentData }) {
     const navigate = useNavigate();
+    const {class_id} = useParams()
     function handleAssignmentToDisplay(assignment) {
-        const student_id = assignment.user_id
-        navigate(`/teacher/assignments/student/${student_id}`);
+        navigate(`/teacher/assignments/${class_id}`);
       } 
     
       function handleAssigmenttoDelete(assignment) {
         const assignment_id = assignment.id
-        const student_id = assignment.user_id
-      deleteAssignmentByAssignmentID(assignment_id, student_id)
+      deleteAssignmentByAssignmentID(assignment_id)
       return (<p>Assignment successfully deleted</p>)
       }
     return (
@@ -38,22 +38,22 @@ export function TeacherClassClassIDAssignmentsCard ({ teacherClassAssignmentData
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant="subtitle1" component="div">
-                user_assignment ID: {teacherClassAssignmentData.id}
+                ID: {teacherClassAssignmentData.id}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Assignment_id: {teacherClassAssignmentData.assignment_id}
+                Title: {teacherClassAssignmentData.title}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                user_id: {teacherClassAssignmentData.user_id}
+                Body: {teacherClassAssignmentData.body}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Student work: {teacherClassAssignmentData.work}
+                Teacher_id: {teacherClassAssignmentData.teacher_id}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Date submitted: {teacherClassAssignmentData.submit_date}
+                Due date: {teacherClassAssignmentData.due_date}
               </Typography>
               <Typography variant="body2">
-                Mark: {teacherClassAssignmentData.mark}
+                Created at: {teacherClassAssignmentData.created_at}
               </Typography>
                 <Box mt={3}>
                 </Box>
@@ -62,7 +62,6 @@ export function TeacherClassClassIDAssignmentsCard ({ teacherClassAssignmentData
                 fullWidth
                 variant="contained"
                 color="primary"
-                key={teacherClassAssignmentData.id}
                 onClick={() => {
                  handleAssignmentToDisplay(teacherClassAssignmentData);
                 }}
@@ -75,7 +74,6 @@ export function TeacherClassClassIDAssignmentsCard ({ teacherClassAssignmentData
                 fullWidth
                 variant="contained"
                 color="primary"
-                key={teacherClassAssignmentData.id}
                 onClick={() => {
                 handleAssigmenttoDelete(teacherClassAssignmentData);
                 }}
