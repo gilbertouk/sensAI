@@ -9,11 +9,11 @@ export const StudentPage = ({user}) => {
 
     return (
         <>
-            <Grid container sx={{justifyContent: "center"}}>
-                <Grid item xs={4} md={1}>
+            <Grid container sx={{justifyContent: "center", textAlign: "center", flexDirection: {xs: "column", sm: "row" }, maxWidth: 550, mr: "auto", ml: "auto"}} >
+                <Grid item xs={12} sm={5} sx={{mb: {xs: 2}}}>
             <TeacherWorkButton/>
                 </Grid>
-                <Grid item xs={4} md={1}>
+                <Grid item xs={12} sm={5}>
             <TeacherLessonsButton/>
                     
                 </Grid>
