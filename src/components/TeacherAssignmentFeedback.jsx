@@ -15,7 +15,7 @@ import {
   Skeleton,
 } from "@mui/material";
 
-const TeacherAssignmentFeedback = ({ user }) => {
+const TeacherAssignmentFeedback = () => {
   const { assignment_id } = useParams();
   const [assignment, setAssignment] = useState(null);
   const [mark, setMark] = useState("");

@@ -27,14 +27,8 @@ import { auth } from "./firebase";
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client"; // socket.io
 import { StudentTeachersListPage } from "./components/StudentTeachersListPage";
+import Chat from "./components/Chat";
 const socket = io("http://localhost:4000"); // socket.io
-
-// if (currentUser) {
-//   socket.on("connect", () => {
-//     console.log(`user: ${currentUser.name} connected with ID: ${socket.id}`);
-//     console.log(socket.connected);
-//   });
-// }
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -43,8 +37,10 @@ function App() {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         const { user: fetchedUser } = await getUser(user.email);
+        localStorage.setItem("user", fetchedUser.name);
         setCurrentUser(fetchedUser);
       } else {
+        localStorage.removeItem("user");
         setCurrentUser("logged out");
       }
     });
@@ -115,12 +111,16 @@ function App() {
           element={<TeacherSingleLessonPage />}
         />
         <Route
-          path="/teacher/assignments/id/:assignment_id"
-          element={<TeacherAssignmentFeedback user={currentUser} />}
+          path="/teacher/assignments/feedback/:assignment_id"
+          element={<TeacherAssignmentFeedback />}
         />
         <Route
           path="/student/teachers"
           element={<StudentTeachersListPage user={currentUser} />}
+        />
+        <Route
+          path="/student/teachers/chat"
+          element={<Chat user={currentUser} socket={socket} />}
         />
       </Routes>
     </>
