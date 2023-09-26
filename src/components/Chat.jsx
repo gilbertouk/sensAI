@@ -13,21 +13,48 @@ import {
   Typography,
 } from "@mui/material";
 import { Fragment, useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import ChatMessages from "./ChatMessages";
+import { socket } from "../socket";
 
-export default function Chat({ user, socket }) {
+export default function Chat({ user }) {
   const ENTER_KEY_CODE = 13;
   const scrollBottomRef = useRef(null);
   const [chatMessages, setChatMessages] = useState([]);
   const [currentUser, setCurrentUser] = useState(localStorage.getItem("user"));
   const [message, setMessage] = useState("");
+  const { room_id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    socket.on("messageResponse", (data) => {
-      setChatMessages([...chatMessages, data]);
-    });
-  }, [socket, chatMessages]);
+    if (user) {
+      if (
+        localStorage.getItem("roomId") !== room_id ||
+        user.name !== localStorage.getItem("user")
+      ) {
+        if (user.role === "student") {
+          navigate("/student/teachers");
+        } else if (user.role === "teacher") {
+          navigate("/teacher/classes");
+        } else {
+          navigate("/");
+        }
+      }
+
+      socket.emit("select_room", room_id, (data) => {
+        setChatMessages(data);
+      });
+    }
+  }, [room_id, user, navigate]);
+
+  useEffect(() => {
+    if (user) {
+      socket.on("messageResponse", (data) => {
+        setChatMessages([...chatMessages, data]);
+      });
+    }
+  }, [chatMessages, user]);
 
   useEffect(() => {
     // scroll to bottom every time messages change
@@ -47,12 +74,13 @@ export default function Chat({ user, socket }) {
   const sendMessage = () => {
     if (currentUser && message) {
       console.log("Send!");
-      socket.emit("message", {
+      const newMessage = {
         text: message,
         name: localStorage.getItem("user"),
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
-      });
+      };
+      socket.emit("message", { data: newMessage, room: room_id });
       setMessage("");
     }
   };
@@ -66,14 +94,14 @@ export default function Chat({ user, socket }) {
               sensAI chat!
             </Typography>
             <Divider />
-            <Grid container spacing={4} alignItems="center">
+            <Grid container spacing={1} alignItems="center">
               <Grid id="chat-window" xs={12} item>
                 <List id="chat-window-messages">
                   <ChatMessages chatMessages={chatMessages} />
                   <ListItem ref={scrollBottomRef}></ListItem>
                 </List>
               </Grid>
-              <Grid xs={2} item>
+              <Grid xs={3} md={2} item>
                 <FormControl fullWidth>
                   <TextField
                     value={currentUser}
@@ -83,7 +111,7 @@ export default function Chat({ user, socket }) {
                   />
                 </FormControl>
               </Grid>
-              <Grid xs={9} item>
+              <Grid xs={8} md={9} item>
                 <FormControl fullWidth>
                   <TextField
                     onChange={handleMessageChange}
@@ -94,7 +122,7 @@ export default function Chat({ user, socket }) {
                   />
                 </FormControl>
               </Grid>
-              <Grid xs={1} item>
+              <Grid xs={1} md={1} item>
                 <IconButton
                   onClick={sendMessage}
                   aria-label="send"

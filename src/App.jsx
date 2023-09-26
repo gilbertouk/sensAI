@@ -25,10 +25,8 @@ import { getUser } from "./utils/api";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { useState, useEffect } from "react";
-import { io } from "socket.io-client"; // socket.io
 import { StudentTeachersListPage } from "./components/StudentTeachersListPage";
 import Chat from "./components/Chat";
-const socket = io("http://localhost:4000"); // socket.io
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -41,6 +39,7 @@ function App() {
         setCurrentUser(fetchedUser);
       } else {
         localStorage.removeItem("user");
+        localStorage.removeItem("roomId");
         setCurrentUser("logged out");
       }
     });
@@ -119,8 +118,12 @@ function App() {
           element={<StudentTeachersListPage user={currentUser} />}
         />
         <Route
-          path="/student/teachers/chat"
-          element={<Chat user={currentUser} socket={socket} />}
+          path="/student/teachers/chat/:room_id"
+          element={<Chat user={currentUser} />}
+        />
+        <Route
+          path="/teachers/student/chat/:room_id"
+          element={<Chat user={currentUser} />}
         />
       </Routes>
     </>
