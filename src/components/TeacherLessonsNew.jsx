@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { postLesson, getClassesByTeacherID } from "../utils/api";
+import { postLesson, getClassesByTeacherID, createAIlesson } from "../utils/api";
 
 import {
   TextField,
@@ -27,7 +27,9 @@ const TeacherAssignmentsNew = ({ user }) => {
   const [unsuccessfullSubmit, setUnsuccessfullSubmit] = useState(false)
   const [aiButton, setAIbutton] = useState(false);
   const [aiPrompt, setAIprompt] = useState("");
-  const [selectedTextLength, setSelectedTextLength] = useState(1);
+  const [selectedTextLength, setSelectedTextLength] = useState(100);
+  const [selectedExamBoard, setSelectedExamBoard] = useState("");
+  const [waitingRes, setWaitingRes] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -81,10 +83,18 @@ const TeacherAssignmentsNew = ({ user }) => {
   const handleAIclick = (e) => {
     e.preventDefault();
     setAIbutton(true);
-    if(aiButton){
-      setAIbutton(false);
+    setBody("")
+    if(user && user.id && selectedClass && selectedTextLength && selectedExamBoard){
+      if(aiButton){
+        setAIbutton(false);
+        setWaitingRes(true);
+        createAIlesson(aiPrompt, selectedTextLength, selectedExamBoard)
+        .then((data)=> {
+          setBody(data);
+          setWaitingRes(false);
+        })
+      }
     }
-
   }
   if (loading)
     return (
@@ -200,22 +210,60 @@ const TeacherAssignmentsNew = ({ user }) => {
                 label="Class"
                 required
               >
-                  <MenuItem value={1}>
+                  <MenuItem value={100}>
                     100
                   </MenuItem>
-                  <MenuItem value={2}>
+                  <MenuItem value={200}>
                     250
                   </MenuItem>
-                  <MenuItem value={3}>
+                  <MenuItem value={500}>
                     500
                   </MenuItem>
-                  <MenuItem value={4}>
+                  <MenuItem value={750}>
                     750
                   </MenuItem>
-                  <MenuItem value={5}>
+                  <MenuItem value={1000}>
                     1000
                   </MenuItem>
   
+              </Select>
+            </FormControl>
+          </Grid> : null }
+          {aiButton ? 
+          <Grid item xs={12}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel
+                id="class-label"
+                sx={{
+                  backgroundColor: "white",
+                  paddingLeft: "6px",
+                  paddingRight: "6px",
+                }}
+              >
+                Exam board
+              </InputLabel>
+              <Select
+                labelId="class-label"
+                value={selectedExamBoard}
+                onChange={(e) => setSelectedExamBoard(e.target.value)}
+                label="Class"
+                required
+              >
+                  <MenuItem value={"OCR"}>
+                    OCR
+                  </MenuItem>
+                  <MenuItem value={"EDUQAS"}>
+                    EDUQAS
+                  </MenuItem>
+                  <MenuItem value={"AQA"}>
+                    AQA
+                  </MenuItem>
+                  <MenuItem value={"WJEC"}>
+                    WJEC
+                  </MenuItem>
+                  <MenuItem value={"EDEXCEL"}>
+                    EDEXCEL
+                  </MenuItem>
               </Select>
             </FormControl>
           </Grid> : null }
@@ -244,13 +292,21 @@ const TeacherAssignmentsNew = ({ user }) => {
               ) : (
                 <></>
                 )}
+              {waitingRes ? 
+              <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">AI response might take a few seconds to appear in body</Alert>
+              </Grid>
+              :
+              null
+              }
           </Grid>
           <Grid item xs={12}>
             <LoadingButton
-            type="button"
+            type="submit"
             variant="contained"
             color="primary"
             fullWidth
+            loading={posting}
             onClick={handleAIclick}
             
             >
