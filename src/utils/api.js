@@ -196,6 +196,7 @@ export const getAssignmentsByTeacherIDAndClassID = (teacher_id, class_id) => {
     });
 };
 
+
 export const patchAssigmentFeedbackAndMark = (
   assignment_id,
   mark,
@@ -211,9 +212,19 @@ export const patchAssigmentFeedbackAndMark = (
     });
 };
 
-export const patchUser = (user_id) => {
+export const patchUser = (
+  user_id,
+  name,
+  surname,
+  email,
+  disability,
+) => {
   return apiUrl
-    .patch(`/api/users/${user_id}`)
+    .patch(`/users/${user_id}`, {
+      name,
+      surname,
+      email,
+      disability})
     .then(({ data }) => {
       return data;
     })

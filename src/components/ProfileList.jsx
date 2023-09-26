@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export const ProfileList = ({user}) => {
+  console.log(user)
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true); 
     
