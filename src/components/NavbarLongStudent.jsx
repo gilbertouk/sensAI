@@ -9,6 +9,11 @@ export const NavbarLongStudent = ({ handleLogout }) => {
                 Home
               </Button>
               </Link>
+              <Link to="/student/classes/">
+              <Button sx={{ color: 'black', fontSize: 15 }}>
+              Classes
+              </Button>
+              </Link>
               <Link to="/student/assignments">
               <Button sx={{ color: 'black', fontSize: 15 }}>
                 Assignment

@@ -125,16 +125,20 @@ export const getStudentsByTeacherClass = (teacher_id, class_id) => {
     });
 };
 
+
 export const getAssignmentsByTeacherIdAndClassID = (teacher_id, class_id) => {
   return apiUrl
     .get(`/assignments/${teacher_id}/${class_id}`)
+
     .then(({ data }) => {
       return data;
     })
     .catch((err) => {
       console.log(err);
     });
-};
+
+}
+
 
 export const deleteAssignmentByAssignmentID = (assignment_id) => {
   return apiUrl
@@ -188,6 +192,17 @@ export const getLesson = (lesson_id) => {
 export const getAssignmentsByTeacherIDAndClassID = (teacher_id, class_id) => {
   return apiUrl
     .get(`/assignments/${teacher_id}/${class_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const patchUser = (user_id) => {
+  return apiUrl
+    .patch(`/api/users/${user_id}`)
     .then(({ data }) => {
       return data;
     })

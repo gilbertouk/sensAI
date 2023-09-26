@@ -7,8 +7,12 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import Box from '@mui/material/Box';
 import { deleteLessonByLessonID } from "../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Alert } from "@mui/material";
 
 export const TeacherLessonCard = ({lessonData}) => {
+  const [successSubmit, setSuccessSubmit] = useState(false);
+
   const navigate = useNavigate();
   
   function handleLessonToDisplay(lessonData) {
@@ -16,9 +20,14 @@ export const TeacherLessonCard = ({lessonData}) => {
   } 
 
 function handleLessonToDelete(lessonData) {
+  if (lessonData.id) {
     const lesson_id = lessonData.id
-  deleteLessonByLessonID(lesson_id)
-  return (<p>Lesson successfully deleted</p>)
+    deleteLessonByLessonID(lesson_id)
+    setSuccessSubmit(true);
+    setTimeout(() => {
+      setSuccessSubmit(false);
+    }, 2000);
+    }
   }
     return (
         <Paper
@@ -75,6 +84,13 @@ function handleLessonToDelete(lessonData) {
                 >
                 Delete this lesson
                 </LoadingButton>
+                {successSubmit ? (
+              <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">Lesson successfully deleted!</Alert>
+              </Grid>
+              ) : (
+              <></>
+              )}
             </Grid>
           </Grid>
           <Grid item>
