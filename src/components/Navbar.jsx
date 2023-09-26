@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { NavbarTeacher } from "./NavbarTeacher";
 import { NavbarStudent } from "./NavbarStudent";
 import { signOut } from "firebase/auth";
@@ -9,6 +8,8 @@ import { LoginButton } from "./LoginButton";
 import { auth } from "./../firebase";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { NavbarLongTeacher } from "./NavbarLongTeacher";
+import { NavbarLongStudent } from "./NavbarLongStudent";
 
 export const Navbar = ({ user }) => {
   const navigate = useNavigate();
@@ -26,15 +27,18 @@ export const Navbar = ({ user }) => {
   };
 
   let userStatus = null;
+  let userStatusRes = null;
 
   if (user === "logged out") {
     userStatus = <LoginButton />;
   } else if (user === "null") {
     userStatus = "";
   } else if (user && user.role === "student") {
-    userStatus = <NavbarStudent handleLogout={handleLogout} user={user} />;
+    userStatus = <NavbarStudent handleLogout={handleLogout} />;
+    userStatusRes = <NavbarLongStudent handleLogout={handleLogout}/>
   } else if (user && user.role === "teacher") {
     userStatus = <NavbarTeacher handleLogout={handleLogout} />;
+    userStatusRes = <NavbarLongTeacher handleLogout={handleLogout}/>
   }
 
   return (
@@ -53,6 +57,7 @@ export const Navbar = ({ user }) => {
           sensAI
         </Link>
       </Typography>
+      {userStatusRes}
       {userStatus}
     </Container>
   );

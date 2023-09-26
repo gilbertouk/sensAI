@@ -28,6 +28,7 @@ export const NavbarStudent = ({ handleLogout }) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
+        sx={{display: {xs: "block", sm: "block", md: "none", lg: "none"}}}
       >
         <MenuIcon sx={{ color: "black", fontSize: 40 }} />
       </Button>
@@ -46,22 +47,30 @@ export const NavbarStudent = ({ handleLogout }) => {
           Home
         </MenuItem>
         </Link>
+        <Link to="/student/classes/">
+        <MenuItem onClick={handleClose}>
+          <SchoolIcon sx={{ mr: 2 }} />
+          Classes
+        </MenuItem>
+        </Link>
         <Link to="/student/assignments">
         <MenuItem onClick={handleClose}>
           <AssignmentIcon sx={{ mr: 2 }} />
-          Assignment
+          Assignments
         </MenuItem>
         </Link>
         <Link to="/student/lessons">
         <MenuItem onClick={handleClose}>
           <SchoolIcon sx={{ mr: 2 }} />
-          Lesson
+          Lessons
         </MenuItem>
         </Link>
+        <Link to="/users/email/:email">
         <MenuItem onClick={handleClose}>
-        <AccountCircleIcon sx={{ mr: 2 }} />
-          My Account
-        </MenuItem>
+          <AccountCircleIcon sx={{ mr: 2 }} />
+          Profile
+          </MenuItem>
+          </Link>
         <MenuItem onClick={handleLogout}>
           <LogoutIcon sx={{ mr: 2 }} />
           Logout

@@ -11,6 +11,7 @@ import {
   Grid,
   Typography,
   Skeleton,
+  Alert,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
@@ -21,6 +22,8 @@ const TeacherAssignmentsNew = ({ user }) => {
   const [selectedClass, setSelectedClass] = useState(null);
   const [loading, setLoading] = useState(true);
   const [posting, setPosting] = useState(false);
+  const [successSubmit, setSuccessSubmit] = useState(false);
+  const [unsuccessfullSubmit, setUnsuccessfullSubmit] = useState(false)
 
   useEffect(() => {
     if (user) {
@@ -32,6 +35,7 @@ const TeacherAssignmentsNew = ({ user }) => {
         .catch((err) => {
           console.log("Error Fetching Classes:", err);
           setLoading(false);
+          setUnsuccessfullSubmit(true)
         });
     }
   }, [user]);
@@ -47,13 +51,26 @@ const TeacherAssignmentsNew = ({ user }) => {
     if (user && user.id && selectedClass) {
       setPosting(true);
       postLesson(user.id, selectedClass, title, body)
-        .then((data) => console.log("Assignment Posted:", data))
-        .catch((err) => console.error("Error Posting Assignment:", err))
+        .then((data) => {
+          console.log("Assignment Posted:", data)
+          setUnsuccessfullSubmit(false)
+          setSuccessSubmit(true);
+          setTimeout(() => {
+            setSuccessSubmit(false);
+          }, 2000);
+        })
+        .catch((err) => {
+          console.error("Error Posting Assignment:", err)
+          setSuccessSubmit(false);
+          setUnsuccessfullSubmit(true)
+        })
         .finally(() => {
           setPosting(false);
         });
     } else {
       console.error("User ID or Selected Class ID not available");
+      setUnsuccessfullSubmit(true)
+      setSuccessSubmit(false);
     }
   };
   if (loading)
@@ -147,6 +164,20 @@ const TeacherAssignmentsNew = ({ user }) => {
             >
               Post Lesson
             </LoadingButton>
+              {successSubmit ? (
+              <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">Assignment successfully posted!</Alert>
+              </Grid>
+              ) : (
+              <></>
+              )}
+              {unsuccessfullSubmit ? (
+              <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">Error: Error fetching classes, User ID not available, Class ID not available or error posting assignment</Alert>
+              </Grid>
+              ) : (
+              <></>
+              )}
           </Grid>
         </Grid>
       </form>
