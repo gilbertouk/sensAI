@@ -39,7 +39,6 @@ function App() {
         const { user: fetchedUser } = await getUser(user.email);
         localStorage.setItem("user", fetchedUser.name);
         setCurrentUser(fetchedUser);
-        socket.emit("newUser", { currentUser, socketID: socket.id });
       } else {
         localStorage.removeItem("user");
         setCurrentUser("logged out");
