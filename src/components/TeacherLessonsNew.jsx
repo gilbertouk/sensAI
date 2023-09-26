@@ -54,7 +54,7 @@ const TeacherAssignmentsNew = ({ user }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user && user.id && selectedClass) {
+    if (user && user.id && selectedClass && body) {
       setPosting(true);
       postLesson(user.id, selectedClass, title, body)
         .then((data) => {
@@ -95,6 +95,11 @@ const TeacherAssignmentsNew = ({ user }) => {
         })
       }
     }
+  }
+
+  const handleBack = (e) => {
+    e.preventDefault();
+    setAIbutton(false);
   }
   if (loading)
     return (
@@ -138,18 +143,31 @@ const TeacherAssignmentsNew = ({ user }) => {
               required
             />
           </Grid>
-          <Grid item xs={12}>
+          {aiButton ? <Grid item xs={12}>
             <TextField
               fullWidth
               label="Body"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
+              value={"AI response will appear here"}
               required
               multiline
               rows={5}
               variant="outlined"
+              disabled
             />
-          </Grid>
+          </Grid> :
+          <Grid item xs={12}>
+          <TextField
+            fullWidth
+            label="Body"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            required
+            multiline
+            rows={5}
+            variant="outlined"
+          />
+        </Grid>}
+          
           <Grid item xs={12}>
             <FormControl fullWidth variant="outlined">
               <InputLabel
@@ -268,6 +286,7 @@ const TeacherAssignmentsNew = ({ user }) => {
             </FormControl>
           </Grid> : null }
           <Grid item xs={12}></Grid>
+          {!aiButton ? 
           <Grid item xs={12}>
             <LoadingButton
               type="submit"
@@ -294,12 +313,26 @@ const TeacherAssignmentsNew = ({ user }) => {
                 )}
               {waitingRes ? 
               <Grid item mb={2} ml={3} mr={3} xs={12}>
-              <Alert severity="success">AI response might take a few seconds to appear in body</Alert>
+              <Alert severity="success">AI response might take a few seconds</Alert>
               </Grid>
               :
               null
               }
-          </Grid>
+          </Grid> 
+          : <Grid item xs={12}>
+          <LoadingButton
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          loading={posting}
+          onClick={handleBack}
+          
+          >
+            Back
+          </LoadingButton>
+        </Grid>}
+          
           <Grid item xs={12}>
             <LoadingButton
             type="submit"
