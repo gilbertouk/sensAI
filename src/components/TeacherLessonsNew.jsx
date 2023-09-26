@@ -12,6 +12,7 @@ import {
   Typography,
   Skeleton,
   Alert,
+  Button,
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
@@ -24,6 +25,9 @@ const TeacherAssignmentsNew = ({ user }) => {
   const [posting, setPosting] = useState(false);
   const [successSubmit, setSuccessSubmit] = useState(false);
   const [unsuccessfullSubmit, setUnsuccessfullSubmit] = useState(false)
+  const [aiButton, setAIbutton] = useState(false);
+  const [aiPrompt, setAIprompt] = useState("");
+  const [selectedTextLength, setSelectedTextLength] = useState(1);
 
   useEffect(() => {
     if (user) {
@@ -39,7 +43,7 @@ const TeacherAssignmentsNew = ({ user }) => {
         });
     }
   }, [user]);
-
+  
   useEffect(() => {
     if (selectedClass && user) {
       setLoading(false);
@@ -73,6 +77,15 @@ const TeacherAssignmentsNew = ({ user }) => {
       setSuccessSubmit(false);
     }
   };
+
+  const handleAIclick = (e) => {
+    e.preventDefault();
+    setAIbutton(true);
+    if(aiButton){
+      setAIbutton(false);
+    }
+
+  }
   if (loading)
     return (
       <Container component="main" maxWidth="sm">
@@ -97,9 +110,9 @@ const TeacherAssignmentsNew = ({ user }) => {
           </Grid>
         </Grid>
       </Container>
-    );
+    );    
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main" maxWidth="sm" sx={{mb: 2}}>
       <Typography variant="h5" component="h2" gutterBottom>
         Create New Lesson
       </Typography>
@@ -154,6 +167,59 @@ const TeacherAssignmentsNew = ({ user }) => {
               </Select>
             </FormControl>
           </Grid>
+          {aiButton ?
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Lesson Subject"
+              value={aiPrompt}
+              onChange={(e) => setAIprompt(e.target.value)}
+              required
+              multiline
+              rows={5}
+              variant="outlined"
+            />
+          </Grid> : null }
+          {aiButton ? 
+          <Grid item xs={12}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel
+                id="class-label"
+                sx={{
+                  backgroundColor: "white",
+                  paddingLeft: "6px",
+                  paddingRight: "6px",
+                }}
+              >
+                Lesson Text Length
+              </InputLabel>
+              <Select
+                labelId="class-label"
+                value={selectedTextLength}
+                onChange={(e) => setSelectedTextLength(e.target.value)}
+                label="Class"
+                required
+              >
+                  <MenuItem value={1}>
+                    100
+                  </MenuItem>
+                  <MenuItem value={2}>
+                    250
+                  </MenuItem>
+                  <MenuItem value={3}>
+                    500
+                  </MenuItem>
+                  <MenuItem value={4}>
+                    750
+                  </MenuItem>
+                  <MenuItem value={5}>
+                    1000
+                  </MenuItem>
+  
+              </Select>
+            </FormControl>
+          </Grid> : null }
+          <Grid item xs={12}></Grid>
           <Grid item xs={12}>
             <LoadingButton
               type="submit"
@@ -176,8 +242,20 @@ const TeacherAssignmentsNew = ({ user }) => {
               <Alert severity="success">Error: Error fetching classes, User ID not available, Class ID not available or error posting assignment</Alert>
               </Grid>
               ) : (
-              <></>
-              )}
+                <></>
+                )}
+          </Grid>
+          <Grid item xs={12}>
+            <LoadingButton
+            type="button"
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleAIclick}
+            
+            >
+              AI generate lesson
+            </LoadingButton>
           </Grid>
         </Grid>
       </form>
