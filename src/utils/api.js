@@ -125,7 +125,6 @@ export const getStudentsByTeacherClass = (teacher_id, class_id) => {
     });
 };
 
-
 export const getAssignmentsByTeacherIdAndClassID = (teacher_id, class_id) => {
   return apiUrl
     .get(`/assignments/${teacher_id}/${class_id}`)
@@ -136,20 +135,15 @@ export const getAssignmentsByTeacherIdAndClassID = (teacher_id, class_id) => {
     .catch((err) => {
       console.log(err);
     });
-
-}
-
+};
 
 export const deleteAssignmentByAssignmentID = (assignment_id) => {
-  return apiUrl
-    .delete(`/assignments/${assignment_id}`)
-}
+  return apiUrl.delete(`/assignments/${assignment_id}`);
+};
 
 export const deleteLessonByLessonID = (lesson_id) => {
-  return apiUrl
-    .delete(`/lessons/${lesson_id}`)
-}
-
+  return apiUrl.delete(`/lessons/${lesson_id}`);
+};
 
 export const postLesson = (teacher_id, class_id, title, body, due_date) => {
   return apiUrl
@@ -159,7 +153,8 @@ export const postLesson = (teacher_id, class_id, title, body, due_date) => {
     })
     .then(({ data }) => {
       return data;
-    }).catch((err) => {
+    })
+    .catch((err) => {
       console.log(err);
     });
 };
@@ -171,27 +166,44 @@ export const patchStudentAssignmentByAssignmentId = (
 ) => {
   return apiUrl
     .patch(`/student/${student_id}/assignments/${assignment_id}`, body)
-      .then(({ data }) => {
+    .then(({ data }) => {
       return data;
     })
     .catch((err) => {
       console.log(err);
     });
-
 };
 
 export const getLesson = (lesson_id) => {
-  return apiUrl.get(`/lessons/${lesson_id}`).then(({data})=> {
-    return data;
-  })
-  .catch((err)=> {
-    console.log(err);
-  })
+  return apiUrl
+    .get(`/lessons/${lesson_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const getAssignmentsByTeacherIDAndClassID = (teacher_id, class_id) => {
   return apiUrl
     .get(`/assignments/${teacher_id}/${class_id}`)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+
+export const patchAssigmentFeedbackAndMark = (
+  assignment_id,
+  mark,
+  feedback
+) => {
+  return apiUrl
+    .patch(`/assignmentsid/${assignment_id}`, { mark, feedback })
     .then(({ data }) => {
       return data;
     })
@@ -207,13 +219,32 @@ export const patchUser = (
   email,
   disability,
 ) => {
-  console.log(surname)
   return apiUrl
     .patch(`/users/${user_id}`, {
       name,
       surname,
       email,
       disability})
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const getStudentsAssignmentsById = (assignment_id) => {
+  return apiUrl
+    .get(`/assignmentsid/${assignment_id}`).then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getAllStudentTeachersByStudentId = (student_id) => {
+  return apiUrl
+    .get(`/student/teachers/${student_id}`)
     .then(({ data }) => {
       return data;
     })
