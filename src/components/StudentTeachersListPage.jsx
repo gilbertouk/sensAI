@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllStudentTeachersByStudentId } from "../utils/api";
@@ -28,8 +29,8 @@ export function StudentTeachersListPage({ user }) {
     }
   }, [user]);
 
-  function handleTeacherToChat(teachers_id) {
-    navigate(`/student/teachers/${teachers_id}`);
+  function handleTeacherToChat() {
+    navigate(`/student/teachers/chat`);
   }
 
   if (isError) {
@@ -64,7 +65,7 @@ export function StudentTeachersListPage({ user }) {
             <li
               key={teacher.id}
               onClick={() => {
-                handleTeacherToChat(teacher.id);
+                handleTeacherToChat();
               }}
             >
               <StudentTeachersCard teachersData={teacher} />
