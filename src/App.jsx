@@ -115,8 +115,8 @@ function App() {
           element={<TeacherSingleLessonPage />}
         />
         <Route
-          path="/teacher/assignments/id/:assignment_id"
-          element={<TeacherAssignmentFeedback user={currentUser} />}
+          path="/teacher/assignments/feedback/:assignment_id"
+          element={<TeacherAssignmentFeedback />}
         />
         <Route
           path="/student/teachers"

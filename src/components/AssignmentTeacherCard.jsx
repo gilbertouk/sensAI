@@ -3,8 +3,14 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import SchoolIcon from "@mui/icons-material/School";
+import { Link } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-export function TeacherAssignmentCard ({ teacherAssignmentData }) {
+export function TeacherAssignmentCard({ teacherAssignmentData }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/teacher/assignments/feedback/${teacherAssignmentData.id}`);
+  };
   return (
     <Paper
       sx={{
@@ -18,37 +24,39 @@ export function TeacherAssignmentCard ({ teacherAssignmentData }) {
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
     >
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm container>
-          <Grid item xs container direction="column" spacing={2}>
-            <Grid item xs>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                user_assignment ID: {teacherAssignmentData.id}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                Assignment_id: {teacherAssignmentData.assignment_id}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                user_id: {teacherAssignmentData.user_id}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                Student work: {teacherAssignmentData.work}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                Date submitted: {teacherAssignmentData.submit_date}
-              </Typography>
-              <Typography variant="body2">
-                Mark: {teacherAssignmentData.mark}
+      <Link color="inherit" underline="none" onClick={handleClick}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1" component="div">
+                  user_assignment ID: {teacherAssignmentData.id}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Assignment_id: {teacherAssignmentData.assignment_id}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  user_id: {teacherAssignmentData.user_id}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Student work: {teacherAssignmentData.work}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Date submitted: {teacherAssignmentData.submit_date}
+                </Typography>
+                <Typography variant="body2">
+                  Mark: {teacherAssignmentData.mark}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Typography variant="subtitle1" component="div">
+                <SchoolIcon />
               </Typography>
             </Grid>
           </Grid>
-          <Grid item>
-            <Typography variant="subtitle1" component="div">
-              <SchoolIcon />
-            </Typography>
-          </Grid>
         </Grid>
-      </Grid>
+      </Link>
     </Paper>
   );
-};
+}
