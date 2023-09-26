@@ -29,8 +29,9 @@ export function StudentTeachersListPage({ user }) {
     }
   }, [user]);
 
-  function handleTeacherToChat() {
-    navigate(`/student/teachers/chat`);
+  function handleTeacherToChat(room_id) {
+    localStorage.setItem("roomId", room_id);
+    navigate(`/student/teachers/chat/${room_id}`);
   }
 
   if (isError) {
@@ -65,7 +66,7 @@ export function StudentTeachersListPage({ user }) {
             <li
               key={teacher.id}
               onClick={() => {
-                handleTeacherToChat();
+                handleTeacherToChat(`${teacher.id}_${user.id}`);
               }}
             >
               <StudentTeachersCard teachersData={teacher} />
