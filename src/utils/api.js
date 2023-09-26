@@ -252,3 +252,18 @@ export const getAllStudentTeachersByStudentId = (student_id) => {
       console.log(err);
     });
 };
+
+export const createAIlesson = (prompt, textLength, examBoard) => {
+  return apiUrl
+  .post(`http://localhost:9090/ai/assist`, {
+    role: "user",
+    content: `Write me a strict ${textLength} character length (do not exceed this character length) lesson based on ${prompt} using the ${examBoard} exam board`
+  })
+  .then(({data})=> {
+    return data.message;
+  }).catch((err)=> {
+    console.log(err);
+  })
+} 
+
+// `Give me a ${textLength}`
