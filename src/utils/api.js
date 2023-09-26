@@ -200,9 +200,20 @@ export const getAssignmentsByTeacherIDAndClassID = (teacher_id, class_id) => {
     });
 };
 
-export const patchUser = (user_id) => {
+export const patchUser = (
+  user_id,
+  name,
+  surname,
+  email,
+  disability,
+) => {
+  console.log(surname)
   return apiUrl
-    .patch(`/api/users/${user_id}`)
+    .patch(`/users/${user_id}`, {
+      name,
+      surname,
+      email,
+      disability})
     .then(({ data }) => {
       return data;
     })

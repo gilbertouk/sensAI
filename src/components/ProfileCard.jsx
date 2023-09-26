@@ -9,7 +9,7 @@ import Input from '@mui/material/Input';
 import FormHelperText from '@mui/material/FormHelperText';
 import Box from '@mui/material/Box';
 
-export const ProfileCard = (currentUser) => {
+export const ProfileCard = ({currentUser}) => {
 
     return (
         <Paper
