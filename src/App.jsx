@@ -25,13 +25,16 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { useState, useEffect } from "react";
 
-import socketIO from "socket.io-client"; // socket.io
-const socket = socketIO.connect("http://localhost:4000"); // socket.io
+import { io } from "socket.io-client"; // socket.io
+import { StudentTeachersListPage } from "./components/StudentTeachersListPage";
+const socket = io("http://localhost:4000"); // socket.io
 
-socket.on("connect", () => {
-  console.log(socket.id);
-  console.log(socket.connected);
-});
+// if (currentUser) {
+//   socket.on("connect", () => {
+//     console.log(`user: ${currentUser.name} connected with ID: ${socket.id}`);
+//     console.log(socket.connected);
+//   });
+// }
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -47,6 +50,7 @@ function App() {
       }
     });
   }, []);
+
   return (
     <>
       {/* <Header /> Most likely used for home page/login */}
@@ -110,6 +114,10 @@ function App() {
         <Route
           path="/teacher/:lesson_id/lessons"
           element={<TeacherSingleLessonPage />}
+        />
+        <Route
+          path="/student/teachers"
+          element={<StudentTeachersListPage user={currentUser} />}
         />
       </Routes>
     </>
