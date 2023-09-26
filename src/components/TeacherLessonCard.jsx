@@ -9,9 +9,11 @@ import { deleteLessonByLessonID } from "../utils/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Alert } from "@mui/material";
+import { useEffect } from 'react';
 
 export const TeacherLessonCard = ({lessonData}) => {
   const [successSubmit, setSuccessSubmit] = useState(false);
+  const [lessonDescription, setLessonDescription] = useState("");
 
   const navigate = useNavigate();
   
@@ -29,6 +31,21 @@ function handleLessonToDelete(lessonData) {
     }, 2000);
     }
   }
+  useEffect(()=> {
+    if(lessonData){
+      let counter = 0;
+      const description = lessonData.body.split("").filter(char => {
+        if(char === " "){
+          counter++;
+        }
+        if(counter !== 10 && counter <= 10){
+          return char;
+        }
+      }).join("")
+      setLessonDescription(description);
+    }
+  },[])
+  
     return (
         <Paper
       sx={{
@@ -50,7 +67,7 @@ function handleLessonToDelete(lessonData) {
                 {lessonData.title}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                {lessonData.body}
+                {lessonDescription}...
               </Typography>
             </Grid>
             <Grid item>
