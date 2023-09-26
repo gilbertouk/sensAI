@@ -13,8 +13,8 @@ import Home from "./components/Home";
 import TeacherClasses from "./components/TeacherClasses";
 import TeacherAssignmentsNew from "./components/TeacherAssignmentsNew";
 import { StudentPage } from "./components/StudentPage";
-import { ProfilePage }  from "./components/ProfilePage";
-import TeacherClassClassIDAssignmentsList from "./components/TeacherClassClassIDAssignmentsList"
+import { ProfilePage } from "./components/ProfilePage";
+import TeacherClassClassIDAssignmentsList from "./components/TeacherClassClassIDAssignmentsList";
 import AssignmentTeacherList from "./components/AssignmentTeacherList";
 import TeacherLessonsNew from "./components/TeacherLessonsNew";
 import { StudentSingleLessonPage } from "./components/StudentSingleLessonPage";
@@ -25,6 +25,13 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { useState, useEffect } from "react";
 
+import socketIO from "socket.io-client"; // socket.io
+const socket = socketIO.connect("http://localhost:4000"); // socket.io
+
+socket.on("connect", () => {
+  console.log(socket.id);
+  console.log(socket.connected);
+});
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -70,12 +77,13 @@ function App() {
         />
 
         <Route
-
           path="/teacher/assignments/student/:user_id"
           element={<StudentAssignmentsPage user={currentUser} />}
         />
-        <Route path="/teacher/assignments/new"
-          element={<TeacherAssignmentsNew user={currentUser} />}/>
+        <Route
+          path="/teacher/assignments/new"
+          element={<TeacherAssignmentsNew user={currentUser} />}
+        />
         <Route
           path="/teacher/lessons/new"
           element={<TeacherLessonsNew user={currentUser} />}
@@ -86,21 +94,23 @@ function App() {
           element={<TeacherClasses user={currentUser} />}
         />
 
-        <Route path="/students" element={<StudentPage/>} />
-        <Route path="/teacher/classes/:class_id" element={<StudentPage user={currentUser} />} />
-        <Route path="/user/:user_id" element={<ProfilePage user={currentUser} />} />
-
-        
-        <Route path="/teacher/classes/:class_id/assignments" element={<TeacherClassClassIDAssignmentsList user={currentUser}/>}/> 
+        <Route
+          path="/teacher/classes/:class_id/assignments"
+          element={<TeacherClassClassIDAssignmentsList user={currentUser} />}
+        />
         <Route path="/students" element={<StudentPage />} />
         <Route
           path="/teacher/classes/:class_id"
           element={<StudentPage user={currentUser} />}
         />
-        <Route path="/student/classes/" element={<StudentClasses user={currentUser}/>}/>
-        <Route path="/student/lessons/:lesson_id" element={<StudentSingleLessonPage/>}/>
-        <Route path="/teacher/:lesson_id/lessons" element={<TeacherSingleLessonPage/>}/>
-
+        <Route
+          path="/student/lessons/:lesson_id"
+          element={<StudentSingleLessonPage />}
+        />
+        <Route
+          path="/teacher/:lesson_id/lessons"
+          element={<TeacherSingleLessonPage />}
+        />
       </Routes>
     </>
   );
