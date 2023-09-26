@@ -196,10 +196,34 @@ export const getAssignmentsByTeacherIDAndClassID = (teacher_id, class_id) => {
     });
 };
 
+export const patchAssigmentFeedbackAndMark = (
+  assignment_id,
+  mark,
+  feedback
+) => {
+  return apiUrl
+    .patch(`/assignmentsid/${assignment_id}`, { mark, feedback })
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 export const patchUser = (user_id) => {
   return apiUrl
     .patch(`/api/users/${user_id}`)
     .then(({ data }) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+export const getStudentsAssignmentsById = (assignment_id) => {
+  return apiUrl
+    .get(`/assignmentsid/${assignment_id}`).then(({ data }) => {
       return data;
     })
     .catch((err) => {

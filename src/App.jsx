@@ -19,12 +19,12 @@ import AssignmentTeacherList from "./components/AssignmentTeacherList";
 import TeacherLessonsNew from "./components/TeacherLessonsNew";
 import { StudentSingleLessonPage } from "./components/StudentSingleLessonPage";
 import { TeacherSingleLessonPage } from "./components/TeacherSingleLessonPage";
+import TeacherAssignmentFeedback from "./components/TeacherAssignmentFeedback";
 import { StudentClasses } from "./components/StudentClasses";
 import { getUser } from "./utils/api";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { useState, useEffect } from "react";
-
 import { io } from "socket.io-client"; // socket.io
 import { StudentTeachersListPage } from "./components/StudentTeachersListPage";
 const socket = io("http://localhost:4000"); // socket.io
@@ -39,7 +39,6 @@ const socket = io("http://localhost:4000"); // socket.io
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   // console.log("🚀 ~ App ~ user:", currentUser);
-
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -114,6 +113,10 @@ function App() {
         <Route
           path="/teacher/:lesson_id/lessons"
           element={<TeacherSingleLessonPage />}
+        />
+        <Route
+          path="/teacher/assignments/id/:assignment_id"
+          element={<TeacherAssignmentFeedback user={currentUser} />}
         />
         <Route
           path="/student/teachers"
