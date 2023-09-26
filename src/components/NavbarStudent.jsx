@@ -9,6 +9,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
+import GroupsIcon from "@mui/icons-material/Groups";
 import { Link } from "react-router-dom";
 
 export const NavbarStudent = ({ handleLogout }) => {
@@ -68,7 +69,7 @@ export const NavbarStudent = ({ handleLogout }) => {
         </Link>
         <Link to="/student/teachers">
           <MenuItem onClick={handleClose}>
-            <SchoolIcon sx={{ mr: 2 }} />
+            <GroupsIcon sx={{ mr: 2 }} />
             Teachers
           </MenuItem>
         </Link>
