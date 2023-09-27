@@ -24,7 +24,7 @@ export const NavbarLongTeacher = ({ handleLogout }) => {
                 New Lesson
               </Button>
               </Link>
-              <Link to="/user/:user_id">
+              <Link to="/user/">
               <Button sx={{ color: 'black', fontSize: 15 }}>
                 My Account
               </Button>
