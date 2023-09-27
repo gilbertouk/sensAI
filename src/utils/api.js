@@ -279,3 +279,16 @@ export const createAIAssessment = (subject, textLength, examBoard) => {
       console.log(err)
     });
 };
+
+export const createAIFeedback = (essay) => {
+  return apiUrl
+  .post(`http://localhost:9090/ai/assist`, {
+    role: "user",
+    content: `Give me a mark out of A-F and feedback for an essay and put your response in JSON object format of key value pairs {mark: (your mark), feedback: (your feedback)} on this essay: ${essay}`
+  })
+  .then(({data})=> {
+    return JSON.parse(data.message);
+  }).catch((err)=> {
+    console.log(err);
+  })
+}

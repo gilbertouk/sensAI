@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  createAIFeedback,
   getStudentsAssignmentsById,
   patchAssigmentFeedbackAndMark,
 } from "../utils/api";
@@ -13,6 +14,7 @@ import {
   Paper,
   Grid,
   Skeleton,
+  Alert,
   Card,
   CardContent,
 } from "@mui/material";
@@ -24,6 +26,10 @@ const TeacherAssignmentFeedback = () => {
   const [feedback, setFeedback] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [aiButton, setAIbutton] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(false);
+  const [waitingRes, setWaitingRes] = useState(false);
+  const [successSubmit, setSuccessSubmit] = useState(false);
 
   useEffect(() => {
     getStudentsAssignmentsById(assignment_id)
@@ -38,12 +44,12 @@ const TeacherAssignmentFeedback = () => {
         setIsLoading(false);
       });
   }, [assignment_id]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     patchAssigmentFeedbackAndMark(assignment_id, mark, feedback)
       .then((updatedAssignment) => {
+        setSuccessSubmit(true);
         setIsSubmitting(false);
         setAssignment((prevAssignment) => ({
           ...prevAssignment,
@@ -57,6 +63,24 @@ const TeacherAssignmentFeedback = () => {
       });
   };
 
+  const handleAIclick = (e) => {
+    e.preventDefault();
+    if(aiButton){
+      setDisabledBtn(true);
+
+    }
+    if(assignment.users_assignments_work && assignment.users_assignments_submit_date){
+      setAIbutton(true);
+      setWaitingRes(true);
+      createAIFeedback(assignment.users_assignments_work).then((data)=> {
+        setDisabledBtn(true);
+        setWaitingRes(false);
+        setAIbutton(false);
+        setMark(data.mark);
+        setFeedback(data.feedback);
+      })
+    }
+  }
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -162,7 +186,18 @@ const TeacherAssignmentFeedback = () => {
 
                 <Grid item xs={12}>
                   <form onSubmit={handleSubmit}>
-                    <TextField
+                    {waitingRes ? 
+                <TextField
+                label="Mark"
+                type="text"
+                value={"AI mark will appear here"}
+                required
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                disabled
+              /> :
+              <TextField
                       label="Mark"
                       type="text"
                       value={mark}
@@ -170,8 +205,19 @@ const TeacherAssignmentFeedback = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
-                    />
-                    <TextField
+                    />}
+                {waitingRes ? 
+                <TextField
+                label="Feedback"
+                value={"AI feedback will appear here"}
+                multiline
+                rows={4}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                disabled
+              /> :
+                  <TextField
                       label="Feedback"
                       value={feedback}
                       onChange={(e) => setFeedback(e.target.value)}
@@ -180,16 +226,34 @@ const TeacherAssignmentFeedback = () => {
                       variant="outlined"
                       margin="normal"
                       fullWidth
-                    />
+                    />}
                     <Button
                       type="submit"
                       variant="contained"
                       color="primary"
                       disabled={isSubmitting}
-                    >
+                      sx={{mt: 2, mr: 2}}
+                >
                       Submit
                     </Button>
-                  </form>
+                    {successSubmit ? (
+              <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">Assignment successfully posted!</Alert>
+              </Grid>
+              ) : ( 
+              <></> 
+              )}
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="primary"
+                  disabled={disabledBtn}
+                  onClick={handleAIclick}
+                  sx={{mt: 2}}
+                >
+                  AI generate mark and feedback
+                </Button>
+              </form>
                 </Grid>
               </>
             )}
