@@ -24,7 +24,7 @@ export const StudentTeachersCard = ({ teachersData }) => {
             <Grid item xs>
               <Typography variant="h6">Teacher</Typography>
               <Typography gutterBottom variant="subtitle1" component="div">
-                Name: {teachersData.name} {teachersData.surname}
+                Name: {teachersData.name}
               </Typography>
               <Typography variant="body2" gutterBottom>
                 Email: {teachersData.email}

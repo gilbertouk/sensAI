@@ -6,6 +6,7 @@ import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import moment from "moment";
 
 export function TeacherAssignmentCard({ teacherAssignmentData }) {
   const [assignmentDesc, setAssignmentDesc] = useState("");
@@ -14,20 +15,23 @@ export function TeacherAssignmentCard({ teacherAssignmentData }) {
     navigate(`/teacher/assignments/feedback/${teacherAssignmentData.id}`);
   };
 
-  useEffect(()=> {
-    if(teacherAssignmentData && teacherAssignmentData.work){
+  useEffect(() => {
+    if (teacherAssignmentData && teacherAssignmentData.work) {
       let counter = 0;
-      const description = teacherAssignmentData.work.split("").filter(char => {
-        if(char === " "){
-          counter++;
-        }
-        if(counter !== 10 && counter <= 10){
-          return char;
-        }
-      }).join("")
+      const description = teacherAssignmentData.work
+        .split("")
+        .filter((char) => {
+          if (char === " ") {
+            counter++;
+          }
+          if (counter !== 10 && counter <= 10) {
+            return char;
+          }
+        })
+        .join("");
       setAssignmentDesc(description);
     }
-  })
+  });
 
   return (
     <Paper
@@ -47,24 +51,31 @@ export function TeacherAssignmentCard({ teacherAssignmentData }) {
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
-                <Typography gutterBottom variant="subtitle1" component="div">
-                  user_assignment ID: {teacherAssignmentData.id}
+                <Typography variant="body2" gutterBottom>
+                  Student: {teacherAssignmentData.name}{" "}
+                  {teacherAssignmentData.surname}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  Assignment_id: {teacherAssignmentData.assignment_id}
+                  Work: {assignmentDesc}...
                 </Typography>
-                <Typography variant="body2" gutterBottom>
-                  user_id: {teacherAssignmentData.user_id}
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Student work: {assignmentDesc}...
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Date submitted: {(new Date(teacherAssignmentData.submit_date)).toLocaleDateString()}
-                </Typography>
+                {teacherAssignmentData.submit_date ? (
+                  <Typography variant="body2" gutterBottom>
+                    Date submitted:{" "}
+                    {moment(teacherAssignmentData.submit_date).format("LLL")}
+                  </Typography>
+                ) : (
+                  <Typography variant="body2" gutterBottom>
+                    Date submitted:{" "}
+                  </Typography>
+                )}
                 <Typography variant="body2">
                   Mark: {teacherAssignmentData.mark}
                 </Typography>
+                {teacherAssignmentData.feedback && (
+                  <Typography variant="body2" gutterBottom>
+                    Feedback: {teacherAssignmentData.feedback}
+                  </Typography>
+                )}
               </Grid>
             </Grid>
             <Grid item>

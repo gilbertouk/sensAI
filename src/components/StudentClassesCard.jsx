@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import SchoolIcon from "@mui/icons-material/School";
+import moment from "moment";
 
 export const StudentClassesCard = ({ classItem }) => {
   return (
@@ -22,22 +23,22 @@ export const StudentClassesCard = ({ classItem }) => {
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
-            <Typography  variant="subtitle1" component="div">
+              <Typography variant="subtitle1" component="div">
                 Class: {classItem.name}
               </Typography>
               <Typography variant="subtitle1">
-              Subject: {classItem.subject}
+                Subject: {classItem.subject}
               </Typography>
               <Typography variant="subtitle1">
-              Age Group: {classItem.age_group}
+                Age Group: {classItem.age_group}
               </Typography>
               <Typography variant="subtitle1">
-              Exam Board: {classItem.exam_board}
+                Exam Board: {classItem.exam_board}
               </Typography>
             </Grid>
             <Grid item>
               <Typography variant="subtitle1">
-                {new Date(classItem.created_at).toLocaleDateString()}
+                Created at: {moment(classItem.created_at).format("LL")}
               </Typography>
             </Grid>
           </Grid>

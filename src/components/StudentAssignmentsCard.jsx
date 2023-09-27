@@ -7,26 +7,29 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export const StudentAssignmentsCard = ({ assignmentData }) => {
   const [assignmentDesc, setAssignmentDesc] = useState("");
   const navigate = useNavigate();
 
-
-  useEffect(()=> {
-    if(assignmentData){
+  useEffect(() => {
+    if (assignmentData) {
       let counter = 0;
-      const description = assignmentData.body.split("").filter(char => {
-        if(char === " "){
-          counter++;
-        }
-        if(counter !== 10 && counter <= 10){
-          return char;
-        }
-      }).join("")
+      const description = assignmentData.body
+        .split("")
+        .filter((char) => {
+          if (char === " ") {
+            counter++;
+          }
+          if (counter !== 10 && counter <= 10) {
+            return char;
+          }
+        })
+        .join("");
       setAssignmentDesc(description);
     }
-  })
+  });
 
   function handleAssignmentToDisplay(assignment_id) {
     navigate(`/student/assignments/${assignment_id}`);
@@ -57,23 +60,23 @@ export const StudentAssignmentsCard = ({ assignmentData }) => {
                 Description: {assignmentDesc}...
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Due date: {(new Date(assignmentData.due_date)).toLocaleDateString()}
+                Due date: {moment(assignmentData.due_date).format("LL")}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Created at: {(new Date(assignmentData.created_at)).toLocaleDateString()}
+                Created at: {moment(assignmentData.created_at).format("LL")}
               </Typography>
-              <Box mt={3}>
-                </Box>
-                <LoadingButton 
+              <Box mt={3}></Box>
+              <LoadingButton
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                  handleAssignmentToDisplay(assignmentData.assignment_id)
+                  handleAssignmentToDisplay(assignmentData.assignment_id);
                 }}
-                >View this assignment
-                </LoadingButton>
+              >
+                View this assignment
+              </LoadingButton>
             </Grid>
           </Grid>
           <Grid item>

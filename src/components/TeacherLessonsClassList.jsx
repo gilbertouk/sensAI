@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { getLessonByTeacherAndClass } from '../utils/api';
-import { TeacherLessonCard } from './TeacherLessonCard';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { getLessonByTeacherAndClass } from "../utils/api";
+import { TeacherLessonCard } from "./TeacherLessonCard";
 import LoadingButton from "@mui/lab/LoadingButton";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 
 const TeacherLessonsClassList = ({ user }) => {
   const [lessons, setLessons] = useState(null);
@@ -29,29 +29,32 @@ const TeacherLessonsClassList = ({ user }) => {
     <p>loading...</p>
   ) : (
     <ul className="student-lesson-container">
-        <Box mt={3}>
-        </Box> 
-        <Box display="flex" justifyContent="center">
-            <Box width="33%">
-                <LoadingButton 
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    onClick={() => {
-                      handleLessonToCreate();
-                    }}
-                    >Create new lesson
-                </LoadingButton>
-            </Box>
+      <Box mt={3}></Box>
+      <Box display="flex" justifyContent="center">
+        <Box width="33%">
+          <LoadingButton
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              handleLessonToCreate();
+            }}
+          >
+            Create new lesson
+          </LoadingButton>
         </Box>
-            {lessons.map(lesson => {
-                return (
-                <div key={lesson.id}>
-                <li ><TeacherLessonCard lessonData={lesson}/></li>
-                </div>)
-            })}
-        </ul>
+      </Box>
+      {lessons.map((lesson) => {
+        return (
+          <div key={lesson.id}>
+            <li>
+              <TeacherLessonCard lessonData={lesson} />
+            </li>
+          </div>
+        );
+      })}
+    </ul>
   );
 };
 

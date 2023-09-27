@@ -92,9 +92,9 @@ export const postAssignment = (teacher_id, class_id, title, body, due_date) => {
     .catch((err) => console.log(err));
 };
 
-export const getAssignmentsByTeacherId = (teacher_id) => {
+export const getAssignmentsByTeacherId = (teacher_id, assignment_id) => {
   return apiUrl
-    .get(`/assignments/${teacher_id}`)
+    .get(`/assignments/${assignment_id}/teacher/${teacher_id}/`)
     .then(({ data }) => {
       return data;
     })
@@ -196,7 +196,6 @@ export const getAssignmentsByTeacherIDAndClassID = (teacher_id, class_id) => {
     });
 };
 
-
 export const patchAssigmentFeedbackAndMark = (
   assignment_id,
   mark,
@@ -212,19 +211,14 @@ export const patchAssigmentFeedbackAndMark = (
     });
 };
 
-export const patchUser = (
-  user_id,
-  name,
-  surname,
-  email,
-  disability,
-) => {
+export const patchUser = (user_id, name, surname, email, disability) => {
   return apiUrl
     .patch(`/users/${user_id}`, {
       name,
       surname,
       email,
-      disability})
+      disability,
+    })
     .then(({ data }) => {
       return data;
     })
@@ -234,7 +228,8 @@ export const patchUser = (
 };
 export const getStudentsAssignmentsById = (assignment_id) => {
   return apiUrl
-    .get(`/assignmentsid/${assignment_id}`).then(({ data }) => {
+    .get(`/assignmentsid/${assignment_id}`)
+    .then(({ data }) => {
       return data;
     })
     .catch((err) => {
@@ -255,40 +250,42 @@ export const getAllStudentTeachersByStudentId = (student_id) => {
 
 export const createAIlesson = (prompt, textLength, examBoard) => {
   return apiUrl
-  .post(`http://localhost:9090/ai/assist`, {
-    role: "user",
-    content: `Write me a strict ${textLength} word length (do not exceed this word length) lesson based on ${prompt} using ${examBoard} exam board.`
-  })
-  .then(({data})=> {
-    return data.message;
-  }).catch((err)=> {
-    console.log(err);
-  })
-} 
+    .post(`http://localhost:9090/ai/assist`, {
+      role: "user",
+      content: `Write me a strict ${textLength} word length (do not exceed this word length) lesson based on ${prompt} using ${examBoard} exam board.`,
+    })
+    .then(({ data }) => {
+      return data.message;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 export const createAIAssessment = (subject, textLength, examBoard) => {
   return apiUrl
     .post(`http://localhost:9090/ai/assist`, {
       role: "user",
-      content: `Write me a strict ${textLength} word length (do not exceed this word length) student assessment with questions and corresponding marks based on ${subject} using ${examBoard} exam board.`
+      content: `Write me a strict ${textLength} word length (do not exceed this word length) student assessment with questions and corresponding marks based on ${subject} using ${examBoard} exam board.`,
     })
-    .then(({data}) => {
+    .then(({ data }) => {
       return data.message;
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
     });
 };
 
 export const createAIFeedback = (essay) => {
   return apiUrl
-  .post(`http://localhost:9090/ai/assist`, {
-    role: "user",
-    content: `Give me a mark out of A-F and feedback for an essay and put your response in JSON object format of key value pairs {mark: (your mark), feedback: (your feedback)} on this essay: ${essay}`
-  })
-  .then(({data})=> {
-    return JSON.parse(data.message);
-  }).catch((err)=> {
-    console.log(err);
-  })
-}
+    .post(`http://localhost:9090/ai/assist`, {
+      role: "user",
+      content: `Give me a mark out of A-F and feedback for an essay and put your response in JSON object format of key value pairs {mark: (your mark), feedback: (your feedback)} on this essay: ${essay}`,
+    })
+    .then(({ data }) => {
+      return JSON.parse(data.message);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
