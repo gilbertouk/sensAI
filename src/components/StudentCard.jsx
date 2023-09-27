@@ -22,21 +22,14 @@ export const StudentCard = ({student}) => {
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
+              <Typography variant="subtitle1" component="div">
+                Name: {student.name}
+              </Typography>
               <Typography gutterBottom variant="subtitle1" component="div">
-                {student.name} • {student.surname}
+                Surname: {student.surname}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                {student.email}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="body2">
-                {student.role} • {student.created_at}
-              </Typography>
-                </Grid>
-                    <Grid item>
-              <Typography variant="body2">
-                {student.disability}
+                Email: {student.email}
               </Typography>
             </Grid>
           </Grid>
