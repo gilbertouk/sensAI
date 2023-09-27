@@ -30,6 +30,7 @@ import Chat from "./components/Chat";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+
   // console.log("🚀 ~ App ~ user:", currentUser);
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -40,6 +41,7 @@ function App() {
       } else {
         localStorage.removeItem("user");
         localStorage.removeItem("roomId");
+        localStorage.removeItem("loggedUser");
         setCurrentUser("logged out");
       }
     });
@@ -124,6 +126,10 @@ function App() {
         <Route
           path="/teachers/student/chat/:room_id"
           element={<Chat user={currentUser} />}
+        />
+        <Route
+          path="/student/classes/"
+          element={<StudentClasses user={currentUser} />}
         />
       </Routes>
     </>
