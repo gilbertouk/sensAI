@@ -6,13 +6,14 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import Box from '@mui/material/Box';
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteAssignmentByAssignmentID } from "../utils/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "@mui/material";
 
 
 
 export function TeacherClassClassIDAssignmentsCard ({ teacherClassAssignmentData }) {
   const [successSubmit, setSuccessSubmit] = useState(false);
+  const [assignmentDesc, setAssignmentDesc] = useState("");
 
   const navigate = useNavigate();
     const {class_id} = useParams()
@@ -30,6 +31,20 @@ export function TeacherClassClassIDAssignmentsCard ({ teacherClassAssignmentData
           }, 2000);
           }
         }
+  useEffect(()=> {
+    if(teacherClassAssignmentData){
+      let counter = 0;
+      const description = teacherClassAssignmentData.body.split("").filter(char => {
+        if(char === " "){
+          counter++;
+        }
+        if(counter !== 10 && counter <= 10){
+          return char;
+        }
+      }).join("")
+      setAssignmentDesc(description);
+    }
+  })
 return (
     <Paper
       sx={{
@@ -38,6 +53,7 @@ return (
         maxWidth: 500,
         flexGrow: 1,
         mt: 5,
+        mb: 5,
         cursor: "pointer",
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -51,7 +67,7 @@ return (
               Title: {teacherClassAssignmentData.title}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Description: {teacherClassAssignmentData.body}
+                Description: {assignmentDesc}...
               </Typography>
               <Typography variant="body2" gutterBottom>
                 Due date: {(new Date(teacherClassAssignmentData.due_date)).toLocaleDateString()}

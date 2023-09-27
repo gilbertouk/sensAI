@@ -22,12 +22,17 @@ export const StudentClassesCard = ({ classItem }) => {
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                {classItem.age_group} • {classItem.exam_board} •{" "}
-                {classItem.subject}
+            <Typography  variant="subtitle1" component="div">
+                Class: {classItem.name}
               </Typography>
-              <Typography variant="subtitle1" gutterBottom>
-                {classItem.name}
+              <Typography variant="subtitle1">
+              Subject: {classItem.subject}
+              </Typography>
+              <Typography variant="subtitle1">
+              Age Group: {classItem.age_group}
+              </Typography>
+              <Typography variant="subtitle1">
+              Exam Board: {classItem.exam_board}
               </Typography>
             </Grid>
             <Grid item>

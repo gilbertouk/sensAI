@@ -54,6 +54,7 @@ function handleLessonToDelete(lessonData) {
         maxWidth: 500,
         flexGrow: 1,
         mt: 5,
+        mb: 5,
         cursor: 'pointer',
         backgroundColor: (theme) =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -74,10 +75,7 @@ function handleLessonToDelete(lessonData) {
               <Typography variant="body2">
                 {(new Date(lessonData.created_at)).toLocaleDateString()}
               </Typography>
-            </Grid>
-            <Grid>
             <Box mt={3}>
-                </Box>
                 <LoadingButton 
                 type="submit"
                 fullWidth
@@ -88,8 +86,8 @@ function handleLessonToDelete(lessonData) {
                 }}
                 >View this lesson
                 </LoadingButton>
+                </Box>
                 <Box mt={2}>
-                </Box> 
                 <LoadingButton 
                 type="submit"
                 fullWidth
@@ -101,6 +99,7 @@ function handleLessonToDelete(lessonData) {
                 >
                 Delete this lesson
                 </LoadingButton>
+                </Box> 
                 {successSubmit ? (
               <Grid item mb={2} ml={3} mr={3} xs={12}>
               <Alert severity="success">Lesson successfully deleted!</Alert>
@@ -108,8 +107,8 @@ function handleLessonToDelete(lessonData) {
               ) : (
               <></>
               )}
-            </Grid>
           </Grid>
+            </Grid>
           <Grid item>
             <Typography variant="subtitle1" component="div">
               <SchoolIcon/>
