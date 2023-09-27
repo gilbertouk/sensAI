@@ -257,7 +257,7 @@ export const createAIlesson = (prompt, textLength, examBoard) => {
   return apiUrl
   .post(`http://localhost:9090/ai/assist`, {
     role: "user",
-    content: `Write me a strict ${textLength} character length (do not exceed this character length) lesson based on ${prompt} using the ${examBoard} exam board`
+    content: `Write me a strict ${textLength} word length (do not exceed this word length) lesson based on ${prompt} using ${examBoard} exam board.`
   })
   .then(({data})=> {
     return data.message;
@@ -270,7 +270,7 @@ export const createAIAssessment = (subject, textLength, examBoard) => {
   return apiUrl
     .post(`http://localhost:9090/ai/assist`, {
       role: "user",
-      content: `Create an assessment for ${subject} for a student in a strict word length of ${textLength} based on ${examBoard} exam board.`
+      content: `Write me a strict ${textLength} word length (do not exceed this word length) student assessment with questions and corresponding marks based on ${subject} using ${examBoard} exam board.`
     })
     .then(({data}) => {
       return data.message;

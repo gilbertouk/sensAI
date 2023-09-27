@@ -144,7 +144,7 @@ const TeacherAssignmentsNew = ({ user }) => {
               required
             />
           </Grid>
-          {aiButton ? 
+          {aiButton || waitingRes? 
           <Grid item xs={12}>
           <TextField
             fullWidth

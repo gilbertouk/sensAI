@@ -123,7 +123,7 @@ const TeacherAssignmentFeedback = () => {
                       <Typography variant="h5" gutterBottom>
                         {assignment.assignment_title}
                       </Typography>
-                      <Typography paragraph>
+                      <Typography paragraph sx={{whiteSpace: "pre-line"}}>
                         <strong>Assignment Body:</strong>{" "}
                         {assignment.assignment_body}
                       </Typography>
