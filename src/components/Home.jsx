@@ -11,7 +11,7 @@ const Home = ({ user }) => {
   const [classes, setClasses] = useState({});
   const [loading, setLoading] = useState(false);
   const [logged, setLogged] = useState(localStorage.getItem("loggedUser"));
-  const navigate = useNavigate();
+  const navigate = useNavigate("/login");
 
   let userStatus = null;
 
@@ -26,7 +26,9 @@ const Home = ({ user }) => {
   }
 
   useEffect(() => {
-    if (user.id) {
+    if (!logged && !user.id) {
+      navigate("/login");
+    } else if (user && userStatus !== "") {
       setLoading(true);
       getClassesByTeacherID(user.id)
         .then(({ classes }) => {
@@ -37,11 +39,7 @@ const Home = ({ user }) => {
           setLoading(false);
         });
     }
-  }, [user.id]);
-
-  if (!logged) {
-    navigate("/login");
-  }
+  }, [user]);
 
   if (loading) {
     return (
