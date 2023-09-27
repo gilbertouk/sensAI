@@ -48,22 +48,16 @@ return (
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant="subtitle1" component="div">
-                ID: {teacherClassAssignmentData.id}
+              Title: {teacherClassAssignmentData.title}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Title: {teacherClassAssignmentData.title}
+                Description: {teacherClassAssignmentData.body}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Body: {teacherClassAssignmentData.body}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                Teacher_id: {teacherClassAssignmentData.teacher_id}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                Due date: {teacherClassAssignmentData.due_date}
+                Due date: {(new Date(teacherClassAssignmentData.due_date)).toLocaleDateString()}
               </Typography>
               <Typography variant="body2">
-                Created at: {teacherClassAssignmentData.created_at}
+                Created at: {(new Date(teacherClassAssignmentData.created_at)).toLocaleDateString()}
               </Typography>
                 <Box mt={3}>
                 </Box>
