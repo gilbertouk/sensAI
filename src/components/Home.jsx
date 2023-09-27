@@ -4,8 +4,9 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import SchoolIcon from "@mui/icons-material/School";
 import { getClassesByTeacherID } from "../utils/api";
-import { Skeleton } from "@mui/material";
+import { Container, Divider, Skeleton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import { TeacherClassesCard } from "./TeacherClassesCard";
 
 const Home = ({ user }) => {
   const [classes, setClasses] = useState({});
@@ -40,6 +41,8 @@ const Home = ({ user }) => {
         });
     }
   }, [user]);
+
+  let link = "";
 
   if (loading) {
     return (
@@ -102,6 +105,7 @@ const Home = ({ user }) => {
             </Grid>
           </Grid>
         </Paper>
+
         <Paper
           sx={{
             p: 2,
@@ -138,28 +142,19 @@ const Home = ({ user }) => {
                       return (
                         <li key={group.id}>
                           {user && user.role === "student" ? (
-                            <Typography gutterBottom>
-                              {group.age_group} • {group.exam_board} •{" "}
-                              {group.subject} • {group.name}
-                            </Typography>
+                            <Link to={`/student/classes/`}>
+                              <TeacherClassesCard classItem={group} />
+                            </Link>
                           ) : (
-                            <Typography gutterBottom>
-                              <Link to={`/teacher/classes/${group.id}`}>
-                                {group.age_group} • {group.exam_board} •{" "}
-                                {group.subject} • {group.name}
-                              </Link>
-                            </Typography>
+                            <Link to={`/teacher/classes/${group.id}`}>
+                              <TeacherClassesCard classItem={group} />
+                            </Link>
                           )}
                         </li>
                       );
                     })}
                   </ul>
                 </Grid>
-              </Grid>
-              <Grid item>
-                <Typography variant="subtitle1" component="div">
-                  <SchoolIcon />
-                </Typography>
               </Grid>
             </Grid>
           </Grid>

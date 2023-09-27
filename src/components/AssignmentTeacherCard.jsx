@@ -5,12 +5,14 @@ import Typography from "@mui/material/Typography";
 import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export function TeacherAssignmentCard({ teacherAssignmentData }) {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/teacher/assignments/feedback/${teacherAssignmentData.id}`);
   };
+
   return (
     <Paper
       sx={{
@@ -29,24 +31,31 @@ export function TeacherAssignmentCard({ teacherAssignmentData }) {
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
-                <Typography gutterBottom variant="subtitle1" component="div">
-                  user_assignment ID: {teacherAssignmentData.id}
+                <Typography variant="body2" gutterBottom>
+                  Student: {teacherAssignmentData.name}{" "}
+                  {teacherAssignmentData.surname}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  Assignment_id: {teacherAssignmentData.assignment_id}
+                  Work: {teacherAssignmentData.work}
                 </Typography>
-                <Typography variant="body2" gutterBottom>
-                  user_id: {teacherAssignmentData.user_id}
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Student work: {teacherAssignmentData.work}
-                </Typography>
-                <Typography variant="body2" gutterBottom>
-                  Date submitted: {(new Date(teacherAssignmentData.submit_date)).toLocaleDateString()}
-                </Typography>
+                {teacherAssignmentData.submit_date ? (
+                  <Typography variant="body2" gutterBottom>
+                    Date submitted::{" "}
+                    {moment(teacherAssignmentData.submit_date).format("LLL")}
+                  </Typography>
+                ) : (
+                  <Typography variant="body2" gutterBottom>
+                    Date submitted:{" "}
+                  </Typography>
+                )}
                 <Typography variant="body2">
                   Mark: {teacherAssignmentData.mark}
                 </Typography>
+                {teacherAssignmentData.feedback && (
+                  <Typography variant="body2" gutterBottom>
+                    Feedback: {teacherAssignmentData.feedback}
+                  </Typography>
+                )}
               </Grid>
             </Grid>
             <Grid item>

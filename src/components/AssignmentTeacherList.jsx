@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { getAssignmentsByTeacherId } from "../utils/api";
 import { TeacherAssignmentCard } from "./AssignmentTeacherCard.jsx";
+import { useParams } from "react-router-dom";
 
 export default function TeacherAssignmentsList({ user }) {
   const [teacherAssignments, setTeacherAssignment] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const navigate = useNavigate();
+  const { assignment_id } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
     if (user) {
-      getAssignmentsByTeacherId(user.id)
+      getAssignmentsByTeacherId(user.id, assignment_id)
         .then(({ assignments }) => {
           setIsLoading(false);
           setTeacherAssignment(assignments);

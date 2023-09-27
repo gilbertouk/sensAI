@@ -3,34 +3,35 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import SchoolIcon from "@mui/icons-material/School";
 import LoadingButton from "@mui/lab/LoadingButton";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import { useNavigate, useParams } from "react-router-dom";
 import { deleteAssignmentByAssignmentID } from "../utils/api";
 import { useState } from "react";
 import { Alert } from "@mui/material";
+import moment from "moment";
 
-
-
-export function TeacherClassClassIDAssignmentsCard ({ teacherClassAssignmentData }) {
+export function TeacherClassClassIDAssignmentsCard({
+  teacherClassAssignmentData,
+}) {
   const [successSubmit, setSuccessSubmit] = useState(false);
 
   const navigate = useNavigate();
-    const {class_id} = useParams()
-    function handleAssignmentToDisplay(assignment) {
-        navigate(`/teacher/assignments/${class_id}`);
-      } 
-    
-      function handleAssigmenttoDelete(assignment) {
-        if (assignment.id) {
-          const assignment_id = assignment.id
-          deleteAssignmentByAssignmentID(assignment_id)
-          setSuccessSubmit(true);
-          setTimeout(() => {
-            setSuccessSubmit(false);
-          }, 2000);
-          }
-        }
-return (
+  const { class_id } = useParams();
+  function handleAssignmentToDisplay(assignment) {
+    navigate(`/teacher/assignments/${assignment.id}`);
+  }
+
+  function handleAssigmenttoDelete(assignment) {
+    if (assignment.id) {
+      const assignment_id = assignment.id;
+      deleteAssignmentByAssignmentID(assignment_id);
+      setSuccessSubmit(true);
+      setTimeout(() => {
+        setSuccessSubmit(false);
+      }, 2000);
+    }
+  }
+  return (
     <Paper
       sx={{
         p: 2,
@@ -48,48 +49,51 @@ return (
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
               <Typography gutterBottom variant="subtitle1" component="div">
-              Title: {teacherClassAssignmentData.title}
+                Title: {teacherClassAssignmentData.title}
               </Typography>
               <Typography variant="body2" gutterBottom>
                 Description: {teacherClassAssignmentData.body}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Due date: {(new Date(teacherClassAssignmentData.due_date)).toLocaleDateString()}
+                Due date:{" "}
+                {moment(teacherClassAssignmentData.due_date).format("LL")}
               </Typography>
               <Typography variant="body2">
-                Created at: {(new Date(teacherClassAssignmentData.created_at)).toLocaleDateString()}
+                Created at:{" "}
+                {moment(teacherClassAssignmentData.created_at).format("LL")}
               </Typography>
-                <Box mt={3}>
-                </Box>
-                <LoadingButton 
+              <Box mt={3}></Box>
+              <LoadingButton
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                 handleAssignmentToDisplay(teacherClassAssignmentData);
+                  handleAssignmentToDisplay(teacherClassAssignmentData);
                 }}
-                >View this assignment
-                </LoadingButton>
-                <Box mt={2}>
-                </Box> 
-                <LoadingButton 
+              >
+                View this assignment
+              </LoadingButton>
+              <Box mt={2}></Box>
+              <LoadingButton
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                handleAssigmenttoDelete(teacherClassAssignmentData);
+                  handleAssigmenttoDelete(teacherClassAssignmentData);
                 }}
-                >
+              >
                 Delete this assignment
-                </LoadingButton>
-                {successSubmit ? (
-              <Grid item mb={2} ml={3} mr={3} xs={12}>
-              <Alert severity="success">Assignment successfully deleted!</Alert>
-              </Grid>
+              </LoadingButton>
+              {successSubmit ? (
+                <Grid item mb={2} ml={3} mr={3} xs={12}>
+                  <Alert severity="success">
+                    Assignment successfully deleted!
+                  </Alert>
+                </Grid>
               ) : (
-              <></>
+                <></>
               )}
             </Grid>
           </Grid>
@@ -102,4 +106,4 @@ return (
       </Grid>
     </Paper>
   );
-};
+}

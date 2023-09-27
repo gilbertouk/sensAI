@@ -72,7 +72,7 @@ function App() {
           element={<TeacherLessonsClassList user={currentUser} />}
         />
         <Route
-          path="/teacher/assignments/:class_id"
+          path="/teacher/assignments/:assignment_id"
           element={<AssignmentTeacherList user={currentUser} />}
         />
 
