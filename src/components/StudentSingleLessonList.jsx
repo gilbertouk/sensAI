@@ -24,19 +24,7 @@ export const StudentSingleLessonList = () => {
   }, []);
 
   return loading ? (
-    <>
-      <Typography pl={3} pr={3} variant="h1">
-        <Skeleton />
-      </Typography>
-
-      <Typography pl={3} pt={1} pr={3} variant="h1">
-        <Skeleton />
-      </Typography>
-
-      <Typography pl={3} pt={1} pr={3} variant="h1">
-        <Skeleton />
-      </Typography>
-    </>
+    <p>Loading...</p>
   ) : (
     <Container>
       <Card>
@@ -48,9 +36,11 @@ export const StudentSingleLessonList = () => {
           >
             {lesson.title}
           </Typography>
-          <Typography gutterBottom>{lesson.body}</Typography>
+          <Typography gutterBottom sx={{ whiteSpace: "pre-line" }}>
+            {lesson.body}
+          </Typography>
           <Typography>
-            Created at: {moment(lesson.created_at).format("LL")}
+            {new Date(lesson.created_at).toLocaleDateString()}
           </Typography>
         </CardContent>
       </Card>

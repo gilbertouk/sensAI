@@ -31,7 +31,7 @@ export const TeacherSingleLessonList = () => {
           </Typography>
           <Typography gutterBottom>{lesson.body}</Typography>
           <Typography>
-            Created at: {moment(lesson.created_at).format("LL")}
+            {new Date(lesson.created_at).toLocaleDateString()}
           </Typography>
         </CardContent>
       </Card>
