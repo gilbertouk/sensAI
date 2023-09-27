@@ -42,7 +42,7 @@ export function TeacherAssignmentCard({ teacherAssignmentData }) {
                   Student work: {teacherAssignmentData.work}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  Date submitted: {teacherAssignmentData.submit_date}
+                  Date submitted: {(new Date(teacherAssignmentData.submit_date)).toLocaleDateString()}
                 </Typography>
                 <Typography variant="body2">
                   Mark: {teacherAssignmentData.mark}
