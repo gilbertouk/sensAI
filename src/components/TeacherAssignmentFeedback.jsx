@@ -14,6 +14,7 @@ import {
   Paper,
   Grid,
   Skeleton,
+  Alert,
 } from "@mui/material";
 
 const TeacherAssignmentFeedback = () => {
@@ -26,6 +27,7 @@ const TeacherAssignmentFeedback = () => {
   const [aiButton, setAIbutton] = useState(false);
   const [disabledBtn, setDisabledBtn] = useState(false);
   const [waitingRes, setWaitingRes] = useState(false);
+  const [successSubmit, setSuccessSubmit] = useState(false);
 
   useEffect(() => {
     getStudentsAssignmentsById(assignment_id)
@@ -40,12 +42,13 @@ const TeacherAssignmentFeedback = () => {
         setIsLoading(false);
       });
   }, [assignment_id]);
-  
+  console.log(successSubmit)
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     patchAssigmentFeedbackAndMark(assignment_id, mark, feedback)
       .then((updatedAssignment) => {
+        setSuccessSubmit(true);
         setIsSubmitting(false);
         setAssignment((prevAssignment) => ({
           ...prevAssignment,
@@ -185,6 +188,13 @@ const TeacherAssignmentFeedback = () => {
                 >
                   Submit
                 </Button>
+                {successSubmit ? (
+              <Grid item mb={2} ml={3} mr={3} xs={12}>
+              <Alert severity="success">Assignment successfully posted!</Alert>
+              </Grid>
+              ) : ( 
+              <></> 
+              )}
                 <Button
                   type="button"
                   variant="contained"
