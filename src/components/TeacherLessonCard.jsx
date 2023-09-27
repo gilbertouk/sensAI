@@ -58,6 +58,7 @@ export const TeacherLessonCard = ({ lessonData }) => {
         maxWidth: 500,
         flexGrow: 1,
         mt: 5,
+        mb: 5,
         cursor: "pointer",
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -78,32 +79,32 @@ export const TeacherLessonCard = ({ lessonData }) => {
               <Typography variant="body2">
                 Created at: {moment(lessonData.created_at).format("LL")}
               </Typography>
-            </Grid>
-            <Grid>
-              <Box mt={3}></Box>
-              <LoadingButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  handleLessonToDisplay(lessonData);
-                }}
-              >
-                View this lesson
-              </LoadingButton>
-              <Box mt={2}></Box>
-              <LoadingButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  handleLessonToDelete(lessonData);
-                }}
-              >
-                Delete this lesson
-              </LoadingButton>
+              <Box mt={3}>
+                <LoadingButton
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    handleLessonToDisplay(lessonData);
+                  }}
+                >
+                  View this lesson
+                </LoadingButton>
+              </Box>
+              <Box mt={2}>
+                <LoadingButton
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    handleLessonToDelete(lessonData);
+                  }}
+                >
+                  Delete this lesson
+                </LoadingButton>
+              </Box>
               {successSubmit ? (
                 <Grid item mb={2} ml={3} mr={3} xs={12}>
                   <Alert severity="success">Lesson successfully deleted!</Alert>

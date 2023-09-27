@@ -4,8 +4,38 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import SchoolIcon from "@mui/icons-material/School";
 import moment from "moment";
+import { useEffect, useState } from "react";
+import { Box } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { useNavigate } from "react-router-dom";
 
 export const StudentLessonsCard = ({ lessonData }) => {
+  const [lessonDescription, setLessonDescription] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (lessonData) {
+      let counter = 0;
+      const description = lessonData.body
+        .split("")
+        .filter((char) => {
+          if (char === " ") {
+            counter++;
+          }
+          if (counter !== 10 && counter <= 10) {
+            return char;
+          }
+        })
+        .join("");
+      setLessonDescription(description);
+    }
+  }, []);
+
+  function handleAssignmentToDisplay(lesson) {
+    navigate(`/student/lessons/${lesson.id}`);
+  }
+
   return (
     <Paper
       sx={{
@@ -14,6 +44,7 @@ export const StudentLessonsCard = ({ lessonData }) => {
         maxWidth: 500,
         flexGrow: 1,
         mt: 5,
+        mb: 5,
         cursor: "pointer",
         backgroundColor: (theme) =>
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -27,7 +58,7 @@ export const StudentLessonsCard = ({ lessonData }) => {
                 Title: {lessonData.title}
               </Typography>
               <Typography variant="body2" gutterBottom>
-                Description: {lessonData.body}
+                {lessonDescription}...
               </Typography>
             </Grid>
             <Grid item>
@@ -41,6 +72,18 @@ export const StudentLessonsCard = ({ lessonData }) => {
               <SchoolIcon />
             </Typography>
           </Grid>
+          <LoadingButton
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              handleAssignmentToDisplay(lessonData);
+            }}
+            sx={{ mt: 3 }}
+          >
+            View this lesson
+          </LoadingButton>
         </Grid>
       </Grid>
     </Paper>

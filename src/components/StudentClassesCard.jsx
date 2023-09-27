@@ -23,17 +23,17 @@ export const StudentClassesCard = ({ classItem }) => {
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
             <Grid item xs>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                • Class name: {classItem.name}
+              <Typography variant="subtitle1" component="div">
+                Class: {classItem.name}
               </Typography>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                • Subject: {classItem.subject}
+              <Typography variant="subtitle1">
+                Subject: {classItem.subject}
               </Typography>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                • Age group: {classItem.age_group}
+              <Typography variant="subtitle1">
+                Age Group: {classItem.age_group}
               </Typography>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                • Exam board: {classItem.exam_board}
+              <Typography variant="subtitle1">
+                Exam Board: {classItem.exam_board}
               </Typography>
             </Grid>
             <Grid item>
