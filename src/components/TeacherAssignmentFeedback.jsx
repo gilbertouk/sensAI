@@ -42,7 +42,6 @@ const TeacherAssignmentFeedback = () => {
         setIsLoading(false);
       });
   }, [assignment_id]);
-  console.log(successSubmit)
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
