@@ -266,4 +266,16 @@ export const createAIlesson = (prompt, textLength, examBoard) => {
   })
 } 
 
-// `Give me a ${textLength}`
+export const createAIAssessment = (subject, textLength, examBoard) => {
+  return apiUrl
+    .post(`http://localhost:9090/ai/assist`, {
+      role: "user",
+      content: `Create an assessment for ${subject} for a student in a strict word length of ${textLength} based on ${examBoard} exam board.`
+    })
+    .then(({data}) => {
+      return data.message;
+    })
+    .catch((err) => {
+      console.log(err)
+    });
+};
