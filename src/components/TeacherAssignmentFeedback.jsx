@@ -10,13 +10,14 @@ import {
   Typography,
   TextField,
   Button,
-  Box,
   Paper,
   Grid,
   Skeleton,
   Alert,
   Card,
   CardContent,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 const TeacherAssignmentFeedback = () => {
@@ -26,10 +27,13 @@ const TeacherAssignmentFeedback = () => {
   const [feedback, setFeedback] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [errorAlert, setErrorAlert] = useState("");
   const [aiButton, setAIbutton] = useState(false);
   const [disabledBtn, setDisabledBtn] = useState(false);
   const [waitingRes, setWaitingRes] = useState(false);
   const [successSubmit, setSuccessSubmit] = useState(false);
+
 
   useEffect(() => {
     getStudentsAssignmentsById(assignment_id)
@@ -51,6 +55,7 @@ const TeacherAssignmentFeedback = () => {
       .then((updatedAssignment) => {
         setSuccessSubmit(true);
         setIsSubmitting(false);
+        setSuccessAlert(true);
         setAssignment((prevAssignment) => ({
           ...prevAssignment,
           users_assignments_feedback: updatedAssignment.feedback,
@@ -60,6 +65,7 @@ const TeacherAssignmentFeedback = () => {
       .catch((err) => {
         console.log("🚀 ~ handleSubmit ~ err:", err);
         setIsSubmitting(false);
+        setErrorAlert("Failed to submit feedback. Please try again later.");
       });
   };
 
@@ -92,6 +98,14 @@ const TeacherAssignmentFeedback = () => {
     return new Intl.DateTimeFormat("en-US", options).format(
       new Date(dateString)
     );
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSuccessAlert(false);
+    setErrorAlert("");
   };
 
   return (
@@ -260,6 +274,25 @@ const TeacherAssignmentFeedback = () => {
           </Grid>
         )}
       </Container>
+      <Snackbar
+        open={successAlert}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Feedback submitted successfully!
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={!!errorAlert}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          {errorAlert}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
