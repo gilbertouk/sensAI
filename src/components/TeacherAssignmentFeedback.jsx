@@ -65,15 +65,17 @@ const TeacherAssignmentFeedback = () => {
       setDisabledBtn(true);
 
     }
-    setAIbutton(true);
-    setWaitingRes(true);
-    createAIFeedback(assignment.users_assignments_work).then((data)=> {
-      setDisabledBtn(true);
-      setWaitingRes(false);
-      setAIbutton(false);
-      setMark(data.mark);
-      setFeedback(data.feedback);
-    })
+    if(assignment.users_assignments_work && assignment.users_assignments_submit_date){
+      setAIbutton(true);
+      setWaitingRes(true);
+      createAIFeedback(assignment.users_assignments_work).then((data)=> {
+        setDisabledBtn(true);
+        setWaitingRes(false);
+        setAIbutton(false);
+        setMark(data.mark);
+        setFeedback(data.feedback);
+      })
+    }
   }
 
   if (isLoading) {
