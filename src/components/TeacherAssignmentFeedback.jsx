@@ -15,6 +15,8 @@ import {
   Grid,
   Skeleton,
   Alert,
+  Card,
+  CardContent,
 } from "@mui/material";
 
 const TeacherAssignmentFeedback = () => {
@@ -79,65 +81,112 @@ const TeacherAssignmentFeedback = () => {
       })
     }
   }
-
-  if (isLoading) {
-    return (
-      <Container component={Paper} sx={{ p: 5 }}>
-        <Skeleton variant="text" width="40%" />
-        <Skeleton variant="text" width="70%" />
-        <Skeleton variant="text" width="60%" />
-      </Container>
+  const formatDate = (dateString) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    return new Intl.DateTimeFormat("en-US", options).format(
+      new Date(dateString)
     );
-  }
+  };
 
   return (
-    <Container component={Paper} sx={{ p: 5 }}>
-      <Typography variant="h4" gutterBottom>
+    <Container sx={{ p: 5 }}>
+      <Typography variant="h4" gutterBottom align="center">
         Assignment Feedback
       </Typography>
-      <Grid container spacing={3}>
-        {assignment && (
+      <Container component={Paper} sx={{ p: 3, mt: 2 }}>
+        {isLoading ? (
           <>
-            <Grid item xs={12} md={6}>
-              <Typography variant="h5" gutterBottom>
-                {assignment.assignment_title}
-              </Typography>
-              <Typography paragraph>
-                <strong>Assignment Body:</strong> {assignment.assignment_body}
-              </Typography>
-              <Typography paragraph>
-                <strong>Created At:</strong> {assignment.assignment_created_at}
-              </Typography>
-              <Typography paragraph>
-                <strong>Due Date:</strong> {assignment.assignment_due_date}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography variant="h6">Student Details:</Typography>
-              <Typography paragraph>
-                <strong>Name:</strong> {assignment.user_name}{" "}
-                {assignment.user_surname}
-              </Typography>
-              <Typography paragraph>
-                <strong>Email:</strong> {assignment.user_email}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="h6">
-                Assignment Submission Details:
-              </Typography>
-              <Typography paragraph>
-                <strong>Submitted Work:</strong>{" "}
-                {assignment.users_assignments_work || "Not Submitted"}
-              </Typography>
-              <Typography paragraph>
-                <strong>Submit Date:</strong>{" "}
-                {assignment.users_assignments_submit_date || "Not Submitted"}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <form onSubmit={handleSubmit}>
-                {waitingRes ? 
+            <Skeleton variant="text" width="40%" />
+            <Skeleton variant="text" width="70%" />
+            <Skeleton variant="text" width="60%" />
+          </>
+        ) : (
+          <Grid container spacing={3}>
+            {assignment && (
+              <>
+                <Grid item xs={12} md={6}>
+                  <Card
+                    elevation={3}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      minHeight: "100%",
+                    }}
+                  >
+                    <CardContent sx={{ flex: "1" }}>
+                      <Typography variant="h5" gutterBottom>
+                        {assignment.assignment_title}
+                      </Typography>
+                      <Typography paragraph>
+                        <strong>Assignment Body:</strong>{" "}
+                        {assignment.assignment_body}
+                      </Typography>
+                      <Typography paragraph>
+                        <strong>Created At:</strong>{" "}
+                        {formatDate(assignment.assignment_created_at)}
+                      </Typography>
+                      <Typography paragraph>
+                        <strong>Due Date:</strong>{" "}
+                        {formatDate(assignment.assignment_due_date)}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <Card
+                    elevation={3}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      minHeight: "100%",
+                    }}
+                  >
+                    <CardContent sx={{ flex: "1" }}>
+                      <Typography variant="h6">Student Details:</Typography>
+                      <Typography paragraph>
+                        <strong>Name:</strong> {assignment.user_name}{" "}
+                        {assignment.user_surname}
+                      </Typography>
+                      <Typography paragraph>
+                        <strong>Email:</strong> {assignment.user_email}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Typography variant="h4" align="center">
+                    Students work
+                  </Typography>
+
+                  {assignment.users_assignments_submit_date && (
+                    <Typography paragraph align="center">
+                      Submitted on{" "}
+                      {formatDate(assignment.users_assignments_submit_date)}
+                    </Typography>
+                  )}
+
+                  {assignment.users_assignments_work ? (
+                    <Typography paragraph align="center">
+                      {assignment.users_assignments_work}
+                    </Typography>
+                  ) : (
+                    <Typography paragraph align="center">
+                      Work has not been submitted
+                    </Typography>
+                  )}
+                </Grid>
+
+                <Grid item xs={12}>
+                  <form onSubmit={handleSubmit}>
+                    {waitingRes ? 
                 <TextField
                 label="Mark"
                 type="text"
@@ -149,14 +198,14 @@ const TeacherAssignmentFeedback = () => {
                 disabled
               /> :
               <TextField
-                  label="Mark"
-                  type="text"
-                  value={mark}
-                  onChange={(e) => setMark(e.target.value)}
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                />}
+                      label="Mark"
+                      type="text"
+                      value={mark}
+                      onChange={(e) => setMark(e.target.value)}
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                    />}
                 {waitingRes ? 
                 <TextField
                 label="Feedback"
@@ -168,26 +217,26 @@ const TeacherAssignmentFeedback = () => {
                 fullWidth
                 disabled
               /> :
-              <TextField
-                  label="Feedback"
-                  value={feedback}
-                  onChange={(e) => setFeedback(e.target.value)}
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                />}
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={isSubmitting}
-                  sx={{mt: 2, mr: 2}}
+                  <TextField
+                      label="Feedback"
+                      value={feedback}
+                      onChange={(e) => setFeedback(e.target.value)}
+                      multiline
+                      rows={4}
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                    />}
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      disabled={isSubmitting}
+                      sx={{mt: 2, mr: 2}}
                 >
-                  Submit
-                </Button>
-                {successSubmit ? (
+                      Submit
+                    </Button>
+                    {successSubmit ? (
               <Grid item mb={2} ml={3} mr={3} xs={12}>
               <Alert severity="success">Assignment successfully posted!</Alert>
               </Grid>
@@ -205,10 +254,12 @@ const TeacherAssignmentFeedback = () => {
                   AI generate mark and feedback
                 </Button>
               </form>
-            </Grid>
-          </>
+                </Grid>
+              </>
+            )}
+          </Grid>
         )}
-      </Grid>
+      </Container>
     </Container>
   );
 };
