@@ -5,12 +5,30 @@ import Typography from "@mui/material/Typography";
 import SchoolIcon from "@mui/icons-material/School";
 import { Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export function TeacherAssignmentCard({ teacherAssignmentData }) {
+  const [assignmentDesc, setAssignmentDesc] = useState("");
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/teacher/assignments/feedback/${teacherAssignmentData.id}`);
   };
+
+  useEffect(()=> {
+    if(teacherAssignmentData && teacherAssignmentData.work){
+      let counter = 0;
+      const description = teacherAssignmentData.work.split("").filter(char => {
+        if(char === " "){
+          counter++;
+        }
+        if(counter !== 10 && counter <= 10){
+          return char;
+        }
+      }).join("")
+      setAssignmentDesc(description);
+    }
+  })
+
   return (
     <Paper
       sx={{
@@ -39,7 +57,7 @@ export function TeacherAssignmentCard({ teacherAssignmentData }) {
                   user_id: {teacherAssignmentData.user_id}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  Student work: {teacherAssignmentData.work}
+                  Student work: {assignmentDesc}...
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   Date submitted: {(new Date(teacherAssignmentData.submit_date)).toLocaleDateString()}

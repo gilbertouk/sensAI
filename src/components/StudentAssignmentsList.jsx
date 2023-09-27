@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { getAssignmentByStudentId } from "../utils/api";
 import { StudentAssignmentsCard } from "./StudentAssignmentsCard";
 import { Alert, Grid, Skeleton, Typography } from "@mui/material";
@@ -10,7 +9,6 @@ export function StudentAssignmentsList({ user }) {
   const [studentAssignments, setStudentAssignment] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setIsError(false);
@@ -30,9 +28,6 @@ export function StudentAssignmentsList({ user }) {
     }
   }, [user]);
 
-  function handleAssignmentToDisplay(assignment_id) {
-    navigate(`/student/assignments/${assignment_id}`);
-  }
 
   if (isError) {
     return (
@@ -64,9 +59,6 @@ export function StudentAssignmentsList({ user }) {
         return (
           <li
             key={assignment.id}
-            onClick={() => {
-              handleAssignmentToDisplay(assignment.assignment_id);
-            }}
           >
             <StudentAssignmentsCard assignmentData={assignment} />
           </li>

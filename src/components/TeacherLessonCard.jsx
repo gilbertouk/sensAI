@@ -74,10 +74,7 @@ function handleLessonToDelete(lessonData) {
               <Typography variant="body2">
                 {(new Date(lessonData.created_at)).toLocaleDateString()}
               </Typography>
-            </Grid>
-            <Grid>
             <Box mt={3}>
-                </Box>
                 <LoadingButton 
                 type="submit"
                 fullWidth
@@ -88,8 +85,8 @@ function handleLessonToDelete(lessonData) {
                 }}
                 >View this lesson
                 </LoadingButton>
+                </Box>
                 <Box mt={2}>
-                </Box> 
                 <LoadingButton 
                 type="submit"
                 fullWidth
@@ -101,6 +98,7 @@ function handleLessonToDelete(lessonData) {
                 >
                 Delete this lesson
                 </LoadingButton>
+                </Box> 
                 {successSubmit ? (
               <Grid item mb={2} ml={3} mr={3} xs={12}>
               <Alert severity="success">Lesson successfully deleted!</Alert>
@@ -108,8 +106,8 @@ function handleLessonToDelete(lessonData) {
               ) : (
               <></>
               )}
-            </Grid>
           </Grid>
+            </Grid>
           <Grid item>
             <Typography variant="subtitle1" component="div">
               <SchoolIcon/>
