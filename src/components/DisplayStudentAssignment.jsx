@@ -112,7 +112,7 @@ export function DisplayStudentAssignment({ user }) {
         </Grid>
 
         <Grid item xs={12}>
-          <Typography variant="subtitle1" align="center">
+          <Typography variant="subtitle1" align="center" sx={{whiteSpace: "pre-line", maxWidth: {xs: "90%", sm:"60%"}, mr: "auto", ml: "auto"}}>
             {studentAssignment.body}
           </Typography>
         </Grid>

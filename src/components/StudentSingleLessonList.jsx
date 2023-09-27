@@ -20,7 +20,7 @@ export const StudentSingleLessonList = () => {
             <Card>
                 <CardContent>
                     <Typography variant="h3" gutterBottom sx={{textDecoration: "underline"}}>{lesson.title}</Typography>
-                    <Typography gutterBottom>{lesson.body}</Typography>
+                    <Typography gutterBottom sx={{whiteSpace: "pre-line"}}>{lesson.body}</Typography>
                     <Typography>{(new Date(lesson.created_at)).toLocaleDateString()}</Typography>
                 </CardContent>
             </Card>
