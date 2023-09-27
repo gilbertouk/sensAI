@@ -26,7 +26,7 @@ export const NavbarLongStudent = ({ handleLogout }) => {
       <Link to="/student/teachers">
         <Button sx={{ color: "black", fontSize: 15 }}>Teachers</Button>
       </Link>
-      <Link to="/user/:user_id">
+      <Link to="/user/">
         <Button sx={{ color: "black", fontSize: 15 }}>My Account</Button>
       </Link>
       <Button sx={{ color: "black", fontSize: 15 }} onClick={handleLogout}>
