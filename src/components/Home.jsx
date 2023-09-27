@@ -5,11 +5,14 @@ import Typography from "@mui/material/Typography";
 import SchoolIcon from "@mui/icons-material/School";
 import { getClassesByTeacherID } from "../utils/api";
 import { Skeleton } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = ({ user }) => {
   const [classes, setClasses] = useState({});
   const [loading, setLoading] = useState(false);
+  const [logged, setLogged] = useState(localStorage.getItem("loggedUser"));
+  const navigate = useNavigate();
+
   let userStatus = null;
 
   if (user === "logged out") {
@@ -23,8 +26,8 @@ const Home = ({ user }) => {
   }
 
   useEffect(() => {
-    setLoading(true);
-    if (user) {
+    if (user.id) {
+      setLoading(true);
       getClassesByTeacherID(user.id)
         .then(({ classes }) => {
           setClasses(classes);
@@ -34,7 +37,11 @@ const Home = ({ user }) => {
           setLoading(false);
         });
     }
-  }, [user]);
+  }, [user.id]);
+
+  if (!logged) {
+    navigate("/login");
+  }
 
   if (loading) {
     return (

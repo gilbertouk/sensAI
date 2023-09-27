@@ -24,6 +24,7 @@ const Login = () => {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
+        localStorage.setItem("loggedUser", true);
         navigate("/");
       })
       .catch((error) => {
