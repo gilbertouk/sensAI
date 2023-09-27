@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  createAIFeedback,
   getStudentsAssignmentsById,
   patchAssigmentFeedbackAndMark,
 } from "../utils/api";
@@ -22,6 +23,9 @@ const TeacherAssignmentFeedback = () => {
   const [feedback, setFeedback] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [aiButton, setAIbutton] = useState(false);
+  const [disabledBtn, setDisabledBtn] = useState(false);
+  const [waitingRes, setWaitingRes] = useState(false);
 
   useEffect(() => {
     getStudentsAssignmentsById(assignment_id)
@@ -36,7 +40,7 @@ const TeacherAssignmentFeedback = () => {
         setIsLoading(false);
       });
   }, [assignment_id]);
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -54,6 +58,23 @@ const TeacherAssignmentFeedback = () => {
         setIsSubmitting(false);
       });
   };
+
+  const handleAIclick = (e) => {
+    e.preventDefault();
+    if(aiButton){
+      setDisabledBtn(true);
+
+    }
+    setAIbutton(true);
+    setWaitingRes(true);
+    createAIFeedback(assignment.users_assignments_work).then((data)=> {
+      setDisabledBtn(true);
+      setWaitingRes(false);
+      setAIbutton(false);
+      setMark(data.mark);
+      setFeedback(data.feedback);
+    })
+  }
 
   if (isLoading) {
     return (
@@ -112,7 +133,18 @@ const TeacherAssignmentFeedback = () => {
             </Grid>
             <Grid item xs={12}>
               <form onSubmit={handleSubmit}>
+                {waitingRes ? 
                 <TextField
+                label="Mark"
+                type="text"
+                value={"AI mark will appear here"}
+                required
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                disabled
+              /> :
+              <TextField
                   label="Mark"
                   type="text"
                   value={mark}
@@ -120,8 +152,19 @@ const TeacherAssignmentFeedback = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
-                />
+                />}
+                {waitingRes ? 
                 <TextField
+                label="Feedback"
+                value={"AI feedback will appear here"}
+                multiline
+                rows={4}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                disabled
+              /> :
+              <TextField
                   label="Feedback"
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
@@ -130,14 +173,25 @@ const TeacherAssignmentFeedback = () => {
                   variant="outlined"
                   margin="normal"
                   fullWidth
-                />
+                />}
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
                   disabled={isSubmitting}
+                  sx={{mt: 2, mr: 2}}
                 >
                   Submit
+                </Button>
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="primary"
+                  disabled={disabledBtn}
+                  onClick={handleAIclick}
+                  sx={{mt: 2}}
+                >
+                  AI generate mark and feedback
                 </Button>
               </form>
             </Grid>
