@@ -2,13 +2,14 @@
 import { useParams } from "react-router-dom";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { Alert, Divider, Grid, Skeleton, Typography } from "@mui/material";
+import { Alert, Divider, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useEffect, useState } from "react";
 import {
   getAssignmentsByAssignmentId,
   patchStudentAssignmentByAssignmentId,
 } from "../utils/api";
+import FeedbackIcon from '@mui/icons-material/Feedback';
 
 export function DisplayStudentAssignment({ user }) {
   const [studentAssignment, setStudentAssignment] = useState({});
@@ -67,7 +68,6 @@ export function DisplayStudentAssignment({ user }) {
       return newAssignment;
     });
   }
-
   if (isLoading) {
     return (
       <>
@@ -168,14 +168,45 @@ export function DisplayStudentAssignment({ user }) {
 
         {studentAssignment.feedback ? (
           <>
-            <Grid item mt={7}>
-              <Divider>Feedback</Divider>
-            </Grid>
-            <Grid item p={2}>
+          <Grid item mt={7}>
+          <Divider>Feedback</Divider>
+        </Grid>
+          <Paper
+          sx={{
+            p: 2,
+            margin: "auto",
+            maxWidth: 500,
+            flexGrow: 1,
+            mt: 5,
+            mb: 5,
+            cursor: "pointer",
+            backgroundColor: (theme) =>
+              theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+          }}
+        >
+            
+            <Grid container spacing={2}>
+        <Grid item xs={12} sm container>
+          <Grid item xs container direction="column" spacing={2}>
+            <Grid item xs>
               <Typography variant="subtitle1" align="center">
-                {studentAssignment.feedback}
+                Mark: {studentAssignment.mark}
               </Typography>
             </Grid>
+            <Grid item xs>
+              <Typography variant="subtitle1" align="center">
+                Feedback: {studentAssignment.feedback}
+              </Typography>
+            </Grid>
+            </Grid>
+            <Grid item>
+            <Typography variant="subtitle1" component="div">
+              <FeedbackIcon />
+            </Typography>
+          </Grid>
+            </Grid>
+            </Grid>
+          </Paper>
           </>
         ) : (
           <></>
