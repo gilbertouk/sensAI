@@ -5,6 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
 import FormHelperText from '@mui/material/FormHelperText';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
     Container,
     Typography,
@@ -17,6 +18,7 @@ import {
   } from "@mui/material";
 import { useState, useEffect } from "react";
 import { patchUser } from "../utils/api";
+import SendIcon from '@mui/icons-material/Send';
 
 
 export const ProfilePage = ({ user }) => {
@@ -52,6 +54,13 @@ export const ProfilePage = ({ user }) => {
             setIsSubmitting(false);
           });
     };
+  
+    const iconStyle = {
+      fontSize: '60px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    };
     
     if (loading) {
         return (
@@ -64,7 +73,7 @@ export const ProfilePage = ({ user }) => {
         );
       }
 
-    return (
+  return (
         <Paper
       sx={{
         p: 2,
@@ -76,7 +85,11 @@ export const ProfilePage = ({ user }) => {
         backgroundColor: (theme) =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
       }}
-      >
+    >
+      <Box>
+        <AccountCircleIcon style={iconStyle} />
+        <Typography style={{ fontSize: '12px' }}>Upload Profile Picture</Typography>
+      </Box>
                 <Box>
                 <form onSubmit={handleSubmit}>
                 <TextField
@@ -117,6 +130,7 @@ export const ProfilePage = ({ user }) => {
                   variant="contained"
                   color="primary"
                   disabled={isSubmitting}
+                  endIcon={<SendIcon />}
                 >
                   Submit
                 </Button>
