@@ -40,7 +40,7 @@ export const StudentSingleLessonList = () => {
             {lesson.body}
           </Typography>
           <Typography>
-            {new Date(lesson.created_at).toLocaleDateString()}
+            Created at: {moment(lesson.created_at).format("LL")}
           </Typography>
         </CardContent>
       </Card>
