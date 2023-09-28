@@ -73,7 +73,7 @@ export const NavbarStudent = ({ handleLogout }) => {
             Teachers
           </MenuItem>
         </Link>
-        <Link to="/users/email/:email">
+        <Link to="/user/">
           <MenuItem onClick={handleClose}>
             <AccountCircleIcon sx={{ mr: 2 }} />
             Profile
