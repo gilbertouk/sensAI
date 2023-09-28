@@ -46,7 +46,6 @@ function App() {
       }
     });
   }, []);
-
   return (
     <>
       {/* <Header /> Most likely used for home page/login */}
