@@ -27,7 +27,7 @@ const Home = ({ user }) => {
   }
 
   useEffect(() => {
-    if (!logged && !user.id) {
+    if (!logged && !user) {
       navigate("/login");
     } else if (user && userStatus !== "") {
       setLoading(true);
