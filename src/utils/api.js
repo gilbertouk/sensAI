@@ -250,7 +250,7 @@ export const getAllStudentTeachersByStudentId = (student_id) => {
 
 export const createAIlesson = (prompt, textLength, examBoard) => {
   return apiUrl
-    .post(`http://localhost:9090/ai/assist`, {
+    .post(`http://localhost:9090/api/ai/assist`, {
       role: "user",
       content: `Write me a strict ${textLength} word length (do not exceed this word length) lesson based on ${prompt} using ${examBoard} exam board.`,
     })
@@ -264,7 +264,7 @@ export const createAIlesson = (prompt, textLength, examBoard) => {
 
 export const createAIAssessment = (subject, textLength, examBoard) => {
   return apiUrl
-    .post(`http://localhost:9090/ai/assist`, {
+    .post(`http://localhost:9090/api/ai/assist`, {
       role: "user",
       content: `Write me a strict ${textLength} word length (do not exceed this word length) student assessment with questions and corresponding marks based on ${subject} using ${examBoard} exam board.`,
     })
@@ -278,7 +278,7 @@ export const createAIAssessment = (subject, textLength, examBoard) => {
 
 export const createAIFeedback = (essay) => {
   return apiUrl
-    .post(`http://localhost:9090/ai/assist`, {
+    .post(`http://localhost:9090/api/ai/assist`, {
       role: "user",
       content: `Give me a mark out of A-F and feedback for an essay and put your response in JSON object format of key value pairs {mark: (your mark), feedback: (your feedback)} on this essay: ${essay}`,
     })
