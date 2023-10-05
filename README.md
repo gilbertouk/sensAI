@@ -11,7 +11,7 @@ We have created an app that utilises the power of AI to mark student work and ge
 ## Getting Started
 
 ### Prerequisites
-Clone [sensAI_API]("https://github.com/RonaldB123/sensAI_API") and follow instructions in readme.
+Clone [sensAI_API](https://github.com/RonaldB123/sensAI_API) and follow instructions in readme.
 
 ### Clone repository
 
@@ -47,7 +47,7 @@ VITE_REACT_APP_FIREBASE_APP =
 
 Populate the `.env` file with your own Firebase config
 
-See more about Firebase API key and configuration [Firebase]("https://firebase.google.com/docs/projects/api-keys#:~:text=Creating%20API%20keys,-A%20Firebase%20project&text=Firebase%20automatically%20creates%20API%20keys,App%20%3E%20Android%20key%20auto%2Dcreated")
+See more about Firebase API key and configuration [Firebase](https://firebase.google.com/docs/projects/api-keys#:~:text=Creating%20API%20keys,-A%20Firebase%20project&text=Firebase%20automatically%20creates%20API%20keys,App%20%3E%20Android%20key%20auto%2Dcreated)
 
 ### Executing program
 
