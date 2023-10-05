@@ -91,12 +91,6 @@ const Login = () => {
           Sign up
         </MUILink>
       </Typography>
-
-      <p>Student:</p>
-      <p>user4.surname4@gmail.com</p>
-
-      <p>Teacher:</p>
-      <p>user101.surname101@yahoo.com</p>
     </Container>
   );
 };
