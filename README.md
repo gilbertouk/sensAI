@@ -45,7 +45,7 @@ VITE_REACT_APP_FIREBASE_SENDER =
 VITE_REACT_APP_FIREBASE_APP = 
 ```
 
-Populate the `.env` file with your own Firebase config
+Populate the `.env` variables with your own Firebase config
 
 See more about Firebase API key and configuration [Firebase](https://firebase.google.com/docs/projects/api-keys#:~:text=Creating%20API%20keys,-A%20Firebase%20project&text=Firebase%20automatically%20creates%20API%20keys,App%20%3E%20Android%20key%20auto%2Dcreated)
 
