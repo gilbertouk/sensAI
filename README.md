@@ -11,7 +11,7 @@ We have created an app that utilises the power of AI to mark student work and ge
 ## Getting Started
 
 ### Prerequisites
-Clone [sensAI_API](https://github.com/RonaldB123/sensAI_API) and follow instructions in readme.
+Host [sensAI_API](https://github.com/RonaldB123/sensAI_API) by follow instructions in README.
 
 ### Clone repository
 
